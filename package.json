@@ -1,0 +1,29 @@
+{
+    "name": "sdh",
+    "version": "1.0.0",
+    "description": "A Web App for Sathyabama Dental Hospital",
+    "main": "server.js",
+    "scripts": {
+        "start": "set node backend/server.js",
+        "dev": "set NODE_ENV=DEVELOPMENT && nodemon backend/server",
+        "prod": "set NODE_ENV=PRODUCTION && nodemon backend/server",
+        "seeder": "node backend/utils/seeder.js",
+        "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false && npm install --prefix frontend && npm run build --prefix frontend"
+    },
+    "author": "Sandeep V",
+    "license": "ISC",
+    "dependencies": {
+        "bcryptjs": "^2.4.3",
+        "cookie-parser": "^1.4.5",
+        "dotenv": "^8.2.0",
+        "express": "^4.17.1",
+        "express-fileupload": "^1.2.0",
+        "jsonwebtoken": "^8.5.1",
+        "mongoose": "^5.10.16",
+        "nodemailer": "^6.4.16",
+        "validator": "^13.1.17"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.6"
+    }
+}
