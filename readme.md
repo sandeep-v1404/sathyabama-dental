@@ -15,3 +15,18 @@ npm i
 ```
 npm i
 ```
+
+### Frontend in LocalHost 
+
+```
+cd frontend
+npm start
+```
+
+
+### Backend in LocalHost 
+
+```
+cd backend
+npm run dev
+```
