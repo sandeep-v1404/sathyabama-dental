@@ -1,69 +1,119 @@
-import React, { Fragment } from 'react'
-import { Route, Link } from 'react-router-dom'
+import {
+    MoonIcon, SunIcon
+} from '@chakra-ui/icons';
+import {
+    Avatar, Box, Button, Flex, HStack, IconButton, LinkBox, LinkOverlay, Menu,
+    MenuButton, MenuDivider, MenuItem, MenuList, useColorMode, useColorModeValue, useDisclosure
+} from '@chakra-ui/react';
+import { useRef } from "react";
+import { useAlert } from 'react-alert';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link as ReachLink, useHistory } from "react-router-dom";
+import { logout } from '../../actions/userActions';
+import Sidebar from "../admin/Sidebar";
 
-import { useDispatch, useSelector } from 'react-redux'
-import { useAlert } from 'react-alert'
-import { logout } from '../../actions/userActions'
 
-import Search from './Search'
+export default function Header() {
+    const history = useHistory();
+    const btnRef = useRef()
+    const { isOpen, onOpen, onClose } = useDisclosure()
 
-import '../../App.css'
-
-const Header = () => {
     const alert = useAlert();
     const dispatch = useDispatch();
 
-    const { user, loading } = useSelector(state => state.auth)
+    const { colorMode, toggleColorMode } = useColorMode()
+
+    const { user, loading } = useSelector(state => state.auth);
 
     const logoutHandler = () => {
         dispatch(logout());
         alert.success('Logged out successfully.')
+        history.push("/");
     }
 
     return (
-        <Fragment>
-            <nav className="navbar row">
-                <div className="col-12 col-md-3">
-                    <div className="navbar-brand">
-                        <Link to="/">
-                            Logo
-                        </Link>
-                    </div>
-                </div>
-
-                <div className="col-12 col-md-6 mt-2 mt-md-0">
-                    <Route render={({ history }) => <Search history={history} />} />
-                </div>
-
-                <div className="col-12 col-md-3 mt-4 mt-md-0 text-center">
-                    {user ? (
-                        <div className="ml-4 dropdown d-inline">
-                            <Link to="#!" className="btn dropdown-toggle text-white mr-4" type="button" id="dropDownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span>{user && user.name}</span>
-                            </Link>
-
-                            <div className="dropdown-menu" aria-labelledby="dropDownMenuButton">
-
-                                {user && user.role === 'Administrator' && (
-                                    <Link className="dropdown-item" to="/dashboard">Dashboard</Link>
+        <>
+            <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
+                <Flex h={16} alignItems={'center'} justifyContent={'space-around'}>
+                    <HStack spacing={8} alignItems={'center'}>
+                        <LinkBox>
+                            <LinkOverlay as={ReachLink} to="/">
+                                Logo
+                            </LinkOverlay>
+                        </LinkBox>
+                    </HStack>
+                    <Flex alignItems={'center'} justifyContent="space-between">
+                        <IconButton
+                            aria-label="Call Segun"
+                            mr={2}
+                            onClick={toggleColorMode}
+                            icon={colorMode === "light" ? <MoonIcon /> : <SunIcon />}
+                        />
+                        {user ? (
+                            <Menu>
+                                <MenuButton
+                                    _hover={{
+                                        textDecoration: 'none',
+                                        color: "black"
+                                    }}
+                                    as={Button}
+                                    mr={2}
+                                    rounded={'full'}
+                                    variant={'link'}
+                                    cursor={'pointer'}>
+                                    <Flex alignItems="center">
+                                        <Avatar
+                                            size={'sm'}
+                                            mr={2}
+                                            src={
+                                                "https://bit.ly/sage-adebayo"
+                                            }
+                                        />
+                                        {user && user.username}
+                                    </Flex>
+                                </MenuButton>
+                                {user && user.department === 'Administrator' && (
+                                    <Sidebar btnref={btnRef} isOpen={isOpen} onClose={onClose} onOpen={onOpen} />
                                 )}
-                                <Link className="dropdown-item" to="/me">Profile</Link>
-                                <Link className="dropdown-item text-danger" to="/" onClick={logoutHandler}>
-                                    Logout
-                                </Link>
-
-                            </div>
-
-
-                        </div>
-
-                    ) : !loading && <Link to="/login" className="btn ml-4" id="login_btn">Login</Link>}
-
-
-                </div>
-            </nav>
-        </Fragment>
-    )
+                                <MenuList>
+                                    <LinkBox>
+                                        <MenuItem>
+                                            <LinkOverlay _hover={{
+                                                textDecoration: 'none',
+                                                color: "black"
+                                            }} as={ReachLink} to="/me">
+                                                Profile
+                                            </LinkOverlay>
+                                        </MenuItem>
+                                    </LinkBox>
+                                    <MenuDivider />
+                                    <LinkBox>
+                                        <MenuItem color={"red"}>
+                                            <LinkOverlay _hover={{
+                                                textDecoration: 'none',
+                                                color: "black"
+                                            }} as={ReachLink} to="/me" onClick={logoutHandler}>
+                                                Logout
+                                            </LinkOverlay>
+                                        </MenuItem>
+                                    </LinkBox>
+                                </MenuList>
+                            </Menu>
+                        ) : !loading &&
+                        <LinkBox>
+                            <Button colorScheme="teal" variant="solid" >
+                                <LinkOverlay as={ReachLink} to="/login" _hover={{
+                                    textDecoration: 'none',
+                                    color: "black"
+                                }}>
+                                    Login
+                                </LinkOverlay>
+                            </Button>
+                        </LinkBox>
+                        }
+                    </Flex>
+                </Flex>
+            </Box>
+        </>
+    );
 }
-
-export default Header

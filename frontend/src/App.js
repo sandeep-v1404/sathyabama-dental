@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 
+import "./App.css"
+
 import Header from './components/layout/Header'
 import Footer from './components/layout/Footer'
 
@@ -15,7 +17,6 @@ import UpdateProfile from './components/user/UpdateProfile'
 import UpdatePassword from './components/user/UpdatePassword'
 
 // Admin Imports
-import Dashboard from './components/admin/Dashboard'
 import PatientList from './components/admin/PatientList'
 import NewPatient from './components/admin/NewPatient'
 import UpdatePatient from './components/admin/UpdatePatient'
@@ -27,6 +28,7 @@ import { loadUser } from './actions/userActions'
 import { useSelector } from 'react-redux'
 import store from './store'
 import D1 from './components/departments/D1'
+import D2 from './components/departments/D2'
 
 function App() {
 
@@ -40,7 +42,7 @@ function App() {
     <Router>
       <div className="App">
         <Header />
-        <div className="container container-fluid">
+        <div className="container-fluid">
           <Route path="/" component={Home} exact />
           <Route path="/search/:keyword" component={Home} />
           <Route path="/patient/:id" component={PatientDetails} exact />
@@ -48,6 +50,7 @@ function App() {
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
           <Route path="/d1" component={D1} />
+          <Route path="/d2" component={D2} />
 
           <ProtectedRoute path="/me" component={Profile} exact />
           <ProtectedRoute path="/me/update" component={UpdateProfile} exact />
@@ -55,13 +58,12 @@ function App() {
 
         </div>
 
-        <ProtectedRoute path="/dashboard" isAdmin={true} component={Dashboard} exact />
         <ProtectedRoute path="/admin/patients" isAdmin={true} component={PatientList} exact />
         <ProtectedRoute path="/admin/patient" isAdmin={true} component={NewPatient} exact />
         <ProtectedRoute path="/admin/patient/:id" isAdmin={true} component={UpdatePatient} exact />
         <ProtectedRoute path="/admin/users" isAdmin={true} component={UsersList} exact />
         <ProtectedRoute path="/admin/user/:id" isAdmin={true} component={UpdateUser} exact />
-        {!loading && (!isAuthenticated || user.role !== 'Administrator') && (
+        {!loading && (!isAuthenticated || user.department !== 'Administrator') && (
           <Footer />
         )}
       </div>

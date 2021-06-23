@@ -1,15 +1,17 @@
-import React, { Fragment, useState, useEffect } from 'react'
-
-import MetaData from '../layout/MetaData'
-
+import {
+    Box, Button, Flex, FormControl,
+    FormLabel, Heading, Input, Stack, useColorModeValue
+} from '@chakra-ui/react'
+import React, { useEffect, useState } from 'react'
 import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
-import { updateProfile, loadUser, clearErrors } from '../../actions/userActions'
+import { clearErrors, loadUser, updateProfile } from '../../actions/userActions'
 import { UPDATE_PROFILE_RESET } from '../../constants/userConstants'
+import MetaData from '../layout/MetaData'
 
-const UpdateProfile = ({ history }) => {
+export default function UpdateProfile({ history, location }) {
 
-    const [name, setName] = useState('')
+    const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
     const [department, setDepartment] = useState('');
 
@@ -22,7 +24,7 @@ const UpdateProfile = ({ history }) => {
     useEffect(() => {
 
         if (user) {
-            setName(user.name);
+            setUsername(user.username);
             setEmail(user.email);
             setDepartment(user.department);
         }
@@ -43,70 +45,68 @@ const UpdateProfile = ({ history }) => {
             })
         }
 
-    }, [dispatch, alert, error, history, isUpdated])
+    }, [dispatch, alert, error, history, isUpdated, user])
 
     const submitHandler = (e) => {
         e.preventDefault();
 
-        const formData = new FormData();
-        formData.set('name', name);
-        formData.set('email', email);
-
-        dispatch(updateProfile(formData))
+        dispatch(updateProfile({ username, email }))
     }
 
     return (
-        <Fragment>
+        <>
             <MetaData title={'Update Profile'} />
-            <div className="container">
-                <div className="row my-5 align-items-center justify-content-center">
-                    <div className="col-12 col-md-8">
-                        <form className="shadow-lg p-3" onSubmit={submitHandler} encType='multipart/form-data'>
-                            <div className="form-group">
-                                <h4 className="font-weight-bolder">Update Profile</h4>
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="email_field">Name</label>
-                                <input
-                                    type="name"
-                                    id="name_field"
-                                    className="form-control"
-                                    name='name'
-                                    value={name}
-                                    onChange={(e) => setName(e.target.value)}
+            <Flex
+                minH={'100vh'}
+                align={'center'}
+                justify={'center'}
+                bg={useColorModeValue('gray.50', 'gray.800')}>
+                <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
+                    <Stack align={'center'}>
+                        <Heading fontSize={'4xl'}>Update my Profile</Heading>
+                    </Stack>
+                    <Box
+                        rounded={'lg'}
+                        bg={useColorModeValue('white', 'gray.700')}
+                        boxShadow={'lg'}
+                        p={8}>
+                        <Stack as={'form'} spacing={4} onSubmit={submitHandler}>
+                            <FormControl>
+                                <FormLabel>Username</FormLabel>
+                                <Input type="text"
+                                    value={username}
+                                    onChange={(e) => setUsername(e.target.value)}
                                 />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="email_field">Email</label>
-                                <input
+                            </FormControl>
+                            <FormControl>
+                                <FormLabel>Email address</FormLabel>
+                                <Input
                                     type="email"
-                                    id="email_field"
-                                    className="form-control"
-                                    name='email'
                                     value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                />
-                            </div>
-
-                            <div className="form-group">
-                                <label htmlFor="department_field">Department</label>
-                                <input
-                                    type="name"
-                                    id="name_field"
-                                    className="form-control"
-                                    name='name'
+                                    onChange={(e) => setEmail(e.target.value)} />
+                            </FormControl>
+                            <FormControl>
+                                <FormLabel>Department</FormLabel>
+                                <Input type="text"
                                     value={department}
-                                    readOnly
-                                />
-                            </div>
-                            <button type="submit" className="btn update-btn btn-block mt-4 mb-3" disabled={loading ? true : false} >Update</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-        </Fragment>
-    )
+                                    readOnly />
+                            </FormControl>
+                            <Stack spacing={10}>
+                                <Button
+                                    type={"submit"}
+                                    bg={'blue.400'}
+                                    color={'white'}
+                                    _hover={{
+                                        bg: 'blue.500',
+                                    }}
+                                    disabled={loading ? true : false} >
+                                    Update
+                                </Button>
+                            </Stack>
+                        </Stack>
+                    </Box>
+                </Stack>
+            </Flex>
+        </>
+    );
 }
-
-export default UpdateProfile

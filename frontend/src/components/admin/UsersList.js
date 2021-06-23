@@ -1,23 +1,25 @@
 import React, { Fragment, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { MDBDataTable } from 'mdbreact'
+import { MDBDataTable, MDBTable } from 'mdbreact'
 
 import MetaData from '../layout/MetaData'
 import Loader from '../layout/Loader'
-import Sidebar from './Sidebar'
 
 import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
 import { allUsers, deleteUser, clearErrors } from '../../actions/userActions'
 import { DELETE_USER_RESET } from '../../constants/userConstants'
+import { useColorMode } from "@chakra-ui/react"
+import { HStack, Center, Box } from "@chakra-ui/react"
+import { EditIcon, DeleteIcon } from "@chakra-ui/icons"
 
 const UsersList = ({ history }) => {
-
+    const { colorMode, } = useColorMode()
     const alert = useAlert();
     const dispatch = useDispatch();
 
-    const { loading, error, users } = useSelector(state => state.allUsers);
-    const { isDeleted } = useSelector(state => state.user)
+    let { loading, users } = useSelector(state => state.allUsers);
+    let { isDeleted, error } = useSelector(state => state.user)
 
     useEffect(() => {
         dispatch(allUsers());
@@ -43,11 +45,6 @@ const UsersList = ({ history }) => {
         const data = {
             columns: [
                 {
-                    label: 'User ID',
-                    field: 'id',
-                    sort: 'asc'
-                },
-                {
                     label: 'Name',
                     field: 'name',
                     sort: 'asc'
@@ -63,6 +60,11 @@ const UsersList = ({ history }) => {
                     sort: 'asc'
                 },
                 {
+                    label: 'Department',
+                    field: 'department',
+                    sort: 'asc'
+                },
+                {
                     label: 'Actions',
                     field: 'actions',
                 },
@@ -72,19 +74,23 @@ const UsersList = ({ history }) => {
 
         users.forEach(user => {
             data.rows.push({
-                id: user._id,
-                name: user.name,
+                name: user.username,
                 email: user.email,
                 role: user.role,
-
-                actions: <Fragment>
-                    <Link to={`/admin/user/${user._id}`} className="btn btn-primary py-1 px-2">
-                        <i className="fa fa-pencil"></i>
-                    </Link>
-                    <button className="btn btn-danger py-1 px-2 ml-2" onClick={() => deleteUserHandler(user._id)}>
-                        <i className="fa fa-trash"></i>
-                    </button>
-                </Fragment>
+                department: user.department,
+                actions:
+                    <HStack>
+                        <Center w="40px" h="40px" bg="blue.300" color="white">
+                            <Link to={`/admin/user/${user.id}`}>
+                                <EditIcon />
+                            </Link>
+                        </Center>
+                        <Center w="40px" h="40px" bg="red.300" color="white">
+                            <Box as="button" fontWeight="bold" fontSize="lg" onClick={() => deleteUserHandler(user.id)}>
+                                <DeleteIcon />
+                            </Box>
+                        </Center>
+                    </HStack>
             })
         })
 
@@ -95,26 +101,27 @@ const UsersList = ({ history }) => {
     return (
         <Fragment>
             <MetaData title={'All Users'} />
-            <div className="row">
-                <div className="col-12 col-md-2">
-                    <Sidebar />
-                </div>
+            <div className="container">
+                <div className="row">
+                    <div className="offset-md-1 col-12 col-md-10">
+                        <Fragment>
+                            <h1 className="my-5">All Users</h1>
 
-                <div className="col-12 col-md-10">
-                    <Fragment>
-                        <h1 className="my-5">All Users</h1>
+                            {loading ? <Loader /> : (
+                                <MDBTable responsive>
 
-                        {loading ? <Loader /> : (
-                            <MDBDataTable
-                                data={setUsers()}
-                                className="px-3"
-                                bordered
-                                striped
-                                hover
-                            />
-                        )}
-
-                    </Fragment>
+                                    <MDBDataTable
+                                        theadTextWhite={colorMode === "dark"}
+                                        tbodyTextWhite={colorMode === "dark"}
+                                        data={setUsers()}
+                                        className="px-3"
+                                        bordered
+                                        striped
+                                    />
+                                </MDBTable>
+                            )}
+                        </Fragment>
+                    </div>
                 </div>
             </div>
 

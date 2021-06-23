@@ -1,21 +1,23 @@
 import React, { Fragment, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { MDBDataTable } from 'mdbreact'
+import { MDBDataTable, MDBTable } from 'mdbreact'
 
 import MetaData from '../layout/MetaData'
 import Loader from '../layout/Loader'
-import Sidebar from './Sidebar'
 
 import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAdminPatients, deletePatient, clearErrors } from '../../actions/patientActions'
 import { DELETE_PATIENT_RESET } from '../../constants/patientConstants'
+import { useColorMode } from "@chakra-ui/react"
+import { HStack, Center, Box } from "@chakra-ui/react"
+import { EditIcon, DeleteIcon } from "@chakra-ui/icons"
 
 const PatientsList = ({ history }) => {
 
     const alert = useAlert();
     const dispatch = useDispatch();
-
+    const { colorMode, } = useColorMode()
     const { loading, error, patients } = useSelector(state => state.patients);
     const { error: deleteError, isDeleted } = useSelector(state => state.patient)
 
@@ -33,8 +35,9 @@ const PatientsList = ({ history }) => {
         }
 
         if (isDeleted) {
-            alert.success('Product deleted successfully');
-            history.push('/admin/patients');
+            alert.success('Patient deleted successfully');
+            history.replace('/admin/patients');
+            window.location.reload();
             dispatch({ type: DELETE_PATIENT_RESET })
         }
 
@@ -64,6 +67,11 @@ const PatientsList = ({ history }) => {
                     sort: 'asc'
                 },
                 {
+                    label: 'Contact No.',
+                    field: 'contact',
+                    sort: 'asc'
+                },
+                {
                     label: 'Actions',
                     field: 'actions',
                 },
@@ -73,18 +81,24 @@ const PatientsList = ({ history }) => {
 
         patients.forEach(patient => {
             data.rows.push({
-                id: patient._id,
+                id: patient.outPatientId,
                 name: patient.name,
                 age: patient.age,
                 sex: patient.sex,
-                actions: <Fragment>
-                    <Link to={`/admin/patient/${patient._id}`} className="btn btn-primary py-1 px-2">
-                        <i className="fa fa-pencil"></i>
-                    </Link>
-                    <button className="btn btn-danger py-1 px-2 ml-2" onClick={() => deleteProductHandler(patient._id)}>
-                        <i className="fa fa-trash"></i>
-                    </button>
-                </Fragment>
+                contact: patient.contactNumber,
+                actions:
+                    <HStack>
+                        <Center w="40px" h="40px" bg="blue.300" color="white">
+                            <Link to={`/admin/patient/${patient.id}`} >
+                                <EditIcon />
+                            </Link>
+                        </Center>
+                        <Center w="40px" h="40px" bg="red.300" color="white" _hover={{ cursor: "pointer" }} onClick={() => deleteProductHandler(patient.id)}>
+                            <Box as="span" fontWeight="bold" fontSize="lg" >
+                                <DeleteIcon />
+                            </Box>
+                        </Center>
+                    </HStack>
             })
         })
 
@@ -98,29 +112,31 @@ const PatientsList = ({ history }) => {
     return (
         <Fragment>
             <MetaData title={'All Patients'} />
-            <div className="row">
-                <div className="col-12 col-md-2">
-                    <Sidebar />
-                </div>
+            <div className="container">
 
-                <div className="col-12 col-md-10">
-                    <Fragment>
-                        <h1 className="my-5">All Patients</h1>
+                <div className="row">
 
-                        {loading ? <Loader /> : (
-                            <MDBDataTable
-                                data={setPatients()}
-                                className="px-3"
-                                bordered
-                                striped
-                                hover
-                            />
-                        )}
+                    <div className="col-12">
+                        <Fragment>
+                            <h1 className="my-5">All Patients</h1>
 
-                    </Fragment>
+                            {loading ? <Loader /> : (
+                                <MDBTable responsive>
+                                    <MDBDataTable
+                                        theadTextWhite={colorMode === "dark"}
+                                        tbodyTextWhite={colorMode === "dark"}
+                                        data={setPatients()}
+                                        className="px-3"
+                                        bordered
+                                        striped
+                                        sorting="true"
+                                    />
+                                </MDBTable>
+                            )}
+                        </Fragment>
+                    </div>
                 </div>
             </div>
-
         </Fragment>
     )
 }

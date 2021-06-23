@@ -1,26 +1,8 @@
-import React, { Fragment, useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-
-const D1 = () => {
-    const dispatch = useDispatch();
-    const [name, setName] = useState('');
-    const [age, setAge] = useState(null);
-    const [sex, setSex] = useState("Choose");
-    const [occupation, setOccupation] = useState("");
-    const [contactNumber, setContactNumber] = useState(null);
-    const [residentialAddress, setResidentialAddress] = useState("");
+import { Button, Heading } from '@chakra-ui/react';
+import React, { Fragment } from 'react';
+const D2 = () => {
     const submitHandler = (e) => {
         e.preventDefault();
-
-        const formData = new FormData();
-        formData.set('name', name);
-        formData.set('age', age);
-        formData.set('sex', sex);
-        formData.set('occupation', occupation);
-        formData.set('contactNumber', contactNumber);
-        formData.set('residentialAddress', residentialAddress);
-
-        // dispatch((formData))
     }
     return (
         <Fragment>
@@ -29,7 +11,7 @@ const D1 = () => {
                     <div className="col-12 col-md-8">
                         <form className="p-3 shadow-lg" onSubmit={submitHandler} encType='multipart/form-data'>
                             <div class="form-group">
-                                <h1 className="mb-4">Patient Name </h1>
+                                <Heading fontSize={'2xl'}>Patient Name (ID)</Heading>
                             </div>
 
                             <div className="form-group">
@@ -636,13 +618,88 @@ const D1 = () => {
                                 <label className="col-12 font-italic">Summary</label>
                                 <textarea className="col-12 form-control" cols="30"></textarea>
                             </div>
-                            <button
-                                id="login_button"
-                                type="submit"
-                                className="btn btn-block py-3"
-                            >
-                                CREATE
-                                </button>
+                            <hr />
+                            <div className="form-group">
+                                <label className="p-0 m-0 font-weight-bolder">Provisional Diagonosis</label>
+                            </div>
+                            <hr />
+                            <textarea className="col-12 form-control" cols="30"></textarea>
+                            <hr />
+                            <div className="form-group">
+                                <label className="p-0 m-0 font-weight-bolder">Investigations</label>
+                            </div>
+                            <hr />
+                            <textarea className="col-12 form-control" cols="30"></textarea>
+                            <hr />
+                            <div className="form-group">
+                                <label className="p-0 m-0 font-weight-bolder">Final Diagonosis</label>
+                            </div>
+                            <hr />
+                            <textarea className="col-12 form-control" cols="30"></textarea>
+                            <hr />
+                            <div className="form-group">
+                                <label className="p-0 m-0 font-weight-bolder">Treatment Plan</label>
+                            </div>
+                            <hr />
+                            <textarea className="col-12 form-control" cols="30"></textarea>
+                            <hr />
+                            <div className="form-row align-items-center form-group">
+                                <label className="col-4 font-weight-bolder">Referal to Departments</label>
+                                <div className="col" >
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" />
+                                        <label class="form-check-label" for="defaultCheck1">
+                                            Department of Periodontia
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" />
+                                        <label class="form-check-label" for="defaultCheck1">
+                                            Department of Oral 	&amp; Maxillo Facial Surgery
+                                        </label>
+                                    </div> <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" />
+                                        <label class="form-check-label" for="defaultCheck1">
+                                            Department of Conservative dentistry &amp; Endodontia
+                                        </label>
+                                    </div> <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" />
+                                        <label class="form-check-label" for="defaultCheck1">
+                                            Department of Prosthodontia
+                                        </label>
+                                    </div> <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" />
+                                        <label class="form-check-label" for="defaultCheck1">
+                                            Department of Pedodontia
+                                        </label>
+                                    </div> <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" />
+                                        <label class="form-check-label" for="defaultCheck1">
+                                            Department of Orthodontia
+                                        </label>
+                                    </div> <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" />
+                                        <label class="form-check-label" for="defaultCheck1">
+                                            Department of Public Health dentistry
+                                        </label>
+                                    </div> <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" />
+                                        <label class="form-check-label" for="defaultCheck1">
+                                            Department of Oral &amp; Maxillo Facial Pathology
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <Button
+                                w="100%"
+                                type={"submit"}
+                                bg={'blue.400'}
+                                color={'white'}
+                                _hover={{
+                                    bg: 'blue.500',
+                                }}>
+                                UPLOAD
+                            </Button>
                         </form>
                     </div>
                 </div>
@@ -651,4 +708,4 @@ const D1 = () => {
     )
 }
 
-export default D1
+export default D2

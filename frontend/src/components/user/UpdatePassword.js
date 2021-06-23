@@ -1,13 +1,14 @@
-import React, { Fragment, useState, useEffect } from 'react'
-
-import MetaData from '../layout/MetaData'
-
+import {
+    Box, Button, Flex, FormControl,
+    FormLabel, Heading, Input, Stack, useColorModeValue
+} from '@chakra-ui/react'
+import React, { useEffect, useState } from 'react'
 import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
-import { updatePassword, clearErrors } from '../../actions/userActions'
+import { clearErrors, updatePassword } from '../../actions/userActions'
 import { UPDATE_PASSWORD_RESET } from '../../constants/userConstants'
-
-const UpdatePassword = ({ history }) => {
+import MetaData from '../layout/MetaData'
+export default function UpdateProfile({ history }) {
 
     const [oldPassword, setOldPassword] = useState('')
     const [password, setPassword] = useState('')
@@ -15,7 +16,7 @@ const UpdatePassword = ({ history }) => {
     const alert = useAlert();
     const dispatch = useDispatch();
 
-    const { error, isUpdated, loading } = useSelector(state => state.user)
+    const { error, isUpdated } = useSelector(state => state.user)
 
     useEffect(() => {
 
@@ -38,71 +39,58 @@ const UpdatePassword = ({ history }) => {
 
     const submitHandler = (e) => {
         e.preventDefault();
-
-        const formData = new FormData();
-        formData.set('oldPassword', oldPassword);
-        formData.set('password', password);
-
-        dispatch(updatePassword(formData))
+        dispatch(updatePassword({ oldPassword, password }))
     }
 
     return (
-        <Fragment>
+        <>
             <MetaData title={'Change Password'} />
-            <div className="container">
-                <div className="row my-5 align-items-center justify-content-center">
-                    <div className="col-12 col-md-8">
-                        <form className="shadow-lg p-3" onSubmit={submitHandler} encType='multipart/form-data'>
-                            <div className="form-group">
-                                <h4 className="font-weight-bolder">Update Password</h4>
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="old_password_field">Old Password</label>
-                                <input
+
+            <Flex
+                minH={'100vh'}
+                align={'center'}
+                justify={'center'}
+                bg={useColorModeValue('gray.50', 'gray.800')}>
+                <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
+                    <Stack align={'center'}>
+                        <Heading fontSize={'4xl'}>Update my Password</Heading>
+                    </Stack>
+                    <Box
+                        rounded={'lg'}
+                        bg={useColorModeValue('white', 'gray.700')}
+                        boxShadow={'lg'}
+                        p={8}>
+                        <Stack as={'form'} spacing={4} onSubmit={submitHandler}>
+                            <FormControl id="email">
+                                <FormLabel>Old Password</FormLabel>
+                                <Input
                                     type="password"
-                                    id="old_password_field"
-                                    className="form-control"
+                                    name="oldPassword"
                                     value={oldPassword}
-                                    onChange={(e) => setOldPassword(e.target.value)}
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="new_password_field">New Password</label>
-                                <input
-                                    type="password"
-                                    id="new_password_field"
-                                    className="form-control"
+                                    onChange={(e) => setOldPassword(e.target.value)} />
+                            </FormControl>
+                            <FormControl id="password">
+                                <FormLabel>Password</FormLabel>
+                                <Input type="password"
+                                    name="password"
                                     value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                />
-                            </div>
-                            <button type="submit" className="btn update-btn btn-block mt-4 mb-3" disabled={loading ? true : false} >Update Password</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-
-
-
-
-
-
-
-
-
-
-
-            <div className="row wrapper">
-                <div className="col-10 col-lg-5">
-                    <form className="shadow-lg" onSubmit={submitHandler}>
-
-                    </form>
-                </div>
-            </div>
-
-        </Fragment>
-    )
+                                    onChange={(e) => setPassword(e.target.value)} />
+                            </FormControl>
+                            <Stack spacing={10}>
+                                <Button
+                                    type={"submit"}
+                                    bg={'blue.400'}
+                                    color={'white'}
+                                    _hover={{
+                                        bg: 'blue.500',
+                                    }}>
+                                    Update
+                                </Button>
+                            </Stack>
+                        </Stack>
+                    </Box>
+                </Stack>
+            </Flex>
+        </>
+    );
 }
-
-export default UpdatePassword

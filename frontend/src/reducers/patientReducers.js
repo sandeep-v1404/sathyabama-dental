@@ -36,10 +36,7 @@ export const patientsReducer = (state = { patients: [] }, action) => {
         case ALL_PATIENTS_SUCCESS:
             return {
                 loading: false,
-                patients: action.payload.patients,
-                patientsCount: action.payload.patientsCount,
-                resPerPage: action.payload.resPerPage,
-                filteredPatientsCount: action.payload.filteredPatientsCount
+                patients: action.payload,
             }
 
         case ADMIN_PATIENTS_SUCCESS:
@@ -78,8 +75,8 @@ export const newPatientReducer = (state = { patient: {} }, action) => {
         case NEW_PATIENT_SUCCESS:
             return {
                 loading: false,
-                success: action.payload.success,
-                patient: action.payload.patient
+                success: true,
+                patient: action.payload
             }
 
         case NEW_PATIENT_FAIL:

@@ -1,43 +1,80 @@
-import React, { Fragment, useState, useEffect } from 'react'
-import Pagination from 'react-js-pagination'
+import {
+    Button, Container,
+    Heading,
+    Stack,
+    Text,
+} from '@chakra-ui/react';
 import 'rc-slider/assets/index.css';
-import Patient from './patient/Patient'
-import Loader from './layout/Loader'
-import MetaData from "./layout/MetaData"
-
-import { useDispatch, useSelector } from 'react-redux'
+import React, { Fragment, useEffect } from 'react';
 import { useAlert } from 'react-alert';
-import { getPatients } from '../actions/patientActions'
+import { useDispatch, useSelector } from 'react-redux';
+import { getPatients } from '../actions/patientActions';
+import Search from "../components/layout/Search";
+import Loader from './layout/Loader';
+import MetaData from "./layout/MetaData";
+import Patient from './patient/Patient';
 
-const Home = ({ match }) => {
+function MainPage() {
+    return (
+        <Container maxW={'5xl'} minH={"100vh"}>
+            <Stack
+                textAlign={'center'}
+                align={'center'}
+                spacing={{ base: 8, md: 10 }}
+                py={{ base: 20, md: 28 }}>
+                <Heading
+                    fontWeight={600}
+                    fontSize={{ base: '3xl', sm: '4xl', md: '6xl' }}
+                    lineHeight={'110%'}>
+                    Meeting scheduling{' '}
+                    <Text as={'span'} color={'orange.400'}>
+                        made easy
+                    </Text>
+                </Heading>
+                <Text color={'gray.500'} maxW={'3xl'}>
+                    Never miss a meeting. Never be late for one too. Keep track of your
+                    meetings and receive smart reminders in appropriate times. Read your
+                    smart “Daily Agenda” every morning.
+                </Text>
+                <Stack spacing={6} direction={'row'}>
+                    <Button
+                        rounded={'full'}
+                        px={6}
+                        colorScheme={'orange'}
+                        bg={'orange.400'}
+                        _hover={{ bg: 'orange.500' }}>
+                        Get started
+                    </Button>
+                    <Button rounded={'full'} px={6}>
+                        Learn more
+                    </Button>
+                </Stack>
+            </Stack>
+        </Container>
+    );
+}
 
-    const [currentPage, setCurrentPage] = useState(1)
+const Home = ({ match, history, location }) => {
+
+    const { isAuthenticated } = useSelector(state => state.auth);
 
     const alert = useAlert();
     const dispatch = useDispatch();
 
-    const { loading, patients, error, patientsCount, resPerPage, filteredPatientsCount } = useSelector(state => state.patients)
+    const { loading, patients, error } = useSelector(state => state.patients)
 
     const keyword = match.params.keyword
 
     useEffect(() => {
         if (error) {
-            return alert.error(error)
+            console.error(error)
+            return;
+        }
+        if (keyword) {
+            dispatch(getPatients(keyword))
         }
 
-        dispatch(getPatients(keyword, currentPage));
-
-
-    }, [dispatch, alert, error, keyword, currentPage])
-
-    function setCurrentPageNo(pageNumber) {
-        setCurrentPage(pageNumber)
-    }
-
-    let count = patientsCount;
-    if (keyword) {
-        count = filteredPatientsCount
-    }
+    }, [dispatch, alert, error, keyword])
 
     return (
         <Fragment>
@@ -45,33 +82,20 @@ const Home = ({ match }) => {
                 <Fragment>
                     <MetaData title={'Sathyabama Dental - Home'} />
 
-                    <section id="patients" className="container mt-5">
-                        {patients.map(patient => (
-                            <div className="row">
-                                <Patient key={patient._id} patient={patient} col={12} />
-                            </div>
-                        ))}
-                    </section>
-
-                    {resPerPage <= count && (
-                        <div className="d-flex justify-content-center mt-5">
-                            <Pagination
-                                activePage={currentPage}
-                                itemsCountPerPage={resPerPage}
-                                totalItemsCount={patientsCount}
-                                onChange={setCurrentPageNo}
-                                nextPageText={'Next'}
-                                prevPageText={'Prev'}
-                                firstPageText={'First'}
-                                lastPageText={'Last'}
-                                itemClass="page-item"
-                                linkClass="page-link"
-                            />
-                        </div>
-                    )}
+                    {!isAuthenticated ? <MainPage /> :
+                        <>
+                            {keyword
+                                ?
+                                patients.map(patient => (
+                                    <Patient key={patient.id} patient={patient} col={12} />
+                                ))
+                                :
+                                <Search history={history} />
+                            }
+                        </>
+                    }
                 </Fragment>
             )}
-
         </Fragment>
     )
 }

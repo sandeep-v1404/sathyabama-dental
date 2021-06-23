@@ -16,7 +16,7 @@ const ProtectedRoute = ({ isAdmin, component: Component, ...rest }) => {
                             return <Redirect to='/login' />
                         }
 
-                        if (isAdmin === true && user.role !== 'Administrator') {
+                        if (isAdmin === true && user.department !== 'Administrator') {
                             return <Redirect to="/" />
                         }
 

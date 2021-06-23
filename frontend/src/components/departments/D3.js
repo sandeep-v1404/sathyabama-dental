@@ -17,20 +17,10 @@ export default function Login({ history, location }) {
     const alert = useAlert();
     const dispatch = useDispatch();
 
-    const { isAuthenticated, error } = useSelector(state => state.auth);
+    const { isAuthenticated, error, loading } = useSelector(state => state.auth);
 
     const redirect = location.search ? location.search.split('=')[1] : '/'
 
-    useEffect(() => {
-        if (isAuthenticated) {
-            history.push(redirect)
-        }
-        if (error) {
-            alert.error(error);
-            dispatch(clearErrors());
-        }
-
-    }, [dispatch, alert, isAuthenticated, error, history, redirect])
 
     const submitHandler = (e) => {
         e.preventDefault();
@@ -46,11 +36,12 @@ export default function Login({ history, location }) {
                 align={'center'}
                 justify={'center'}
                 bg={useColorModeValue('gray.50', 'gray.800')}>
-                <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
+                <Stack >
                     <Stack align={'center'}>
-                        <Heading fontSize={'4xl'}>Sign in to your account</Heading>
+                        <Heading fontSize={'4xl'}>Department of Peridontia</Heading>
                     </Stack>
                     <Box
+                        w={[290, 400, 600]}
                         rounded={'lg'}
                         bg={useColorModeValue('white', 'gray.700')}
                         boxShadow={'lg'}
@@ -80,15 +71,11 @@ export default function Login({ history, location }) {
                                     Sign in
                                 </Button>
                             </Stack>
-                            <Stack
-                                direction={{ base: 'column', sm: 'row' }}
-                                justify={'space-between'}>
-                                <Link as={ReachLink} to="/register" color={'blue.400'}>New User? SignUp</Link>
-                            </Stack>
                         </Stack>
                     </Box>
                 </Stack>
             </Flex>
+
         </>
     );
 }

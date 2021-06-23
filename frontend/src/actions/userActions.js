@@ -1,10 +1,8 @@
 import axios from 'axios'
 import {
     LOGIN_REQUEST,
-    LOGIN_SUCCESS,
     LOGIN_FAIL,
     REGISTER_USER_REQUEST,
-    REGISTER_USER_SUCCESS,
     REGISTER_USER_FAIL,
     LOAD_USER_REQUEST,
     LOAD_USER_SUCCESS,
@@ -32,29 +30,27 @@ import {
     CLEAR_ERRORS
 } from '../constants/userConstants'
 
+import cookie from 'react-cookies';
+import { handleHTTPerrors } from "../utils/handleHTTPerrors"
+import { getConfig } from "../utils/getConfig"
+
 // Login
 export const login = (email, password) => async (dispatch) => {
     try {
 
         dispatch({ type: LOGIN_REQUEST })
 
-        const config = {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }
+        const { data } = await axios.post('/auth/signin', { email, password }, getConfig());
+        const expires = new Date(Date.now() + (1000 * 60 * 60 * 2));
+        cookie.save('token', data.accessToken, { path: '/', expires });
 
-        const { data } = await axios.post('/api/sdh/login', { email, password }, config)
-
-        dispatch({
-            type: LOGIN_SUCCESS,
-            payload: data.user
-        })
+        dispatch(loadUser())
 
     } catch (error) {
+        const err = handleHTTPerrors(error)
         dispatch({
             type: LOGIN_FAIL,
-            payload: error.response.data.message
+            payload: err
         })
     }
 }
@@ -65,44 +61,37 @@ export const register = (userData) => async (dispatch) => {
 
         dispatch({ type: REGISTER_USER_REQUEST })
 
-        const config = {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        }
+        const { data } = await axios.post('/auth/signup', userData, getConfig())
 
-        const { data } = await axios.post('/api/sdh/register', userData, config)
+        const expires = new Date(Date.now() + (1000 * 60 * 60 * 2));
+        cookie.save('token', data.accessToken, { path: '/', expires });
 
-        dispatch({
-            type: REGISTER_USER_SUCCESS,
-            payload: data.user
-        })
+        dispatch(loadUser())
 
     } catch (error) {
+        const err = handleHTTPerrors(error)
+
         dispatch({
             type: REGISTER_USER_FAIL,
-            payload: error.response.data.message
+            payload: err
         })
     }
 }
 
 // Load user
 export const loadUser = () => async (dispatch) => {
+
     try {
-
         dispatch({ type: LOAD_USER_REQUEST })
-
-        const { data } = await axios.get('/api/sdh/me')
-
-        dispatch({
-            type: LOAD_USER_SUCCESS,
-            payload: data.user
-        })
+        const { data } = await axios.get('/auth/me', getConfig())
+        dispatch({ type: LOAD_USER_SUCCESS, payload: data })
 
     } catch (error) {
+        const err = handleHTTPerrors(error)
+
         dispatch({
             type: LOAD_USER_FAIL,
-            payload: error.response.data.message
+            payload: err
         })
     }
 }
@@ -113,23 +102,18 @@ export const updateProfile = (userData) => async (dispatch) => {
 
         dispatch({ type: UPDATE_PROFILE_REQUEST })
 
-        const config = {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        }
-
-        const { data } = await axios.put('/api/sdh/me/update', userData, config)
+        const { data } = await axios.put('/auth/user/update', userData, getConfig())
 
         dispatch({
             type: UPDATE_PROFILE_SUCCESS,
-            payload: data.success
+            payload: data
         })
 
     } catch (error) {
+        const err = handleHTTPerrors(error)
         dispatch({
             type: UPDATE_PROFILE_FAIL,
-            payload: error.response.data.message
+            payload: err
         })
     }
 }
@@ -140,23 +124,17 @@ export const updatePassword = (passwords) => async (dispatch) => {
 
         dispatch({ type: UPDATE_PASSWORD_REQUEST })
 
-        const config = {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }
-
-        const { data } = await axios.put('/api/sdh/password/update', passwords, config)
-
+        const { data } = await axios.put('/auth/updatePassword', passwords, getConfig());
         dispatch({
             type: UPDATE_PASSWORD_SUCCESS,
-            payload: data.success
+            payload: data
         })
 
     } catch (error) {
+        const err = handleHTTPerrors(error)
         dispatch({
             type: UPDATE_PASSWORD_FAIL,
-            payload: error.response.data.message
+            payload: err
         })
     }
 }
@@ -164,17 +142,14 @@ export const updatePassword = (passwords) => async (dispatch) => {
 // Logout user
 export const logout = () => async (dispatch) => {
     try {
-
-        await axios.get('/api/sdh/logout')
-
+        cookie.remove('token')
         dispatch({
             type: LOGOUT_SUCCESS,
         })
-
     } catch (error) {
         dispatch({
             type: LOGOUT_FAIL,
-            payload: error.response.data.message
+            payload: error.message
         })
     }
 }
@@ -185,17 +160,17 @@ export const allUsers = () => async (dispatch) => {
 
         dispatch({ type: ALL_USERS_REQUEST })
 
-        const { data } = await axios.get('/api/sdh/admin/users')
+        const { data } = await axios.get('/auth/users', getConfig())
 
         dispatch({
             type: ALL_USERS_SUCCESS,
-            payload: data.users
+            payload: data
         })
 
     } catch (error) {
         dispatch({
             type: ALL_USERS_FAIL,
-            payload: error.response.data.message
+            payload: error.message
         })
     }
 }
@@ -206,13 +181,7 @@ export const updateUser = (id, userData) => async (dispatch) => {
 
         dispatch({ type: UPDATE_USER_REQUEST })
 
-        const config = {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }
-
-        const { data } = await axios.put(`/api/sdh/admin/user/${id}`, userData, config)
+        const { data } = await axios.put(`/auth/users/${id}`, userData, getConfig())
 
         dispatch({
             type: UPDATE_USER_SUCCESS,
@@ -233,12 +202,11 @@ export const getUserDetails = (id) => async (dispatch) => {
 
         dispatch({ type: USER_DETAILS_REQUEST })
 
-
-        const { data } = await axios.get(`/api/sdh/admin/user/${id}`)
+        const { data } = await axios.get(`/auth/users/${id}`, getConfig())
 
         dispatch({
             type: USER_DETAILS_SUCCESS,
-            payload: data.user
+            payload: data
         })
 
     } catch (error) {
@@ -255,7 +223,7 @@ export const deleteUser = (id) => async (dispatch) => {
 
         dispatch({ type: DELETE_USER_REQUEST })
 
-        const { data } = await axios.delete(`/api/sdh/admin/user/${id}`)
+        const { data } = await axios.delete(`/auth/users/${id}`, getConfig())
 
         dispatch({
             type: DELETE_USER_SUCCESS,

@@ -20,17 +20,16 @@ import {
     PATIENT_DETAILS_SUCCESS,
     PATIENT_DETAILS_FAIL,
     CLEAR_ERRORS
-
 } from '../constants/patientConstants'
 
-export const getPatients = (keyword = '', currentPage = 1) => async (dispatch) => {
+import { handleHTTPerrors } from "../utils/handleHTTPerrors"
+import { getConfig } from "../utils/getConfig"
+
+export const getPatients = (search) => async (dispatch) => {
     try {
 
         dispatch({ type: ALL_PATIENTS_REQUEST })
-
-        let link = `/api/sdh/patients?keyword=${keyword}&page=${currentPage}`
-
-        const { data } = await axios.get(link)
+        const { data } = await axios.get(`/patients/search/${search}`, getConfig());
 
         dispatch({
             type: ALL_PATIENTS_SUCCESS,
@@ -38,9 +37,10 @@ export const getPatients = (keyword = '', currentPage = 1) => async (dispatch) =
         })
 
     } catch (error) {
+        const err = handleHTTPerrors(error)
         dispatch({
             type: ALL_PATIENTS_FAIL,
-            payload: error.response.data.message
+            payload: err
         })
     }
 }
@@ -50,23 +50,17 @@ export const newPatient = (patientData) => async (dispatch) => {
 
         dispatch({ type: NEW_PATIENT_REQUEST })
 
-        const config = {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }
-
-        const { data } = await axios.post(`/api/sdh/admin/patient/new`, patientData, config)
-
+        const { data } = await axios.post(`/patients`, patientData, getConfig());
         dispatch({
             type: NEW_PATIENT_SUCCESS,
             payload: data
         })
 
     } catch (error) {
+        const err = handleHTTPerrors(error)
         dispatch({
             type: NEW_PATIENT_FAIL,
-            payload: error.response.data.message
+            payload: err
         })
     }
 }
@@ -77,7 +71,7 @@ export const deletePatient = (id) => async (dispatch) => {
 
         dispatch({ type: DELETE_PATIENT_REQUEST })
 
-        const { data } = await axios.delete(`/api/sdh/admin/patient/${id}`)
+        const { data } = await axios.delete(`/patients/${id}`, getConfig())
 
         dispatch({
             type: DELETE_PATIENT_SUCCESS,
@@ -85,9 +79,10 @@ export const deletePatient = (id) => async (dispatch) => {
         })
 
     } catch (error) {
+        const err = handleHTTPerrors(error)
         dispatch({
             type: DELETE_PATIENT_FAIL,
-            payload: error.response.data.message
+            payload: err
         })
     }
 }
@@ -98,13 +93,7 @@ export const updatePatient = (id, patientData) => async (dispatch) => {
 
         dispatch({ type: UPDATE_PATIENT_REQUEST })
 
-        const config = {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }
-
-        const { data } = await axios.put(`/api/sdh/admin/patient/${id}`, patientData, config)
+        const { data } = await axios.put(`/patients/${id}`, patientData, getConfig())
 
         dispatch({
             type: UPDATE_PATIENT_SUCCESS,
@@ -112,9 +101,10 @@ export const updatePatient = (id, patientData) => async (dispatch) => {
         })
 
     } catch (error) {
+        const err = handleHTTPerrors(error)
         dispatch({
             type: UPDATE_PATIENT_FAIL,
-            payload: error.response.data.message
+            payload: err
         })
     }
 }
@@ -124,17 +114,18 @@ export const getPatientDetails = (id) => async (dispatch) => {
 
         dispatch({ type: PATIENT_DETAILS_REQUEST })
 
-        const { data } = await axios.get(`/api/sdh/patient/${id}`)
+        const { data } = await axios.get(`/patients/${id}`, getConfig())
 
         dispatch({
             type: PATIENT_DETAILS_SUCCESS,
-            payload: data.patient
+            payload: data
         })
 
     } catch (error) {
+        const err = handleHTTPerrors(error)
         dispatch({
             type: PATIENT_DETAILS_FAIL,
-            payload: error.response.data.message
+            payload: err
         })
     }
 }
@@ -146,18 +137,17 @@ export const getAdminPatients = () => async (dispatch) => {
 
         dispatch({ type: ADMIN_PATIENTS_REQUEST })
 
-        const { data } = await axios.get(`/api/sdh/admin/patients`)
-
+        const { data } = await axios.get(`/patients`, getConfig())
         dispatch({
             type: ADMIN_PATIENTS_SUCCESS,
-            payload: data.patients
+            payload: data
         })
 
     } catch (error) {
-
+        const err = handleHTTPerrors(error)
         dispatch({
             type: ADMIN_PATIENTS_FAIL,
-            payload: error.response.data.message
+            payload: err
         })
     }
 }

@@ -1,22 +1,22 @@
-import React, { Fragment, useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-
-import MetaData from '../layout/MetaData'
-
+import {
+    Box, Button, Flex, FormControl,
+    FormLabel, Heading, Input, Link, Stack, useColorModeValue, Select
+} from '@chakra-ui/react'
+import React, { useEffect, useState } from 'react'
 import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
-import { register, clearErrors } from '../../actions/userActions'
+import { Link as ReachLink } from "react-router-dom"
+import { clearErrors, register } from '../../actions/userActions'
+import MetaData from '../layout/MetaData'
 
-const Register = ({ history }) => {
+export default function Register({ history, location }) {
 
     const [user, setUser] = useState({
-        name: '',
+        username: '',
         email: '',
         password: '',
-        department: 'Choose',
+        department: '',
     })
-
-    const { name, email, password, department } = user;
 
     const alert = useAlert();
     const dispatch = useDispatch();
@@ -38,100 +38,88 @@ const Register = ({ history }) => {
 
     const submitHandler = (e) => {
         e.preventDefault();
+        dispatch(register(user))
 
-        const formData = new FormData();
-        formData.set('name', name);
-        formData.set('email', email);
-        formData.set('password', password);
-        formData.set('department', department);
-
-        dispatch(register(formData))
     }
 
-    const onChange = e => {
+    const onChange = (e) => {
         setUser({ ...user, [e.target.name]: e.target.value })
     }
 
     return (
-        <Fragment>
-
+        <>
             <MetaData title={'Register User'} />
-
-            <div className="container wrapper">
-                <div className="row my-5 align-items-center justify-content-center">
-                    <div className="col-12 col-md-8">
-                        <form className="shadow-lg p-3" onSubmit={submitHandler} encType='multipart/form-data'>
-                            <div className="form-group">
-                                <h2 className="font-weight-bolder">Register</h2>
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="email_field">Name</label>
-                                <input
-                                    type="name"
-                                    id="name_field"
-                                    className="form-control"
-                                    name='name'
-                                    value={name}
-                                    onChange={onChange}
-                                />
-                            </div>
-
-                            <div className="form-group">
-                                <label htmlFor="email_field">Email</label>
-                                <input
+            <Flex
+                minH={'100vh'}
+                align={'center'}
+                justify={'center'}
+                bg={useColorModeValue('gray.50', 'gray.800')}>
+                <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
+                    <Stack align={'center'}>
+                        <Heading fontSize={'4xl'}>Create a new account</Heading>
+                    </Stack>
+                    <Box
+                        rounded={'lg'}
+                        bg={useColorModeValue('white', 'gray.700')}
+                        boxShadow={'lg'}
+                        p={8}>
+                        <Stack as={'form'} spacing={4} onSubmit={submitHandler}>
+                            <FormControl id="name">
+                                <FormLabel>Username</FormLabel>
+                                <Input
+                                    name="username"
+                                    type="text"
+                                    value={user.username}
+                                    onChange={onChange} />
+                            </FormControl>
+                            <FormControl id="email">
+                                <FormLabel>Email address</FormLabel>
+                                <Input
+                                    name="email"
                                     type="email"
-                                    id="email_field"
-                                    className="form-control"
-                                    name='email'
-                                    value={email}
-                                    onChange={onChange}
-                                />
-                            </div>
-
-                            <div className="form-group">
-                                <label htmlFor="password_field">Password</label>
-                                <input
+                                    value={user.email}
+                                    onChange={onChange} />
+                            </FormControl>
+                            <FormControl id="password">
+                                <FormLabel>Password</FormLabel>
+                                <Input
+                                    name="password"
                                     type="password"
-                                    id="password_field"
-                                    className="form-control"
-                                    name='password'
-                                    value={password}
-                                    onChange={onChange}
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="department_field">Department</label>
-
-                                <select className="form-control" name='department' id="department_field" value={department} onChange={onChange}>
-                                    <option disabled>Choose</option>
-                                    <option value="D1">D1</option>
-                                    <option value="D2">D2</option>
-                                    <option value="D3">D3</option>
-                                    <option value="D4">D4</option>
-                                    <option value="D5">D5</option>
-                                    <option value="D6">D6</option>
-                                    <option value="D7">D7</option>
-                                    <option value="D8">D8</option>
-                                    <option value="D9">D9</option>
-                                </select>
-                            </div>
-                            <button
-                                id="register_button"
-                                type="submit"
-                                className="btn btn-block py-3"
-                                disabled={loading ? true : false}
-                            >
-                                REGISTER
-                        </button>
-                            <div className="form-group mt-2 mb-3">
-                                <Link to="/login" className="pull-right">Have an Account ? Login</Link>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </Fragment>
-    )
+                                    value={user.password}
+                                    onChange={onChange} />
+                            </FormControl>
+                            <Select placeholder="Select option" value={user.department} name="department" onChange={onChange}>
+                                <option value="D1">D1</option>
+                                <option value="D2">D2</option>
+                                <option value="D3">D3</option>
+                                <option value="D4">D4</option>
+                                <option value="D5">D5</option>
+                                <option value="D6">D6</option>
+                                <option value="D7">D7</option>
+                                <option value="D8">D8</option>
+                                <option value="D9">D9</option>
+                            </Select>
+                            <Stack spacing={10}>
+                                <Button
+                                    disabled={loading ? true : false}
+                                    type={"submit"}
+                                    bg={'blue.400'}
+                                    color={'white'}
+                                    _hover={{
+                                        bg: 'blue.500',
+                                    }}>
+                                    Register
+                                </Button>
+                            </Stack>
+                            <Stack
+                                direction={{ base: 'column', sm: 'row' }}
+                                justify={'space-between'}>
+                                <Link as={ReachLink} to="/login" color={'blue.400'}>Have an Account ? Login</Link>
+                            </Stack>
+                        </Stack>
+                    </Box>
+                </Stack>
+            </Flex>
+        </>
+    );
 }
-
-export default Register
