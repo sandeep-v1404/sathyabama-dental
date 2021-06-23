@@ -1,7 +1,6 @@
 # Sathyabama Dental Project
 
-> A Web App Made for Sathyabama Dental Hospital using MongoDB,Express , React(Redux), NodeJS
-
+> A Web App Made for Sathyabama Dental Hospital using NestJS, PostgreSQL,TypeORM, React(Redux),Formik
 
 ### Install Dependencies (Frontend)
 
@@ -16,15 +15,14 @@ npm i
 npm i
 ```
 
-### Frontend in LocalHost 
+### Frontend in LocalHost
 
 ```
 cd frontend
 npm start
 ```
 
-
-### Backend in LocalHost 
+### Backend in LocalHost
 
 ```
 cd backend
