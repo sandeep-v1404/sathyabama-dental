@@ -11,8 +11,8 @@ export class PatientsService {
     private patientsRepository: PatientsRepository,
   ) {}
 
-  async getAllPatients(): Promise<Patient[]> {
-    const found = await this.patientsRepository.find({});
+  async getAllPatients(name?: string): Promise<Patient[]> {
+    const found = await this.patientsRepository.getAllPatients(name);
     if (!found) {
       throw new NotFoundException(`No Patients`);
     }
@@ -22,7 +22,7 @@ export class PatientsService {
   async getPatientById(id: string): Promise<Patient> {
     const found = await this.patientsRepository.findOne(id);
     if (!found) {
-      throw new NotFoundException(`Task with ID "${id}" Not Found`);
+      throw new NotFoundException(`Patient with ID '${id}' Not Found`);
     }
     return found;
   }
@@ -31,10 +31,21 @@ export class PatientsService {
     return this.patientsRepository.createPatient(createPatientDTO);
   }
 
-  async deletePatient(id: string): Promise<void> {
+  async deletePatient(id: string): Promise<{ success: boolean }> {
     const result = await this.patientsRepository.delete(id);
     if (result.affected === 0) {
-      throw new NotFoundException(`Task with ID "${id}" Not Found`);
+      throw new NotFoundException(`Patient with ID '${id}' Not Found`);
     }
+    return { success: true };
+  }
+
+  async updatePatientData(
+    createPatientDTO: CreatePatientDTO,
+    patientId: number,
+  ): Promise<{ success: boolean }> {
+    await this.patientsRepository.update(patientId, {
+      ...createPatientDTO,
+    });
+    return { success: true };
   }
 }

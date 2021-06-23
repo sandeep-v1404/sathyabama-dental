@@ -22,7 +22,9 @@ export class Department1Service {
     const patient = await this.patientsRepository.findOne(patientId, {
       loadRelationIds: true,
     });
-
+    if (!patient) {
+      throw new NotFoundException(`No Patient with Id ${patientId} exists`);
+    }
     if (patient.patientDOneData === undefined) {
       const d1Data = this.patientsDOneRepository.create({
         patientId,

@@ -1,23 +1,20 @@
 import {
-  IsEmail,
-  IsNotEmpty,
+  IsOptional,
   IsString,
   Matches,
   MaxLength,
   MinLength,
 } from 'class-validator';
 
-export class AuthCredentialsDTO {
-  @IsNotEmpty()
+export class UpdateUserAdminDTO {
   @IsString()
-  @MinLength(4)
-  @MaxLength(20)
-  username: string;
-
-  @IsEmail()
-  email: string;
+  department: string;
 
   @IsString()
+  role: string;
+
+  @IsString()
+  @IsOptional()
   @MinLength(10)
   @MaxLength(30)
   @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, {
@@ -25,10 +22,4 @@ export class AuthCredentialsDTO {
       'Password should contain 1 upper case letter, 1 lower case letter, 1 number or special character',
   })
   password: string;
-
-  @IsString()
-  @IsNotEmpty()
-  department: string;
-
-  role?: string;
 }

@@ -2,6 +2,9 @@ import { IsNotEmpty } from 'class-validator';
 
 export class CreatePatientDTO {
   @IsNotEmpty()
+  outPatientId: string;
+
+  @IsNotEmpty()
   name: string;
 
   @IsNotEmpty()

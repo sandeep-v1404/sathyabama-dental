@@ -5,9 +5,12 @@ import {
   Get,
   Param,
   Post,
+  Put,
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { GetUser } from 'src/auth/get-user.decorator';
+import { User } from 'src/auth/user.entity';
 import { CreatePatientDTO } from './dto/create-patient.dto';
 import { Patient } from './patient.entity';
 import { PatientsService } from './patients.service';
@@ -22,6 +25,11 @@ export class PatientsController {
     return this.patientsService.getAllPatients();
   }
 
+  @Get('/search/:name')
+  getSearchedPatients(@Param('name') name: string): Promise<Patient[]> {
+    return this.patientsService.getAllPatients(name);
+  }
+
   @Get('/:id')
   getPatientById(@Param('id') id: string): Promise<Patient> {
     return this.patientsService.getPatientById(id);
@@ -34,8 +42,18 @@ export class PatientsController {
     return this.patientsService.createPatient(createPatientDTO);
   }
 
+  @Put('/:patientId')
+  updatePatientDataById(
+    @GetUser('Administrator') _user: User,
+    @Body() createPatientDTO: CreatePatientDTO,
+    @Param('patientId')
+    patientId: number,
+  ): Promise<{ success: boolean }> {
+    return this.patientsService.updatePatientData(createPatientDTO, patientId);
+  }
+
   @Delete('/:id')
-  deletePatientById(@Param('id') id: string): Promise<void> {
+  deletePatientById(@Param('id') id: string): Promise<{ success: boolean }> {
     return this.patientsService.deletePatient(id);
   }
 }

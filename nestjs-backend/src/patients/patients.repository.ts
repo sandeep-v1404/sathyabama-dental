@@ -1,18 +1,15 @@
 import { EntityRepository, Repository } from 'typeorm';
 import { CreatePatientDTO } from './dto/create-patient.dto';
-import { GetPatientsFilterDto } from './dto/get-patients-filter.dto';
 import { Patient } from './patient.entity';
 
 @EntityRepository(Patient)
 export class PatientsRepository extends Repository<Patient> {
-  async getAllPatients(filterDto: GetPatientsFilterDto): Promise<Patient[]> {
-    const { search } = filterDto;
-
+  async getAllPatients(name: string): Promise<Patient[]> {
     const query = this.createQueryBuilder('patient');
 
-    if (search) {
+    if (name) {
       query.andWhere('LOWER(patient.name) LIKE LOWER(:search)', {
-        search: `%${search}`,
+        search: `%${name}%`,
       });
     }
     const patients = await query.getMany();
@@ -22,10 +19,18 @@ export class PatientsRepository extends Repository<Patient> {
     createPatientDTO: CreatePatientDTO,
   ): Promise<Patient | string> {
     try {
-      const { name, age, sex, contactNumber, occupation, residentialAddress } =
-        createPatientDTO;
+      const {
+        outPatientId,
+        name,
+        age,
+        sex,
+        contactNumber,
+        occupation,
+        residentialAddress,
+      } = createPatientDTO;
 
-      const task = this.create({
+      const patient = this.create({
+        outPatientId,
         name,
         age,
         sex,
@@ -33,8 +38,8 @@ export class PatientsRepository extends Repository<Patient> {
         occupation,
         residentialAddress,
       });
-      await this.save(task);
-      return task;
+      await this.save(patient);
+      return patient;
     } catch (error) {
       console.log(error);
       return `${error.column} should not be empty`;
