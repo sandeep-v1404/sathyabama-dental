@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { clearErrors, getPatientDetails } from '../../actions/patientActions'
 import Loader from '../layout/Loader'
 import MetaData from '../layout/MetaData'
+import PropTypes from 'prop-types';
 
 const PatientDetails = ({ match }) => {
 
@@ -45,3 +46,7 @@ const PatientDetails = ({ match }) => {
 }
 
 export default PatientDetails
+
+PatientDetails.propTypes = {
+    match: PropTypes.any,
+};

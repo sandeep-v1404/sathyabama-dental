@@ -8,8 +8,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { clearErrors, loadUser, updateProfile } from '../../actions/userActions'
 import { UPDATE_PROFILE_RESET } from '../../constants/userConstants'
 import MetaData from '../layout/MetaData'
+import PropTypes from 'prop-types';
 
-export default function UpdateProfile({ history, location }) {
+export default function UpdateProfile({ history }) {
 
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
@@ -110,3 +111,7 @@ export default function UpdateProfile({ history, location }) {
         </>
     );
 }
+
+UpdateProfile.propTypes = {
+    history: PropTypes.any,
+};

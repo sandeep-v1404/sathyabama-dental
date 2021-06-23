@@ -2,7 +2,9 @@ import { CheckIcon } from '@chakra-ui/icons';
 import {
     Box, Button, Flex, LinkBox, LinkOverlay, List, ListIcon, ListItem, Stack, Text, useColorModeValue
 } from '@chakra-ui/react';
+import React from 'react';
 import { Link as ReachLink } from "react-router-dom";
+import PropTypes from 'prop-types';
 
 export default function Patient({ patient }) {
     return (
@@ -90,3 +92,7 @@ export default function Patient({ patient }) {
         </Flex>
     );
 }
+
+Patient.propTypes = {
+    patient: PropTypes.any,
+};

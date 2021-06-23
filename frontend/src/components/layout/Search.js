@@ -2,7 +2,8 @@ import {
     Avatar, Button, Center, Container,
     Flex, FormControl, Heading, Input, Stack, useColorModeValue
 } from '@chakra-ui/react';
-import { useState } from 'react';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 export default function Search({ history }) {
     const [keyword, setKeyword] = useState('');
@@ -73,3 +74,7 @@ export default function Search({ history }) {
         </Flex>
     );
 }
+
+Search.propTypes = {
+    history: PropTypes.any,
+};

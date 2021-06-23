@@ -12,6 +12,7 @@ import { DELETE_USER_RESET } from '../../constants/userConstants'
 import { useColorMode } from "@chakra-ui/react"
 import { HStack, Center, Box } from "@chakra-ui/react"
 import { EditIcon, DeleteIcon } from "@chakra-ui/icons"
+import PropTypes from 'prop-types';
 
 const UsersList = ({ history }) => {
     const { colorMode, } = useColorMode()
@@ -130,3 +131,7 @@ const UsersList = ({ history }) => {
 }
 
 export default UsersList
+
+UsersList.propTypes = {
+    history: PropTypes.any,
+};

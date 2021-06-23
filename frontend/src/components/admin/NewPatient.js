@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react'
-
+import PropTypes from 'prop-types';
 import MetaData from '../layout/MetaData'
 
 import { useAlert } from 'react-alert'
@@ -155,3 +155,7 @@ const NewPatient = ({ history }) => {
 }
 
 export default NewPatient
+
+NewPatient.propTypes = {
+    history: PropTypes.any,
+};

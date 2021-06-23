@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link as ReachLink } from "react-router-dom"
 import { clearErrors, login } from '../../actions/userActions'
 import MetaData from '../layout/MetaData'
+import PropTypes from 'prop-types';
 
 export default function Login({ history, location }) {
 
@@ -92,3 +93,8 @@ export default function Login({ history, location }) {
         </>
     );
 }
+
+Login.propTypes = {
+    history: PropTypes.any,
+    location: PropTypes.any,
+};

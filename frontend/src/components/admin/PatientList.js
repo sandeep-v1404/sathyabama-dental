@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { MDBDataTable, MDBTable } from 'mdbreact'
-
+import PropTypes from 'prop-types';
 import MetaData from '../layout/MetaData'
 import Loader from '../layout/Loader'
 
@@ -142,3 +142,7 @@ const PatientsList = ({ history }) => {
 }
 
 export default PatientsList
+
+PatientsList.propTypes = {
+    history: PropTypes.any,
+};

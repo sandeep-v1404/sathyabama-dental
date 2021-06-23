@@ -10,7 +10,7 @@ const D2 = () => {
                 <div className="row align-items-center justify-content-center">
                     <div className="col-12 col-md-8">
                         <form className="p-3 shadow-lg" onSubmit={submitHandler} encType='multipart/form-data'>
-                            <div class="form-group">
+                            <div className="form-group">
                                 <Heading fontSize={'2xl'}>Patient Name (ID)</Heading>
                             </div>
 
@@ -24,93 +24,93 @@ const D2 = () => {
 
                             <div className="form-group">
                                 <label className="font-weight-bolder">Medical History</label>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" />
-                                    <label class="form-check-label" for="defaultCheck1">
+                                <div className="form-check">
+                                    <input className="form-check-input" type="checkbox" value="" id="defaultCheck1" />
+                                    <label className="form-check-label" htmlFor="defaultCheck1">
                                         Diabetes
                                     </label>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" />
-                                    <label class="form-check-label" for="defaultCheck1">
+                                <div className="form-check">
+                                    <input className="form-check-input" type="checkbox" value="" id="defaultCheck1" />
+                                    <label className="form-check-label" htmlFor="defaultCheck1">
                                         Hypertension
                                     </label>
-                                </div> <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" />
-                                    <label class="form-check-label" for="defaultCheck1">
+                                </div> <div className="form-check">
+                                    <input className="form-check-input" type="checkbox" value="" id="defaultCheck1" />
+                                    <label className="form-check-label" htmlFor="defaultCheck1">
                                         Cardiac Disorder
                                     </label>
-                                </div> <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" />
-                                    <label class="form-check-label" for="defaultCheck1">
+                                </div> <div className="form-check">
+                                    <input className="form-check-input" type="checkbox" value="" id="defaultCheck1" />
+                                    <label className="form-check-label" htmlFor="defaultCheck1">
                                         Rheumatic Fever
                                     </label>
-                                </div> <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" />
-                                    <label class="form-check-label" for="defaultCheck1">
+                                </div> <div className="form-check">
+                                    <input className="form-check-input" type="checkbox" value="" id="defaultCheck1" />
+                                    <label className="form-check-label" htmlFor="defaultCheck1">
                                         Epilepsy
                                     </label>
-                                </div> <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" />
-                                    <label class="form-check-label" for="defaultCheck1">
+                                </div> <div className="form-check">
+                                    <input className="form-check-input" type="checkbox" value="" id="defaultCheck1" />
+                                    <label className="form-check-label" htmlFor="defaultCheck1">
                                         Bleeding Disorders
                                     </label>
-                                </div> <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" />
-                                    <label class="form-check-label" for="defaultCheck1">
+                                </div> <div className="form-check">
+                                    <input className="form-check-input" type="checkbox" value="" id="defaultCheck1" />
+                                    <label className="form-check-label" htmlFor="defaultCheck1">
                                         Jaundice
                                     </label>
-                                </div> <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" />
-                                    <label class="form-check-label" for="defaultCheck1">
+                                </div> <div className="form-check">
+                                    <input className="form-check-input" type="checkbox" value="" id="defaultCheck1" />
+                                    <label className="form-check-label" htmlFor="defaultCheck1">
                                         Hepatitis
                                     </label>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" />
-                                    <label class="form-check-label" for="defaultCheck1">
+                                <div className="form-check">
+                                    <input className="form-check-input" type="checkbox" value="" id="defaultCheck1" />
+                                    <label className="form-check-label" htmlFor="defaultCheck1">
                                         Asthma
                                     </label>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" />
-                                    <label class="form-check-label" for="defaultCheck1">
+                                <div className="form-check">
+                                    <input className="form-check-input" type="checkbox" value="" id="defaultCheck1" />
+                                    <label className="form-check-label" htmlFor="defaultCheck1">
                                         Typhoid
                                     </label>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" />
-                                    <label class="form-check-label" for="defaultCheck1">
+                                <div className="form-check">
+                                    <input className="form-check-input" type="checkbox" value="" id="defaultCheck1" />
+                                    <label className="form-check-label" htmlFor="defaultCheck1">
                                         Drug Allergy
                                     </label>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" />
-                                    <label class="form-check-label" for="defaultCheck1">
+                                <div className="form-check">
+                                    <input className="form-check-input" type="checkbox" value="" id="defaultCheck1" />
+                                    <label className="form-check-label" htmlFor="defaultCheck1">
                                         Allergic to L.A Injections
                                     </label>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" />
-                                    <label class="form-check-label" for="defaultCheck1">
+                                <div className="form-check">
+                                    <input className="form-check-input" type="checkbox" value="" id="defaultCheck1" />
+                                    <label className="form-check-label" htmlFor="defaultCheck1">
                                         Anaemia
                                     </label>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" />
-                                    <label class="form-check-label" for="defaultCheck1">
+                                <div className="form-check">
+                                    <input className="form-check-input" type="checkbox" value="" id="defaultCheck1" />
+                                    <label className="form-check-label" htmlFor="defaultCheck1">
                                         Pregnancy
                                     </label>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" />
-                                    <label class="form-check-label" for="defaultCheck1">
+                                <div className="form-check">
+                                    <input className="form-check-input" type="checkbox" value="" id="defaultCheck1" />
+                                    <label className="form-check-label" htmlFor="defaultCheck1">
                                         Menstrual Cycle
                                     </label>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" />
-                                    <label class="form-check-label" for="defaultCheck1">
+                                <div className="form-check">
+                                    <input className="form-check-input" type="checkbox" value="" id="defaultCheck1" />
+                                    <label className="form-check-label" htmlFor="defaultCheck1">
                                         Others
                                     </label>
                                 </div>
@@ -119,31 +119,31 @@ const D2 = () => {
 
                             <div className="form-group">
                                 <label className="font-weight-bolder">Family History</label>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" />
-                                    <label class="form-check-label" for="defaultCheck1">
+                                <div className="form-check">
+                                    <input className="form-check-input" type="checkbox" value="" id="defaultCheck1" />
+                                    <label className="form-check-label" htmlFor="defaultCheck1">
                                         Diabetes
                                     </label>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" />
-                                    <label class="form-check-label" for="defaultCheck1">
+                                <div className="form-check">
+                                    <input className="form-check-input" type="checkbox" value="" id="defaultCheck1" />
+                                    <label className="form-check-label" htmlFor="defaultCheck1">
                                         Blood Dyscrasias
                                     </label>
-                                </div> <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" />
-                                    <label class="form-check-label" for="defaultCheck1">
+                                </div> <div className="form-check">
+                                    <input className="form-check-input" type="checkbox" value="" id="defaultCheck1" />
+                                    <label className="form-check-label" htmlFor="defaultCheck1">
                                         Hypertension
                                     </label>
-                                </div> <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" />
-                                    <label class="form-check-label" for="defaultCheck1">
+                                </div> <div className="form-check">
+                                    <input className="form-check-input" type="checkbox" value="" id="defaultCheck1" />
+                                    <label className="form-check-label" htmlFor="defaultCheck1">
                                         Consanguineous Marriage
                                     </label>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" />
-                                    <label class="form-check-label" for="defaultCheck1">
+                                <div className="form-check">
+                                    <input className="form-check-input" type="checkbox" value="" id="defaultCheck1" />
+                                    <label className="form-check-label" htmlFor="defaultCheck1">
                                         Others
                                     </label>
                                 </div>

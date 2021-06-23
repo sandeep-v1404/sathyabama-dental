@@ -8,8 +8,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link as ReachLink } from "react-router-dom"
 import { clearErrors, register } from '../../actions/userActions'
 import MetaData from '../layout/MetaData'
+import PropTypes from 'prop-types';
 
-export default function Register({ history, location }) {
+export default function Register({ history }) {
 
     const [user, setUser] = useState({
         username: '',
@@ -123,3 +124,6 @@ export default function Register({ history, location }) {
         </>
     );
 }
+Register.propTypes = {
+    history: PropTypes.any,
+};

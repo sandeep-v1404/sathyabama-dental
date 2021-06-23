@@ -1,11 +1,10 @@
 import React, { Fragment, useState, useEffect } from 'react'
-
 import MetaData from '../layout/MetaData'
-
 import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
 import { updateUser, getUserDetails, clearErrors } from '../../actions/userActions'
 import { UPDATE_USER_RESET } from '../../constants/userConstants'
+import PropTypes from 'prop-types';
 
 const UpdateUser = ({ history, match }) => {
 
@@ -141,3 +140,8 @@ const UpdateUser = ({ history, match }) => {
 }
 
 export default UpdateUser
+
+UpdateUser.propTypes = {
+    history: PropTypes.any,
+    match: PropTypes.any,
+};

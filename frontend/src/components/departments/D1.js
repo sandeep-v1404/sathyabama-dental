@@ -10,7 +10,7 @@ const D2 = () => {
                 <div className="row align-items-center justify-content-center">
                     <div className="col-12 col-md-8">
                         <form className="p-3 shadow-lg" onSubmit={submitHandler} encType='multipart/form-data'>
-                            <div class="form-group">
+                            <div className="form-group">
                                 <Heading fontSize={'2xl'}>Patient Name (ID)</Heading>
                             </div>
 
@@ -646,45 +646,45 @@ const D2 = () => {
                             <div className="form-row align-items-center form-group">
                                 <label className="col-4 font-weight-bolder">Referal to Departments</label>
                                 <div className="col" >
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" />
-                                        <label class="form-check-label" for="defaultCheck1">
+                                    <div className="form-check">
+                                        <input className="form-check-input" type="checkbox" value="" id="defaultCheck1" />
+                                        <label className="form-check-label" htmlFor="defaultCheck1">
                                             Department of Periodontia
                                         </label>
                                     </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" />
-                                        <label class="form-check-label" for="defaultCheck1">
+                                    <div className="form-check">
+                                        <input className="form-check-input" type="checkbox" value="" id="defaultCheck1" />
+                                        <label className="form-check-label" htmlFor="defaultCheck1">
                                             Department of Oral 	&amp; Maxillo Facial Surgery
                                         </label>
-                                    </div> <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" />
-                                        <label class="form-check-label" for="defaultCheck1">
+                                    </div> <div className="form-check">
+                                        <input className="form-check-input" type="checkbox" value="" id="defaultCheck1" />
+                                        <label className="form-check-label" htmlFor="defaultCheck1">
                                             Department of Conservative dentistry &amp; Endodontia
                                         </label>
-                                    </div> <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" />
-                                        <label class="form-check-label" for="defaultCheck1">
+                                    </div> <div className="form-check">
+                                        <input className="form-check-input" type="checkbox" value="" id="defaultCheck1" />
+                                        <label className="form-check-label" htmlFor="defaultCheck1">
                                             Department of Prosthodontia
                                         </label>
-                                    </div> <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" />
-                                        <label class="form-check-label" for="defaultCheck1">
+                                    </div> <div className="form-check">
+                                        <input className="form-check-input" type="checkbox" value="" id="defaultCheck1" />
+                                        <label className="form-check-label" htmlFor="defaultCheck1">
                                             Department of Pedodontia
                                         </label>
-                                    </div> <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" />
-                                        <label class="form-check-label" for="defaultCheck1">
+                                    </div> <div className="form-check">
+                                        <input className="form-check-input" type="checkbox" value="" id="defaultCheck1" />
+                                        <label className="form-check-label" htmlFor="defaultCheck1">
                                             Department of Orthodontia
                                         </label>
-                                    </div> <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" />
-                                        <label class="form-check-label" for="defaultCheck1">
+                                    </div> <div className="form-check">
+                                        <input className="form-check-input" type="checkbox" value="" id="defaultCheck1" />
+                                        <label className="form-check-label" htmlFor="defaultCheck1">
                                             Department of Public Health dentistry
                                         </label>
-                                    </div> <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" />
-                                        <label class="form-check-label" for="defaultCheck1">
+                                    </div> <div className="form-check">
+                                        <input className="form-check-input" type="checkbox" value="" id="defaultCheck1" />
+                                        <label className="form-check-label" htmlFor="defaultCheck1">
                                             Department of Oral &amp; Maxillo Facial Pathology
                                         </label>
                                     </div>

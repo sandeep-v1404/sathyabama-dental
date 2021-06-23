@@ -1,5 +1,6 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
+import PropTypes from 'prop-types';
 
 const MetaData = ({ title }) => {
     return (
@@ -10,3 +11,6 @@ const MetaData = ({ title }) => {
 }
 
 export default MetaData
+MetaData.propTypes = {
+    title: PropTypes.string,
+};

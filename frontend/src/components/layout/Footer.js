@@ -1,6 +1,6 @@
 import {
     Box,
-    chakra,
+    Button,
     Container,
     Link,
     Stack,
@@ -8,6 +8,8 @@ import {
     useColorModeValue,
     VisuallyHidden,
 } from '@chakra-ui/react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 const Logo = (props) => {
     return (
@@ -34,7 +36,7 @@ const SocialButton = ({
     href,
 }) => {
     return (
-        <chakra.button
+        <Button
             bg={useColorModeValue('blackAlpha.100', 'whiteAlpha.100')}
             rounded={'full'}
             w={8}
@@ -51,7 +53,7 @@ const SocialButton = ({
             }}>
             <VisuallyHidden>{label}</VisuallyHidden>
             {children}
-        </chakra.button>
+        </Button>
     );
 };
 
@@ -106,3 +108,8 @@ export default function SmallCentered() {
         </Box>
     );
 }
+SocialButton.propTypes = {
+    children: PropTypes.any,
+    label: PropTypes.any,
+    href: PropTypes.any,
+};

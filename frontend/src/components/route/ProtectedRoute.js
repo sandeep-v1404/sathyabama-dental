@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'
 import { Route, Redirect } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import PropTypes from 'prop-types';
 
 const ProtectedRoute = ({ isAdmin, component: Component, ...rest }) => {
 
@@ -29,3 +30,8 @@ const ProtectedRoute = ({ isAdmin, component: Component, ...rest }) => {
 }
 
 export default ProtectedRoute
+
+ProtectedRoute.propTypes = {
+    isAdmin: PropTypes.any,
+    component: PropTypes.any,
+};

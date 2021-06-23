@@ -6,6 +6,7 @@ import {
 } from "@chakra-ui/react"
 import React from 'react'
 import { Link as ReachLink } from "react-router-dom"
+import PropTypes from 'prop-types';
 
 function Sidebar({ btnRef, isOpen, onClose, onOpen }) {
 
@@ -85,3 +86,10 @@ function Sidebar({ btnRef, isOpen, onClose, onOpen }) {
     )
 }
 export default Sidebar
+
+Sidebar.propTypes = {
+    btnRef: PropTypes.any,
+    isOpen: PropTypes.any,
+    onClose: PropTypes.any,
+    onOpen: PropTypes.any
+};

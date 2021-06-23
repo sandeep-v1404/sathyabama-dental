@@ -4,7 +4,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { clearErrors, getPatientDetails, updatePatient } from '../../actions/patientActions'
 import { UPDATE_PATIENT_RESET } from '../../constants/patientConstants'
 import MetaData from '../layout/MetaData'
-import { useHistory, } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import PropTypes from 'prop-types';
+
 const UpdatePatient = ({ match }) => {
     const history = useHistory()
     const [outPatientId, setOutPatientId] = useState('');
@@ -168,3 +170,7 @@ const UpdatePatient = ({ match }) => {
 }
 
 export default UpdatePatient
+
+UpdatePatient.propTypes = {
+    match: PropTypes.any,
+};

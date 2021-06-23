@@ -8,7 +8,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { clearErrors, updatePassword } from '../../actions/userActions'
 import { UPDATE_PASSWORD_RESET } from '../../constants/userConstants'
 import MetaData from '../layout/MetaData'
-export default function UpdateProfile({ history }) {
+import PropTypes from 'prop-types';
+
+export default function UpdatePassword({ history }) {
 
     const [oldPassword, setOldPassword] = useState('')
     const [password, setPassword] = useState('')
@@ -94,3 +96,7 @@ export default function UpdateProfile({ history }) {
         </>
     );
 }
+
+UpdatePassword.propTypes = {
+    history: PropTypes.any,
+};

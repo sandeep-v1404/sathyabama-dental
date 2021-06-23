@@ -5,7 +5,7 @@ import {
     Avatar, Box, Button, Flex, HStack, IconButton, LinkBox, LinkOverlay, Menu,
     MenuButton, MenuDivider, MenuItem, MenuList, useColorMode, useColorModeValue, useDisclosure
 } from '@chakra-ui/react';
-import { useRef } from "react";
+import React, { useRef } from "react";
 import { useAlert } from 'react-alert';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link as ReachLink, useHistory } from "react-router-dom";
