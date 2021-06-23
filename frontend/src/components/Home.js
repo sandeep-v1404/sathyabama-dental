@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import {
     Button, Container,
     Heading,
@@ -54,7 +55,7 @@ function MainPage() {
     );
 }
 
-const Home = ({ match, history, location }) => {
+const Home = ({ match, history }) => {
 
     const { isAuthenticated } = useSelector(state => state.auth);
 
