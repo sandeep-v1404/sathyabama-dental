@@ -26,8 +26,6 @@ function Sidebar({ btnRef, isOpen, onClose, onOpen }) {
                     <DrawerCloseButton />
                     <DrawerHeader>Administrator</DrawerHeader>
                     <DrawerBody>
-
-
                         <Accordion defaultIndex={[0]} allowMultiple>
                             <AccordionItem>
                                 <h2>
@@ -57,7 +55,6 @@ function Sidebar({ btnRef, isOpen, onClose, onOpen }) {
                                     </LinkBox>
                                 </AccordionPanel>
                             </AccordionItem>
-
                             <AccordionItem>
                                 <h2>
                                     <AccordionButton>

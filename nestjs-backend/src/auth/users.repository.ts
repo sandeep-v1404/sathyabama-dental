@@ -87,15 +87,15 @@ export class UsersRepository extends Repository<User> {
     updateUserDTO: UpdateUserDTO,
     userId: string,
   ): Promise<{ success: boolean }> {
-    const { username, email } = updateUserDTO;
+    const { username } = updateUserDTO;
+    const user = await this.findOne(userId);
 
+    user.username = username;
     try {
-      const user = await this.findOne(userId);
-      user.username = username;
-      user.email = email;
       this.update(user.id, user);
       return { success: true };
     } catch (error) {
+      console.log(error);
       throw new InternalServerErrorException();
     }
   }

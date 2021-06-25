@@ -1,18 +1,14 @@
+import { ConflictException } from '@nestjs/common';
 import { EntityRepository, Repository } from 'typeorm';
 import { CreatePatientDTO } from './dto/create-patient.dto';
 import { Patient } from './patient.entity';
 
 @EntityRepository(Patient)
 export class PatientsRepository extends Repository<Patient> {
-  async getAllPatients(name: string): Promise<Patient[]> {
-    const query = this.createQueryBuilder('patient');
+  async getAllPatients(): Promise<Patient[]> {
+    const patients = await this.find({ relations: ['patientDOneData'] });
+    console.log(patients);
 
-    if (name) {
-      query.andWhere('LOWER(patient.name) LIKE LOWER(:search)', {
-        search: `%${name}%`,
-      });
-    }
-    const patients = await query.getMany();
     return patients;
   }
   async createPatient(
@@ -41,7 +37,9 @@ export class PatientsRepository extends Repository<Patient> {
       await this.save(patient);
       return patient;
     } catch (error) {
-      console.log(error);
+      if (error.code === '23505') {
+        throw new ConflictException(`${error.detail}`);
+      }
       return `${error.column} should not be empty`;
     }
   }

@@ -25,14 +25,17 @@ export class PatientsController {
     return this.patientsService.getAllPatients();
   }
 
-  @Get('/search/:name')
-  getSearchedPatients(@Param('name') name: string): Promise<Patient[]> {
-    return this.patientsService.getAllPatients(name);
-  }
-
   @Get('/:id')
   getPatientById(@Param('id') id: string): Promise<Patient> {
     return this.patientsService.getPatientById(id);
+  }
+
+  @Get('/admin/:userId')
+  getPatientByIdAdmin(
+    @GetUser('Administrator') user: User,
+    @Param('userId') userId: string,
+  ): Promise<Patient> {
+    return this.patientsService.getPatientByIdAdmin(userId);
   }
 
   @Post()

@@ -13,29 +13,6 @@ const Loader = () => {
                 <CircularProgress isIndeterminate color="green.300" />
             </Center>
         </Flex >
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     )
 }
 

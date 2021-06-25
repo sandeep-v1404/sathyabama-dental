@@ -1,7 +1,7 @@
 import {
-    ALL_PATIENTS_REQUEST,
-    ALL_PATIENTS_SUCCESS,
-    ALL_PATIENTS_FAIL,
+    PATIENT_REQUEST,
+    PATIENT_SUCCESS,
+    PATIENT_FAIL,
     ADMIN_PATIENTS_REQUEST,
     ADMIN_PATIENTS_SUCCESS,
     ADMIN_PATIENTS_FAIL,
@@ -26,18 +26,12 @@ import {
 
 export const patientsReducer = (state = { patients: [] }, action) => {
     switch (action.type) {
-        case ALL_PATIENTS_REQUEST:
         case ADMIN_PATIENTS_REQUEST:
             return {
                 loading: true,
                 patients: []
             }
 
-        case ALL_PATIENTS_SUCCESS:
-            return {
-                loading: false,
-                patients: action.payload,
-            }
 
         case ADMIN_PATIENTS_SUCCESS:
             return {
@@ -45,7 +39,6 @@ export const patientsReducer = (state = { patients: [] }, action) => {
                 patients: action.payload
             }
 
-        case ALL_PATIENTS_FAIL:
         case ADMIN_PATIENTS_FAIL:
             return {
                 loading: false,
@@ -79,6 +72,7 @@ export const newPatientReducer = (state = { patient: {} }, action) => {
                 patient: action.payload
             }
 
+
         case NEW_PATIENT_FAIL:
             return {
                 ...state,
@@ -105,6 +99,17 @@ export const newPatientReducer = (state = { patient: {} }, action) => {
 export const patientReducer = (state = {}, action) => {
     switch (action.type) {
 
+        case PATIENT_REQUEST:
+            return {
+                loading: true,
+                patient: {}
+            }
+
+        case PATIENT_SUCCESS:
+            return {
+                loading: false,
+                patient: action.payload,
+            }
         case DELETE_PATIENT_REQUEST:
         case UPDATE_PATIENT_REQUEST:
             return {
@@ -125,12 +130,17 @@ export const patientReducer = (state = {}, action) => {
                 loading: false,
                 isUpdated: action.payload
             }
-
+        case PATIENT_FAIL:
+            return {
+                loading: false,
+                error: action.payload
+            }
 
         case DELETE_PATIENT_FAIL:
         case UPDATE_PATIENT_FAIL:
             return {
                 ...state,
+                loading: false,
                 error: action.payload
             }
 

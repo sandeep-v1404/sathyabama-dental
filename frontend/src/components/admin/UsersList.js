@@ -5,18 +5,17 @@ import { MDBDataTable, MDBTable } from 'mdbreact'
 import MetaData from '../layout/MetaData'
 import Loader from '../layout/Loader'
 
-import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
 import { allUsers, deleteUser, clearErrors } from '../../actions/userActions'
 import { DELETE_USER_RESET } from '../../constants/userConstants'
 import { useColorMode } from "@chakra-ui/react"
-import { HStack, Center, Box } from "@chakra-ui/react"
+import { HStack, Center, Box, useToast } from "@chakra-ui/react"
 import { EditIcon, DeleteIcon } from "@chakra-ui/icons"
 import PropTypes from 'prop-types';
 
 const UsersList = ({ history }) => {
+    const toast = useToast()
     const { colorMode, } = useColorMode()
-    const alert = useAlert();
     const dispatch = useDispatch();
 
     let { loading, users } = useSelector(state => state.allUsers);
@@ -26,17 +25,27 @@ const UsersList = ({ history }) => {
         dispatch(allUsers());
 
         if (error) {
-            alert.error(error);
+            toast({
+                title: error,
+                status: "error",
+                duration: 5000,
+                isClosable: true,
+            })
             dispatch(clearErrors())
         }
 
         if (isDeleted) {
-            alert.success('User deleted successfully');
+            toast({
+                title: 'User deleted successfully',
+                status: "success",
+                duration: 5000,
+                isClosable: true,
+            })
             history.push('/admin/users');
             dispatch({ type: DELETE_USER_RESET })
         }
 
-    }, [dispatch, alert, error, isDeleted, history])
+    }, [dispatch, error, isDeleted, history])
 
     const deleteUserHandler = (id) => {
         dispatch(deleteUser(id))
@@ -80,7 +89,7 @@ const UsersList = ({ history }) => {
                 role: user.role,
                 department: user.department,
                 actions:
-                    <HStack>
+                    <HStack hidden={user.department === "Administrator"}>
                         <Center w="40px" h="40px" bg="blue.300" color="white">
                             <Link to={`/admin/user/${user.id}`}>
                                 <EditIcon />

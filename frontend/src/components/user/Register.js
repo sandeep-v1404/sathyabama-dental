@@ -1,9 +1,8 @@
 import {
     Box, Button, Flex, FormControl,
-    FormLabel, Heading, Input, Link, Stack, useColorModeValue, Select
+    FormLabel, Heading, Input, Link, Stack, useColorModeValue, Select, InputGroup, InputRightElement, useToast
 } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
-import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link as ReachLink } from "react-router-dom"
 import { clearErrors, register } from '../../actions/userActions'
@@ -11,38 +10,40 @@ import MetaData from '../layout/MetaData'
 import PropTypes from 'prop-types';
 
 export default function Register({ history }) {
-
+    const toast = useToast()
     const [user, setUser] = useState({
         username: '',
         email: '',
         password: '',
         department: '',
-    })
+    });
+    const [show, setShow] = React.useState(false)
+    const handleClick = () => setShow(!show)
 
-    const alert = useAlert();
     const dispatch = useDispatch();
 
     const { isAuthenticated, error, loading } = useSelector(state => state.auth);
 
     useEffect(() => {
-
         if (isAuthenticated) {
             history.push('/')
         }
-
         if (error) {
-            alert.error(error);
+            toast({
+                title: error,
+                status: "error",
+                duration: 5000,
+                isClosable: true,
+            })
             dispatch(clearErrors());
         }
-
-    }, [dispatch, alert, isAuthenticated, error, history])
+    }, [dispatch, isAuthenticated, error, history])
 
     const submitHandler = (e) => {
         e.preventDefault();
         dispatch(register(user))
 
     }
-
     const onChange = (e) => {
         setUser({ ...user, [e.target.name]: e.target.value })
     }
@@ -55,7 +56,7 @@ export default function Register({ history }) {
                 align={'center'}
                 justify={'center'}
                 bg={useColorModeValue('gray.50', 'gray.800')}>
-                <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
+                <Stack spacing={8} mx={'auto'} w={[400, 500, 600]} py={12} px={6}>
                     <Stack align={'center'}>
                         <Heading fontSize={'4xl'}>Create a new account</Heading>
                     </Stack>
@@ -81,25 +82,38 @@ export default function Register({ history }) {
                                     value={user.email}
                                     onChange={onChange} />
                             </FormControl>
-                            <FormControl id="password">
+                            <FormControl >
                                 <FormLabel>Password</FormLabel>
-                                <Input
-                                    name="password"
-                                    type="password"
-                                    value={user.password}
-                                    onChange={onChange} />
+                                <InputGroup size="md">
+                                    <Input
+                                        name="password"
+                                        value={user.password}
+                                        onChange={onChange}
+                                        pr="4.5rem"
+                                        type={show ? "text" : "password"}
+                                        placeholder="Enter password"
+                                    />
+                                    <InputRightElement width="4.5rem">
+                                        <Button h="1.75rem" size="sm" onClick={handleClick}>
+                                            {show ? "Hide" : "Show"}
+                                        </Button>
+                                    </InputRightElement>
+                                </InputGroup>
                             </FormControl>
-                            <Select placeholder="Select option" value={user.department} name="department" onChange={onChange}>
-                                <option value="D1">D1</option>
-                                <option value="D2">D2</option>
-                                <option value="D3">D3</option>
-                                <option value="D4">D4</option>
-                                <option value="D5">D5</option>
-                                <option value="D6">D6</option>
-                                <option value="D7">D7</option>
-                                <option value="D8">D8</option>
-                                <option value="D9">D9</option>
-                            </Select>
+                            <FormControl >
+                                <FormLabel>Department</FormLabel>
+                                <Select placeholder="Select option" value={user.department} name="department" onChange={onChange}>
+                                    <option value="D1">D1</option>
+                                    <option value="D2">D2</option>
+                                    <option value="D3">D3</option>
+                                    <option value="D4">D4</option>
+                                    <option value="D5">D5</option>
+                                    <option value="D6">D6</option>
+                                    <option value="D7">D7</option>
+                                    <option value="D8">D8</option>
+                                    <option value="D9">D9</option>
+                                </Select>
+                            </FormControl>
                             <Stack spacing={10}>
                                 <Button
                                     disabled={loading ? true : false}

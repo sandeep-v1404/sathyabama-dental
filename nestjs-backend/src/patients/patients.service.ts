@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreatePatientDTO } from './dto/create-patient.dto';
 import { Patient } from './patient.entity';
@@ -11,16 +15,23 @@ export class PatientsService {
     private patientsRepository: PatientsRepository,
   ) {}
 
-  async getAllPatients(name?: string): Promise<Patient[]> {
-    const found = await this.patientsRepository.getAllPatients(name);
+  async getAllPatients(): Promise<Patient[]> {
+    const found = await this.patientsRepository.getAllPatients();
     if (!found) {
-      throw new NotFoundException(`No Patients`);
+      throw new InternalServerErrorException();
     }
     return found;
   }
 
   async getPatientById(id: string): Promise<Patient> {
-    const found = await this.patientsRepository.findOne(id);
+    const found = await this.patientsRepository.findOne({ outPatientId: id });
+    if (!found) {
+      throw new NotFoundException(`Patient with ID '${id}' Not Found`);
+    }
+    return found;
+  }
+  async getPatientByIdAdmin(id: string): Promise<Patient> {
+    const found = await this.patientsRepository.findOne({ id });
     if (!found) {
       throw new NotFoundException(`Patient with ID '${id}' Not Found`);
     }
@@ -43,9 +54,13 @@ export class PatientsService {
     createPatientDTO: CreatePatientDTO,
     patientId: number,
   ): Promise<{ success: boolean }> {
-    await this.patientsRepository.update(patientId, {
-      ...createPatientDTO,
-    });
-    return { success: true };
+    try {
+      await this.patientsRepository.update(patientId, {
+        ...createPatientDTO,
+      });
+      return { success: true };
+    } catch (error) {
+      throw new InternalServerErrorException();
+    }
   }
 }

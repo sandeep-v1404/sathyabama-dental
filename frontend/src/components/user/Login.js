@@ -1,21 +1,23 @@
 import {
     Box, Button, Flex, FormControl,
-    FormLabel, Heading, Input, Link, Stack, useColorModeValue
+    FormLabel, Heading, Input, InputGroup, InputRightElement, Link, Stack, useColorModeValue, useToast
 } from '@chakra-ui/react'
+import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
-import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link as ReachLink } from "react-router-dom"
 import { clearErrors, login } from '../../actions/userActions'
 import MetaData from '../layout/MetaData'
-import PropTypes from 'prop-types';
+import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 
 export default function Login({ history, location }) {
-
+    const toast = useToast()
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const alert = useAlert();
+    const [show, setShow] = React.useState(false)
+    const handleClick = () => setShow(!show)
+
     const dispatch = useDispatch();
 
     const { isAuthenticated, error } = useSelector(state => state.auth);
@@ -27,11 +29,16 @@ export default function Login({ history, location }) {
             history.push(redirect)
         }
         if (error) {
-            alert.error(error);
+            toast({
+                title: error,
+                status: "error",
+                duration: 5000,
+                isClosable: true,
+            })
             dispatch(clearErrors());
         }
 
-    }, [dispatch, alert, isAuthenticated, error, history, redirect])
+    }, [dispatch, isAuthenticated, error, history, redirect])
 
     const submitHandler = (e) => {
         e.preventDefault();
@@ -47,7 +54,7 @@ export default function Login({ history, location }) {
                 align={'center'}
                 justify={'center'}
                 bg={useColorModeValue('gray.50', 'gray.800')}>
-                <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
+                <Stack spacing={8} mx={'auto'} w={[400, 500, 600]} py={12} px={6}>
                     <Stack align={'center'}>
                         <Heading fontSize={'4xl'}>Sign in to your account</Heading>
                     </Stack>
@@ -66,13 +73,26 @@ export default function Login({ history, location }) {
                             </FormControl>
                             <FormControl id="password">
                                 <FormLabel>Password</FormLabel>
-                                <Input type="password"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)} />
+                                <InputGroup size="md">
+                                    <Input
+                                        name="password"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        pr="4.5rem"
+                                        type={show ? "text" : "password"}
+                                        placeholder="Enter password"
+                                    />
+                                    <InputRightElement onClick={handleClick} _hover={{ cursor: "pointer" }}>
+                                        {show ? <ViewOffIcon /> : <ViewIcon />}
+                                    </InputRightElement>
+                                </InputGroup>
                             </FormControl>
                             <Stack spacing={10}>
                                 <Button
                                     type={"submit"}
+                                    boxShadow={
+                                        '0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)'
+                                    }
                                     bg={'blue.400'}
                                     color={'white'}
                                     _hover={{

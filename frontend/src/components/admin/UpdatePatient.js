@@ -1,176 +1,153 @@
-import React, { Fragment, useEffect, useState } from 'react'
-import { useAlert } from 'react-alert'
+import {
+    Box, Button, Flex, Stack, useColorModeValue, Heading, useToast
+} from '@chakra-ui/react'
+import { Form, Formik } from "formik"
+import {
+    InputControl, NumberInputControl, SelectControl, TextareaControl
+} from "formik-chakra-ui"
+import PropTypes from 'prop-types'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from "react-router-dom"
 import { clearErrors, getPatientDetails, updatePatient } from '../../actions/patientActions'
 import { UPDATE_PATIENT_RESET } from '../../constants/patientConstants'
 import MetaData from '../layout/MetaData'
-import { useHistory } from "react-router-dom";
-import PropTypes from 'prop-types';
-
-const UpdatePatient = ({ match }) => {
+UpdatePatient.propTypes = {
+    match: PropTypes.any,
+};
+export default function UpdatePatient({ match }) {
+    const toast = useToast()
     const history = useHistory()
-    const [outPatientId, setOutPatientId] = useState('');
-    const [name, setName] = useState('');
-    const [age, setAge] = useState(0);
-    const [sex, setSex] = useState("Choose");
-    const [occupation, setOccupation] = useState("");
-    const [contactNumber, setContactNumber] = useState(0);
-    const [residentialAddress, setResidentialAddress] = useState("");
-
-    const alert = useAlert();
     const dispatch = useDispatch();
 
+    const [loadedValues, setLoadedValues] = useState(null)
     const { error, patient } = useSelector(state => state.patientDetails)
-    const { error: updateError, isUpdated } = useSelector(state => state.patient);
+    const patientSelector = useSelector(state => state.patient);
 
     const patientId = match.params.id;
+
+
     useEffect(() => {
         if (patient && patient.id !== patientId) {
             dispatch(getPatientDetails(patientId));
         } else {
-            setOutPatientId(patient.outPatientId);
-            setName(patient.name);
-            setAge(patient.age);
-            setSex(patient.sex);
-            setOccupation(patient.occupation);
-            setContactNumber(patient.contactNumber);
-            setResidentialAddress(patient.residentialAddress)
+            setLoadedValues({
+                outPatientId: patient.outPatientId,
+                name: patient.name,
+                age: patient.age,
+                sex: patient.sex,
+                occupation: patient.occupation,
+                contactNumber: patient.contactNumber,
+                residentialAddress: patient.residentialAddress
+            })
         }
-        if (error) {
-            alert.error(error);
+        if (patientSelector.error || error) {
+            toast({
+                title: patientSelector.error || error,
+                status: "error",
+                duration: 5000,
+                isClosable: true,
+            })
             dispatch(clearErrors())
         }
-        if (updateError) {
-            alert.error(updateError);
+        if (patientSelector.updateError) {
+            toast({
+                title: patientSelector.updateError,
+                status: "error",
+                duration: 5000,
+                isClosable: true,
+            })
             dispatch(clearErrors())
         }
-        if (isUpdated) {
+        if (patientSelector.isUpdated) {
             history.replace("/admin/patients")
             window.location.reload();
-
-            alert.success('Patient updated successfully');
+            toast({
+                title: 'Patient updated successfully',
+                status: "success",
+                duration: 5000,
+                isClosable: true,
+            })
             dispatch({ type: UPDATE_PATIENT_RESET })
         }
-    }, [dispatch, alert, error, isUpdated, history, updateError, patient, patientId])
+    }, [dispatch, alert, error, patientSelector.isUpdated, history, patientSelector.updateError, patientSelector.error, patient, patientId])
 
-    const submitHandler = (e) => {
-        e.preventDefault();
-        const patientData = {
-            outPatientId, name, age, sex, occupation, contactNumber, residentialAddress
-        }
-
+    const submitHandler = (patientData) => {
         dispatch(updatePatient(patient.id, patientData));
     }
-
     return (
-        <Fragment>
-            <MetaData title={'Update Patient'} />
-            <div className="container">
-                <div className="row">
-                    <div className="col-12">
-                        <Fragment>
-                            <div className="container wrapper my-5">
-                                <div className="row align-items-center justify-content-center">
-                                    <div className="col-12 col-md-8">
-                                        <form className="p-3 shadow-lg" onSubmit={submitHandler}>
-                                            <h1 className="mb-4">Update Patient Details</h1>
-
-                                            <div className="form-group">
-                                                <label htmlFor="name_field">Id</label>
-                                                <input
-                                                    type="text"
-                                                    className="form-control"
-                                                    value={outPatientId}
-                                                    readOnly
-                                                />
-                                            </div>
-                                            <div className="form-group">
-                                                <label htmlFor="name_field">Name</label>
-                                                <input
-                                                    type="text"
-                                                    placeholder="John Abraham"
-                                                    id="name_field"
-                                                    className="form-control"
-                                                    value={name}
-                                                    onChange={(e) => setName(e.target.value)}
-                                                />
-                                            </div>
-
-                                            <div className="form-group">
-                                                <label htmlFor="age_field">Age</label>
-                                                <input
-                                                    type="number"
-                                                    min="0"
-                                                    placeholder="25"
-                                                    id="age_field"
-                                                    className="form-control"
-                                                    value={age}
-                                                    onChange={(e) => setAge(e.target.value)}
-                                                />
-                                            </div>
-                                            <div className="form-group">
-                                                <label htmlFor="category_field">Sex</label>
-                                                <select className="form-control" id="category_field" value={sex} onChange={(e) => setSex(e.target.value)}>
-                                                    <option disabled>Choose</option>
+        <>
+            {
+                loadedValues &&
+                <>
+                    <MetaData title={'Update Patient'} />
+                    <Flex
+                        minH={'100vh'}
+                        align={'center'}
+                        justify={'center'}
+                        bg={useColorModeValue('gray.50', 'gray.800')}>
+                        <Stack spacing={8} mx={'auto'} w={[400, 500, 800]} py={12} px={6}>
+                            <Stack align={'center'}>
+                                <Heading fontSize={['2xl', '3xl', '4xl']}>Update Patient</Heading>
+                            </Stack>
+                            <Box
+                                rounded={'lg'}
+                                bg={useColorModeValue('white', 'gray.700')}
+                                boxShadow={'lg'}
+                                p={8}>
+                                <Stack spacing={4}>
+                                    <Formik
+                                        initialValues={loadedValues || {
+                                            outPatientId: '',
+                                            name: '',
+                                            age: '',
+                                            sex: '',
+                                            occupation: '',
+                                            contactNumber: '',
+                                            residentialAddress: '',
+                                        }}
+                                        onSubmit={(values) => {
+                                            submitHandler(values);
+                                        }}
+                                    >
+                                        {() => (
+                                            <Form>
+                                                <InputControl mt={3} isReadOnly name="outPatientId" label="OutPatient Id" />
+                                                <InputControl mt={3} name="name" label="Name" />
+                                                <NumberInputControl mt={3} name="age" label="Age" />
+                                                <SelectControl
+                                                    name="sex" mt={3} label="Sex"
+                                                >
                                                     <option value="Male">Male</option>
                                                     <option value="Female">Female</option>
-                                                    <option value="Other">Other</option>
-                                                </select>
-                                            </div>
-                                            <div className="form-group">
-                                                <label htmlFor="occupation_field">Occupation</label>
-                                                <input
-                                                    type="text"
-                                                    id="occupation_field"
-                                                    className="form-control"
-                                                    value={occupation}
-                                                    onChange={(e) => setOccupation(e.target.value)}
-                                                />
-                                            </div>
-                                            <div className="form-group">
-                                                <label htmlFor="contactNumber_field">Contact Number</label>
-                                                <input
-                                                    type="number"
-                                                    min="0"
-                                                    id="contactNumber_field"
-                                                    className="form-control"
-                                                    value={contactNumber}
-                                                    onChange={(e) => setContactNumber(e.target.value)}
-                                                />
-                                            </div>
-                                            <div className="form-group">
-                                                <label htmlFor="residentialAddress_field">Residential Address</label>
-                                                <textarea
-                                                    type="text"
-                                                    id="residentialAddress_field"
-                                                    className="form-control"
-                                                    value={residentialAddress}
-                                                    onChange={(e) => setResidentialAddress(e.target.value)}
-                                                />
-                                            </div>
-                                            <button
-                                                id="login_button"
-                                                type="submit"
-                                                className="btn btn-block py-3"
-                                            >
-                                                UPDATE
-                                            </button>
-
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </Fragment>
-                    </div>
-                </div>
-            </div>
-
-        </Fragment>
-    )
+                                                    <option value="Others">Others</option>
+                                                </SelectControl>
+                                                <InputControl mt={3} name="occupation" label="Occupation" />
+                                                <NumberInputControl mt={3} name="contactNumber" label="Contact Number" />
+                                                <TextareaControl mt={3} name="residentialAddress" label="Residential Address" />
+                                                <Stack spacing={10} mt={3}>
+                                                    <Button
+                                                        type={"submit"}
+                                                        boxShadow={
+                                                            '0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)'
+                                                        }
+                                                        bg={'blue.400'}
+                                                        color={'white'}
+                                                        _hover={{
+                                                            bg: 'blue.500',
+                                                        }}>
+                                                        Update Patient
+                                                    </Button>
+                                                </Stack>
+                                            </Form>
+                                        )}
+                                    </Formik>
+                                </Stack>
+                            </Box>
+                        </Stack>
+                    </Flex>
+                </>
+            }
+        </>
+    );
 }
-
-export default UpdatePatient
-
-UpdatePatient.propTypes = {
-    match: PropTypes.any,
-};

@@ -1,9 +1,9 @@
 import axios from 'axios';
 
 import {
-    ALL_PATIENTS_REQUEST,
-    ALL_PATIENTS_SUCCESS,
-    ALL_PATIENTS_FAIL,
+    PATIENT_REQUEST,
+    PATIENT_SUCCESS,
+    PATIENT_FAIL,
     ADMIN_PATIENTS_REQUEST,
     ADMIN_PATIENTS_SUCCESS,
     ADMIN_PATIENTS_FAIL,
@@ -28,18 +28,18 @@ import { getConfig } from "../utils/getConfig"
 export const getPatients = (search) => async (dispatch) => {
     try {
 
-        dispatch({ type: ALL_PATIENTS_REQUEST })
-        const { data } = await axios.get(`/patients/search/${search}`, getConfig());
+        dispatch({ type: PATIENT_REQUEST })
+        const { data } = await axios.get(`/patients/${search}`, getConfig());
 
         dispatch({
-            type: ALL_PATIENTS_SUCCESS,
+            type: PATIENT_SUCCESS,
             payload: data
         })
 
     } catch (error) {
         const err = handleHTTPerrors(error)
         dispatch({
-            type: ALL_PATIENTS_FAIL,
+            type: PATIENT_FAIL,
             payload: err
         })
     }
@@ -101,6 +101,7 @@ export const updatePatient = (id, patientData) => async (dispatch) => {
         })
 
     } catch (error) {
+        console.log(error);
         const err = handleHTTPerrors(error)
         dispatch({
             type: UPDATE_PATIENT_FAIL,
@@ -114,7 +115,7 @@ export const getPatientDetails = (id) => async (dispatch) => {
 
         dispatch({ type: PATIENT_DETAILS_REQUEST })
 
-        const { data } = await axios.get(`/patients/${id}`, getConfig())
+        const { data } = await axios.get(`/patients/admin/${id}`, getConfig())
 
         dispatch({
             type: PATIENT_DETAILS_SUCCESS,
@@ -129,8 +130,6 @@ export const getPatientDetails = (id) => async (dispatch) => {
         })
     }
 }
-
-
 
 export const getAdminPatients = () => async (dispatch) => {
     try {

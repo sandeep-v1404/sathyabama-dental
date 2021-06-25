@@ -9,6 +9,7 @@ export function handleHTTPerrors(error) {
         case 409:
             return error.response.data.message;
         default:
+            return error.response.data.message;
     }
 
 }

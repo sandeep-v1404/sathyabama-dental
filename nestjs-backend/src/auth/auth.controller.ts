@@ -56,7 +56,7 @@ export class AuthController {
   @Get('/users/:userId')
   @UseGuards(AuthGuard())
   async getUserByIdAdmin(
-    @GetUser('Administrator') user: User,
+    @GetUser('Administrator') _user: User,
     @Param('userId') userId: string,
   ): Promise<User> {
     return this.authService.getUserByIdAdmin(userId);

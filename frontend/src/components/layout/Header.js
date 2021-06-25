@@ -3,10 +3,9 @@ import {
 } from '@chakra-ui/icons';
 import {
     Avatar, Box, Button, Flex, HStack, IconButton, LinkBox, LinkOverlay, Menu,
-    MenuButton, MenuDivider, MenuItem, MenuList, useColorMode, useColorModeValue, useDisclosure
+    MenuButton, MenuDivider, MenuItem, MenuList, useColorMode, useColorModeValue, useDisclosure, useToast
 } from '@chakra-ui/react';
 import React, { useRef } from "react";
-import { useAlert } from 'react-alert';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link as ReachLink, useHistory } from "react-router-dom";
 import { logout } from '../../actions/userActions';
@@ -14,11 +13,12 @@ import Sidebar from "../admin/Sidebar";
 
 
 export default function Header() {
+
+    const toast = useToast()
     const history = useHistory();
     const btnRef = useRef()
     const { isOpen, onOpen, onClose } = useDisclosure()
 
-    const alert = useAlert();
     const dispatch = useDispatch();
 
     const { colorMode, toggleColorMode } = useColorMode()
@@ -27,7 +27,12 @@ export default function Header() {
 
     const logoutHandler = () => {
         dispatch(logout());
-        alert.success('Logged out successfully.')
+        toast({
+            title: 'Logged out successfully.',
+            status: "success",
+            duration: 5000,
+            isClosable: true,
+        })
         history.push("/");
     }
 

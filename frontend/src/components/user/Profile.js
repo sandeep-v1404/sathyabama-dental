@@ -14,8 +14,7 @@ export default function Profile() {
             <Center py={'16'}>
                 <MetaData title={'Your Profile'} />
                 <Box
-                    maxW={'320px'}
-                    w={'full'}
+                    w={[320, 500, 600]}
                     bg={useColorModeValue('white', 'gray.900')}
                     boxShadow={'2xl'}
                     rounded={'lg'}
@@ -65,6 +64,7 @@ export default function Profile() {
                             </LinkOverlay>
                         </Button>
                         <Button
+                            hidden={user.department === "Administrator"}
                             flex={1}
                             fontSize={'sm'}
                             rounded={'full'}
@@ -79,6 +79,7 @@ export default function Profile() {
                             _focus={{
                                 bg: 'blue.500',
                             }}>
+
                             <LinkOverlay _hover={{
                                 textDecoration: 'none',
                                 color: "black"

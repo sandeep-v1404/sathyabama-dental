@@ -1,21 +1,18 @@
-import React, { Fragment, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { MDBDataTable, MDBTable } from 'mdbreact'
+import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import { Box, Center, HStack, useColorMode, useToast } from "@chakra-ui/react";
+import { MDBDataTable, MDBTable } from 'mdbreact';
 import PropTypes from 'prop-types';
-import MetaData from '../layout/MetaData'
-import Loader from '../layout/Loader'
+import React, { Fragment, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { clearErrors, deletePatient, getAdminPatients } from '../../actions/patientActions';
+import { DELETE_PATIENT_RESET } from '../../constants/patientConstants';
+import Loader from '../layout/Loader';
+import MetaData from '../layout/MetaData';
 
-import { useAlert } from 'react-alert'
-import { useDispatch, useSelector } from 'react-redux'
-import { getAdminPatients, deletePatient, clearErrors } from '../../actions/patientActions'
-import { DELETE_PATIENT_RESET } from '../../constants/patientConstants'
-import { useColorMode } from "@chakra-ui/react"
-import { HStack, Center, Box } from "@chakra-ui/react"
-import { EditIcon, DeleteIcon } from "@chakra-ui/icons"
 
 const PatientsList = ({ history }) => {
-
-    const alert = useAlert();
+    const toast = useToast()
     const dispatch = useDispatch();
     const { colorMode, } = useColorMode()
     const { loading, error, patients } = useSelector(state => state.patients);
@@ -25,17 +22,32 @@ const PatientsList = ({ history }) => {
         dispatch(getAdminPatients());
 
         if (error) {
-            alert.error(error);
+            toast({
+                title: error,
+                status: "error",
+                duration: 5000,
+                isClosable: true,
+            })
             dispatch(clearErrors())
         }
 
         if (deleteError) {
-            alert.error(deleteError);
+            toast({
+                title: deleteError,
+                status: "error",
+                duration: 5000,
+                isClosable: true,
+            })
             dispatch(clearErrors())
         }
 
         if (isDeleted) {
-            alert.success('Patient deleted successfully');
+            toast({
+                title: 'Patient deleted successfully',
+                status: "success",
+                duration: 5000,
+                isClosable: true,
+            })
             history.replace('/admin/patients');
             window.location.reload();
             dispatch({ type: DELETE_PATIENT_RESET })

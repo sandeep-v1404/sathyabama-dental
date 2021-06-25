@@ -1,16 +1,15 @@
-/* eslint-disable react/prop-types */
 import {
-    Button, Container,
-    Heading,
-    Stack,
-    Text,
+    Button, Container, Flex, Stack,
+    Text, useColorModeValue, Heading
 } from '@chakra-ui/react';
+import PropTypes from 'prop-types';
 import 'rc-slider/assets/index.css';
-import React, { Fragment, useEffect } from 'react';
-import { useAlert } from 'react-alert';
+import React, { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getPatients } from '../actions/patientActions';
 import Search from "../components/layout/Search";
+import {
+    PATIENT_FAIL
+} from "../constants/patientConstants";
 import Loader from './layout/Loader';
 import MetaData from "./layout/MetaData";
 import Patient from './patient/Patient';
@@ -55,27 +54,13 @@ function MainPage() {
     );
 }
 
-const Home = ({ match, history }) => {
+const Home = ({ history }) => {
 
     const { isAuthenticated } = useSelector(state => state.auth);
 
-    const alert = useAlert();
     const dispatch = useDispatch();
 
-    const { loading, patients, error } = useSelector(state => state.patients)
-
-    const keyword = match.params.keyword
-
-    useEffect(() => {
-        if (error) {
-            console.error(error)
-            return;
-        }
-        if (keyword) {
-            dispatch(getPatients(keyword))
-        }
-
-    }, [dispatch, alert, error, keyword])
+    const { loading, patient } = useSelector(state => state.patient)
 
     return (
         <Fragment>
@@ -85,13 +70,36 @@ const Home = ({ match, history }) => {
 
                     {!isAuthenticated ? <MainPage /> :
                         <>
-                            {keyword
-                                ?
-                                patients.map(patient => (
+                            {
+                                patient ? <>
+                                    <Flex
+                                        align={'center'}
+                                        justify={'center'}
+                                        bg={useColorModeValue('gray.50', 'gray.800')}>
+                                        <Container
+                                            maxW={'lg'}
+                                            bg={useColorModeValue('white', 'whiteAlpha.100')}
+                                            boxShadow={'xl'}
+                                            rounded={'lg'}
+                                            p={6}
+                                            direction={'column'}>
+                                            <Stack
+                                                spacing={'12px'}
+                                            >
+                                                <Button
+                                                    colorScheme={'blue'}
+                                                    w="100%"
+                                                    onClick={() => dispatch({ type: PATIENT_FAIL })}
+                                                >
+                                                    Search for Other Patient
+                                                </Button>
+                                            </Stack>
+                                        </Container>
+                                    </Flex>
                                     <Patient key={patient.id} patient={patient} col={12} />
-                                ))
-                                :
-                                <Search history={history} />
+                                </>
+                                    :
+                                    <Search history={history} />
                             }
                         </>
                     }
@@ -101,4 +109,9 @@ const Home = ({ match, history }) => {
     )
 }
 
-export default Home
+export default Home;
+
+Home.propTypes = {
+    history: PropTypes.any,
+    match: PropTypes.any
+};

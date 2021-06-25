@@ -1,17 +1,44 @@
 import {
     Avatar, Button, Center, Container,
-    Flex, FormControl, Heading, Input, Stack, useColorModeValue
+    Flex, FormControl, Heading, Input, Stack, useColorModeValue, useToast
 } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { getPatients, clearErrors } from "../../actions/patientActions"
 
 export default function Search({ history }) {
+
+    const toast = useToast()
+    const { error } = useSelector(state => state.patient)
+
     const [keyword, setKeyword] = useState('');
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (error) {
+            toast({
+                title: error,
+                status: "error",
+                duration: 5000,
+                isClosable: true,
+            })
+            history.push("/");
+            return;
+        }
+        if (keyword) {
+            dispatch(clearErrors())
+            dispatch(getPatients(keyword))
+            return;
+        }
+
+    }, [dispatch, error])
+
 
     const searchHandler = (e) => {
         e.preventDefault()
         if (keyword.trim()) {
-            history.push(`/search/${keyword}`);
+            dispatch(getPatients(keyword))
         } else {
             history.push('/')
         }
@@ -37,7 +64,7 @@ export default function Search({ history }) {
                     fontSize={{ base: 'xl', sm: '2xl' }}
                     textAlign={'center'}
                     mb={5}>
-                    Search By Patient Name
+                    Search By Patient OP Id
                 </Heading>
                 <Stack
                     direction={{ base: 'column', md: 'row' }}
@@ -56,8 +83,8 @@ export default function Search({ history }) {
                             id={'email'}
                             type="text"
                             required
-                            placeholder={'Enter Name Here'}
-                            aria-label={'Patient Name'}
+                            placeholder={'Enter Id Here'}
+                            aria-label={'Patient Id'}
                             onChange={(e) => setKeyword(e.target.value)}
                         />
                     </FormControl>

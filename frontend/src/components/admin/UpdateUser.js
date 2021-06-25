@@ -1,19 +1,22 @@
-import React, { Fragment, useState, useEffect } from 'react'
-import MetaData from '../layout/MetaData'
-import { useAlert } from 'react-alert'
+import {
+    Box, Button, Flex, Heading, Stack, useColorModeValue, useToast
+} from '@chakra-ui/react'
+import { Form, Formik } from "formik"
+import {
+    InputControl,
+    SelectControl
+} from "formik-chakra-ui"
+import PropTypes from 'prop-types'
+import React, { Fragment, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { updateUser, getUserDetails, clearErrors } from '../../actions/userActions'
+import { clearErrors, getUserDetails, updateUser } from '../../actions/userActions'
 import { UPDATE_USER_RESET } from '../../constants/userConstants'
-import PropTypes from 'prop-types';
+import MetaData from '../layout/MetaData'
 
 const UpdateUser = ({ history, match }) => {
+    const toast = useToast()
+    const [loadedValues, setLoadedValues] = useState(null);
 
-    const [username, setUsername] = useState('')
-    const [email, setEmail] = useState('')
-    const [role, setRole] = useState('Choose')
-    const [department, setDepartment] = useState('Choose');
-
-    const alert = useAlert();
     const dispatch = useDispatch();
 
     const { error, isUpdated } = useSelector(state => state.user);
@@ -25,19 +28,31 @@ const UpdateUser = ({ history, match }) => {
         if (user && user.id !== userId) {
             dispatch(getUserDetails(userId))
         } else {
-            setUsername(user.username);
-            setEmail(user.email);
-            setRole(user.role);
-            setDepartment(user.department);
+            setLoadedValues({
+                username: user.username,
+                email: user.email,
+                role: user.role,
+                department: user.department
+            })
         }
 
         if (error) {
-            alert.error(error);
+            toast({
+                title: error,
+                status: "error",
+                duration: 5000,
+                isClosable: true,
+            })
             dispatch(clearErrors());
         }
 
         if (isUpdated) {
-            alert.success('User updated successfully')
+            toast({
+                title: 'User updated successfully',
+                status: "success",
+                duration: 5000,
+                isClosable: true,
+            })
 
             history.push('/admin/users')
 
@@ -46,95 +61,85 @@ const UpdateUser = ({ history, match }) => {
             })
         }
 
-    }, [dispatch, alert, error, history, isUpdated, userId, user])
+    }, [dispatch, error, history, isUpdated, userId, user])
 
-    const submitHandler = (e) => {
-        e.preventDefault();
-
-        const userData = {
-            username, email, role, department
-        }
-
+    const submitHandler = (userData) => {
         dispatch(updateUser(user.id, userData))
     }
 
-
     return (
         <Fragment>
-            <MetaData title={`Update User`} />
-            <div className="container">
-                <div className="row">
-                    <div className="col-12">
-                        <div className="row align-items-center justify-content-center">
-                            <div className="col-12 col-md-8 my-5">
-                                <form className="shadow-lg p-3" onSubmit={submitHandler}>
-                                    <div className="form-group">
-                                        <h2 className="font-weight-bolder">Update User</h2>
-                                    </div>
-                                    <div className="form-group">
-                                        <label htmlFor="name_field">Username</label>
-                                        <input
-                                            type="name"
-                                            id="name_field"
-                                            className="form-control"
-                                            name='name'
-                                            value={username}
-                                            onChange={(e) => setUsername(e.target.value)}
-                                        />
-                                    </div>
-
-                                    <div className="form-group">
-                                        <label htmlFor="email_field">Email</label>
-                                        <input
-                                            type="email"
-                                            id="email_field"
-                                            className="form-control"
-                                            name='email'
-                                            value={email}
-                                            onChange={(e) => setEmail(e.target.value)}
-                                        />
-                                    </div>
-                                    {user && user.department !== "Administrator" && <> <div className="form-group">
-                                        <label htmlFor="role_field">Role</label>
-                                        <select
-                                            id="role_field"
-                                            className="form-control"
-                                            name='role'
-                                            value={role}
-                                            onChange={(e) => setRole(e.target.value)}
-                                        >
-                                            <option disabled>Choose</option>
-                                            <option value="Authorized">Authorized</option>
-                                            <option value="Unauthorized">Unauthorized</option>
-                                        </select>
-                                    </div>
-                                        <div className="form-group">
-                                            <label htmlFor="role_field">Department</label>
-                                            <select className="form-control" id="department_field" value={department} onChange={(e) => setDepartment(e.target.value)}>
-                                                <option disabled>Choose</option>
-                                                <option value="D1">D1</option>
-                                                <option value="D2">D2</option>
-                                                <option value="D3">D3</option>
-                                                <option value="D4">D4</option>
-                                                <option value="D5">D5</option>
-                                                <option value="D6">D6</option>
-                                                <option value="D7">D7</option>
-                                                <option value="D8">D8</option>
-                                                <option value="D9">D9</option>
-                                            </select>
-                                        </div>
-                                    </>
-                                    }
-
-
-                                    <button type="submit" disabled={role === "Administrator"} className="btn update-btn btn-block mt-4 mb-3" >Update</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+            {
+                loadedValues && <>
+                    <MetaData title={`Update User`} />
+                    <Flex
+                        minH={'100vh'}
+                        align={'center'}
+                        justify={'center'}
+                        bg={useColorModeValue('gray.50', 'gray.800')}>
+                        <Stack spacing={8} mx={'auto'} w={[400, 500, 800]} py={12} px={6}>
+                            <Stack align={'center'}>
+                                <Heading fontSize={['2xl', '3xl', '4xl']}>Update User</Heading>
+                            </Stack>
+                            <Box
+                                rounded={'lg'}
+                                bg={useColorModeValue('white', 'gray.700')}
+                                boxShadow={'lg'}
+                                p={8}>
+                                <Stack spacing={4}>
+                                    <Formik
+                                        initialValues={loadedValues}
+                                        onSubmit={(values) => {
+                                            submitHandler(values);
+                                        }}
+                                    >
+                                        {({ isSubmitting }) => (
+                                            <Form>
+                                                <InputControl mt={3} name="username" label="Username" />
+                                                <InputControl mt={3} name="email" label="Email" />
+                                                <SelectControl mt={3} isReadOnly={user.department === 'Administrator'}
+                                                    name="role" label="Role"
+                                                >
+                                                    <option value="Authorized">Authorized</option>
+                                                    <option value="Unauthorized">Unauthorized</option>
+                                                </SelectControl>
+                                                <SelectControl mt={3} isReadOnly={user.department === 'Administrator'}
+                                                    name="department" label="Department"
+                                                >
+                                                    <option value="D1">D1</option>
+                                                    <option value="D2">D2</option>
+                                                    <option value="D3">D3</option>
+                                                    <option value="D4">D4</option>
+                                                    <option value="D5">D5</option>
+                                                    <option value="D6">D6</option>
+                                                    <option value="D7">D7</option>
+                                                    <option value="D8">D8</option>
+                                                    <option value="D9">D9</option>
+                                                </SelectControl>
+                                                <Stack spacing={10} mt={3}>
+                                                    <Button
+                                                        disabled={user.department === 'Administrator' || isSubmitting}
+                                                        type={"submit"}
+                                                        boxShadow={
+                                                            '0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)'
+                                                        }
+                                                        bg={'blue.400'}
+                                                        color={'white'}
+                                                        _hover={{
+                                                            bg: 'blue.500',
+                                                        }}>
+                                                        Update Profile
+                                                    </Button>
+                                                </Stack>
+                                            </Form>
+                                        )}
+                                    </Formik>
+                                </Stack>
+                            </Box>
+                        </Stack>
+                    </Flex>
+                </>
+            }
         </Fragment >
     )
 }

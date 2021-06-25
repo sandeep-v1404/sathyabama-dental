@@ -1,28 +1,35 @@
 import React, { Fragment, useEffect } from 'react'
-import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
+import {
+    useToast
+} from '@chakra-ui/react'
 import { clearErrors, getPatientDetails } from '../../actions/patientActions'
 import Loader from '../layout/Loader'
 import MetaData from '../layout/MetaData'
 import PropTypes from 'prop-types';
 
 const PatientDetails = ({ match }) => {
+    const toast = useToast()
 
     const dispatch = useDispatch();
-    const alert = useAlert();
 
     const { loading, error, patient } = useSelector(state => state.patientDetails)
     // const { user } = useSelector(state => state.auth)
 
     useEffect(() => {
         dispatch(getPatientDetails(match.params.id))
-
+        console.log(patient.patientDOneData);
         if (error) {
-            alert.error(error);
+            toast({
+                title: error,
+                status: "error",
+                duration: 5000,
+                isClosable: true,
+            })
             dispatch(clearErrors())
         }
 
-    }, [dispatch, alert, error, match.params.id])
+    }, [dispatch, error, match.params.id])
 
     return (
         <Fragment>

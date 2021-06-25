@@ -1,22 +1,18 @@
-import React, { Fragment, useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types';
 import MetaData from '../layout/MetaData'
-
-import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
 import { newPatient, clearErrors } from '../../actions/patientActions'
 import { NEW_PATIENT_RESET } from '../../constants/patientConstants'
-
+import {
+    Box, Button, Flex, Stack, useColorModeValue, Heading, useToast
+} from '@chakra-ui/react'
+import { Form, Formik } from "formik"
+import {
+    InputControl, NumberInputControl, SelectControl, TextareaControl
+} from "formik-chakra-ui"
 const NewPatient = ({ history }) => {
-    const [outPatientId, setOutPatientId] = useState('');
-    const [name, setName] = useState('');
-    const [age, setAge] = useState(0);
-    const [sex, setSex] = useState("Choose");
-    const [occupation, setOccupation] = useState("");
-    const [contactNumber, setContactNumber] = useState(0);
-    const [residentialAddress, setResidentialAddress] = useState("");
-
-    const alert = useAlert();
+    const toast = useToast()
     const dispatch = useDispatch();
 
     const { error, success } = useSelector(state => state.newPatient);
@@ -24,133 +20,102 @@ const NewPatient = ({ history }) => {
     useEffect(() => {
 
         if (error) {
-            alert.error(error);
+            toast({
+                title: error,
+                status: "error",
+                duration: 5000,
+                isClosable: true,
+            })
             dispatch(clearErrors())
         }
 
         if (success) {
             history.push('/admin/patients');
-            alert.success('Patient created successfully');
+            toast({
+                title: 'Patient created successfully',
+                status: "success",
+                duration: 5000,
+                isClosable: true,
+            })
             dispatch({ type: NEW_PATIENT_RESET })
         }
 
-    }, [dispatch, alert, error, success, history])
+    }, [dispatch, error, success, history])
 
-    const submitHandler = (e) => {
-        e.preventDefault();
-
-        const userData = {
-            outPatientId, name, age, sex, occupation, contactNumber, residentialAddress
-        }
+    const submitHandler = (userData) => {
+        console.log(userData);
         dispatch(newPatient(userData));
     }
 
     return (
-        <Fragment>
+        <>
             <MetaData title={'New Patient'} />
-            <div className="container">
-                <div className="row">
-                    <div className="col-12">
-                        <Fragment>
-                            <div className="container wrapper my-5">
-                                <div className="row align-items-center justify-content-center">
-                                    <div className="col-12 col-md-8">
-                                        <form className="p-3 shadow-lg" onSubmit={submitHandler}>
-                                            <div className="form-group">
-                                                <h1 className="mb-4">New Patient </h1>
-                                            </div>
-                                            <div className="form-group">
-                                                <label htmlFor="id_field">Id</label>
-                                                <input
-                                                    type="text"
-                                                    placeholder="YYYY----"
-                                                    id="id_field"
-                                                    className="form-control"
-                                                    value={outPatientId}
-                                                    onChange={(e) => setOutPatientId(e.target.value)}
-                                                />
-                                            </div>
-                                            <div className="form-group">
-                                                <label htmlFor="name_field">Name</label>
-                                                <input
-                                                    type="text"
-                                                    placeholder="John Abraham"
-                                                    id="name_field"
-                                                    className="form-control"
-                                                    value={name}
-                                                    onChange={(e) => setName(e.target.value)}
-                                                />
-                                            </div>
-
-                                            <div className="form-group">
-                                                <label htmlFor="age_field">Age</label>
-                                                <input
-                                                    type="number"
-                                                    min="0"
-                                                    placeholder="25"
-                                                    id="age_field"
-                                                    className="form-control"
-                                                    value={age}
-                                                    onChange={(e) => setAge(e.target.value)}
-                                                />
-                                            </div>
-                                            <div className="form-group">
-                                                <label htmlFor="category_field">Sex</label>
-                                                <select className="form-control" id="category_field" value={sex} onChange={(e) => setSex(e.target.value)}>
-                                                    <option disabled>Choose</option>
-                                                    <option value="Male">Male</option>
-                                                    <option value="Female">Female</option>
-                                                    <option value="Other">Other</option>
-                                                </select>
-                                            </div>
-                                            <div className="form-group">
-                                                <label htmlFor="occupation_field">Occupation</label>
-                                                <input
-                                                    type="text"
-                                                    id="occupation_field"
-                                                    className="form-control"
-                                                    value={occupation}
-                                                    onChange={(e) => setOccupation(e.target.value)}
-                                                />
-                                            </div>
-                                            <div className="form-group">
-                                                <label htmlFor="contactNumber_field">Contact Number</label>
-                                                <input
-                                                    type="number"
-                                                    min="0"
-                                                    id="contactNumber_field"
-                                                    className="form-control"
-                                                    value={contactNumber}
-                                                    onChange={(e) => setContactNumber(e.target.value)}
-                                                />
-                                            </div>
-                                            <div className="form-group">
-                                                <label htmlFor="residentialAddress_field">Residential Address</label>
-                                                <textarea
-                                                    type="text"
-                                                    id="residentialAddress_field"
-                                                    className="form-control"
-                                                    value={residentialAddress}
-                                                    onChange={(e) => setResidentialAddress(e.target.value)}
-                                                />
-                                            </div>
-                                            <button
-                                                id="login_button"
-                                                type="submit"
-                                                className="btn btn-block py-3"
-                                            >
-                                                CREATE
-                                            </button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </Fragment>
-                    </div>
-                </div>
-            </div>
-
-        </Fragment>
+            <Flex
+                minH={'100vh'}
+                align={'center'}
+                justify={'center'}
+                bg={useColorModeValue('gray.50', 'gray.800')}>
+                <Stack spacing={8} mx={'auto'} w={[400, 500, 800]} py={12} px={6}>
+                    <Stack align={'center'}>
+                        <Heading fontSize={['2xl', '3xl', '4xl']}>Create New Patient</Heading>
+                    </Stack>
+                    <Box
+                        rounded={'lg'}
+                        bg={useColorModeValue('white', 'gray.700')}
+                        boxShadow={'lg'}
+                        p={8}>
+                        <Stack spacing={4}>
+                            <Formik
+                                initialValues={{
+                                    outPatientId: '',
+                                    name: '',
+                                    age: '',
+                                    sex: '',
+                                    occupation: '',
+                                    contactNumber: '',
+                                    residentialAddress: '',
+                                }}
+                                onSubmit={(values) => {
+                                    submitHandler(values);
+                                }}
+                            >
+                                {() => (
+                                    <Form>
+                                        <InputControl mt={3} name="outPatientId" placeholder="YYYY___" label="OutPatient Id" />
+                                        <InputControl mt={3} placeholder="John Abraham" name="name" label="Name" />
+                                        <NumberInputControl mt={3} name="age" label="Age" />
+                                        <SelectControl mt={3}
+                                            name="sex" label="Sex" selectProps={{ placeholder: "Select option" }}
+                                        >
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                            <option value="Others">Others</option>
+                                        </SelectControl>
+                                        <InputControl mt={3} name="occupation" label="Occupation" />
+                                        <NumberInputControl mt={3} name="contactNumber" label="Contact Number" />
+                                        <TextareaControl mt={3} name="residentialAddress" label="Residential Address" />
+                                        <Stack spacing={10} mt={3}>
+                                            <Button
+                                                type={"submit"}
+                                                boxShadow={
+                                                    '0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)'
+                                                }
+                                                bg={'blue.400'}
+                                                color={'white'}
+                                                _hover={{
+                                                    bg: 'blue.500',
+                                                }}>
+                                                Create Patient
+                                            </Button>
+                                        </Stack>
+                                    </Form>
+                                )}
+                            </Formik>
+                        </Stack>
+                    </Box>
+                </Stack>
+            </Flex>
+        </>
     )
 }
 

@@ -1,9 +1,8 @@
 import {
     Box, Button, Flex, FormControl,
-    FormLabel, Heading, Input, Stack, useColorModeValue
+    FormLabel, Heading, Input, Stack, useColorModeValue, useToast
 } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
-import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
 import { clearErrors, updatePassword } from '../../actions/userActions'
 import { UPDATE_PASSWORD_RESET } from '../../constants/userConstants'
@@ -12,10 +11,10 @@ import PropTypes from 'prop-types';
 
 export default function UpdatePassword({ history }) {
 
+    const toast = useToast()
     const [oldPassword, setOldPassword] = useState('')
     const [password, setPassword] = useState('')
 
-    const alert = useAlert();
     const dispatch = useDispatch();
 
     const { error, isUpdated } = useSelector(state => state.user)
@@ -23,13 +22,22 @@ export default function UpdatePassword({ history }) {
     useEffect(() => {
 
         if (error) {
-            alert.error(error);
+            toast({
+                title: error,
+                status: "error",
+                duration: 5000,
+                isClosable: true,
+            })
             dispatch(clearErrors());
         }
 
         if (isUpdated) {
-            alert.success('Password updated successfully')
-
+            toast({
+                title: 'Password updated successfully',
+                status: "success",
+                duration: 5000,
+                isClosable: true,
+            })
             history.push('/me')
 
             dispatch({
@@ -37,7 +45,7 @@ export default function UpdatePassword({ history }) {
             })
         }
 
-    }, [dispatch, alert, error, history, isUpdated])
+    }, [dispatch, error, history, isUpdated])
 
     const submitHandler = (e) => {
         e.preventDefault();
@@ -53,9 +61,9 @@ export default function UpdatePassword({ history }) {
                 align={'center'}
                 justify={'center'}
                 bg={useColorModeValue('gray.50', 'gray.800')}>
-                <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
+                <Stack spacing={8} w={[400, 500, 700]} mx={'auto'} py={12} px={6}>
                     <Stack align={'center'}>
-                        <Heading fontSize={'4xl'}>Update my Password</Heading>
+                        <Heading fontSize={['2xl', '3xl', '4xl']}>Update my Password</Heading>
                     </Stack>
                     <Box
                         rounded={'lg'}
