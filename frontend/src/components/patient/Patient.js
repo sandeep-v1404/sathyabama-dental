@@ -55,23 +55,23 @@ export default function Patient({ patient }) {
                 <Box align={'center'} bg={useColorModeValue('gray.50', 'gray.900')} px={6} py={10}>
                     <List spacing={3}>
                         {
-                            patient.patientDOneData && <ListItem>
+                            patient.patientDOneData && <ListItem _hover={{ color: 'blue.300', cursor: 'pointer' }} onClick={() => history.push(`/D1/${patient.id}`)}>
                                 <ListIcon as={CheckIcon} color="green.400" />
                                 Tested by D1
                             </ListItem>
                         }
-                        <ListItem>
-                            <ListIcon as={CheckIcon} color="green.400" />
-                            Tested by D2
-                        </ListItem>
-                        <ListItem>
-                            <ListIcon as={CheckIcon} color="green.400" />
-                            Tested by D3
-                        </ListItem>
-                        <ListItem>
-                            <ListIcon as={CheckIcon} color="green.400" />
-                            Tested by D4
-                        </ListItem>
+                        {
+                            patient.patientDTwoData && <ListItem _hover={{ color: 'blue.300', cursor: 'pointer' }} onClick={() => history.push(`/D2/${patient.id}`)}>
+                                <ListIcon as={CheckIcon} color="green.400" />
+                                Tested by D2
+                            </ListItem>
+                        }
+                        {
+                            patient.patientDThreeData && <ListItem _hover={{ color: 'blue.300', cursor: 'pointer' }} onClick={() => history.push(`/D3/${patient.id}`)}>
+                                <ListIcon as={CheckIcon} color="green.400" />
+                                Tested by D3
+                            </ListItem>
+                        }
                     </List>
                     {
                         user.department !== "Administrator" &&
@@ -93,7 +93,6 @@ export default function Patient({ patient }) {
                             Fill {user.department}&lsquo;s data
                         </Button>
                     }
-
                 </Box>
             </Box>
         </Flex>

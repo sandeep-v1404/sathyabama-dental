@@ -5,9 +5,14 @@ import { Patient } from './patient.entity';
 
 @EntityRepository(Patient)
 export class PatientsRepository extends Repository<Patient> {
-  async getAllPatients(): Promise<Patient[]> {
-    const patients = await this.find({ relations: ['patientDOneData'] });
-    console.log(patients);
+  async getAllPatients(userDepartment: string): Promise<Patient[]> {
+    let patients: Patient[];
+    if (userDepartment === 'Administrator') {
+      patients = await this.find({ loadRelationIds: true });
+      return patients;
+    }
+
+    patients = await this.find({ relations: ['patientDOneData'] });
 
     return patients;
   }

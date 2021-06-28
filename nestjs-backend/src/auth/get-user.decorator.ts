@@ -13,14 +13,11 @@ export const GetUser = createParamDecorator(
         data === req.user.department.toString() &&
         req.user.role.toString() === 'Authorized'
       ) {
-        console.log('Authorized');
-
         delete req.user.password;
         return req.user;
       }
       throw new UnauthorizedException("You don't have sufficient Permissions");
     } else {
-      console.log('Authorized:', req.user);
       delete req.user.password;
       return req.user;
     }

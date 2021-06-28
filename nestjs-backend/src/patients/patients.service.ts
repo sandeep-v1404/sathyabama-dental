@@ -15,8 +15,8 @@ export class PatientsService {
     private patientsRepository: PatientsRepository,
   ) {}
 
-  async getAllPatients(): Promise<Patient[]> {
-    const found = await this.patientsRepository.getAllPatients();
+  async getAllPatients(userDepartment: string): Promise<Patient[]> {
+    const found = await this.patientsRepository.getAllPatients(userDepartment);
     if (!found) {
       throw new InternalServerErrorException();
     }

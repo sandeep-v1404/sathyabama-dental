@@ -10,8 +10,8 @@ import { Patient } from '../patients/patient.entity';
 
 @Entity()
 export class PatientDOneData extends BaseEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column({ nullable: true })
   patientId: string;
@@ -255,6 +255,7 @@ export class PatientDOneData extends BaseEntity {
 
   @Column({ nullable: true })
   tonsils: string;
+
   @Column({ nullable: true })
   floorOfTheMouth: string;
 

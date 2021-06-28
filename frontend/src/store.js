@@ -4,6 +4,7 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 
 import { patientsReducer, newPatientReducer, patientReducer, patientDetailsReducer } from './reducers/patientReducers'
 import { authReducer, userReducer, allUsersReducer, userDetailsReducer } from './reducers/userReducers'
+import { departmentReducer } from './reducers/departmentReducers'
 
 const reducer = combineReducers({
     patients: patientsReducer,
@@ -14,6 +15,7 @@ const reducer = combineReducers({
     user: userReducer,
     allUsers: allUsersReducer,
     userDetails: userDetailsReducer,
+    department: departmentReducer,
 });
 
 let initialState = {};

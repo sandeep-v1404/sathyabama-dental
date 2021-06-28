@@ -12,7 +12,7 @@ import { User } from 'src/auth/user.entity';
 import { Department1Service } from './department1.service';
 import { AddPatientD1DTO } from './dto/add-patient-d1.dto';
 
-@Controller('department1')
+@Controller('D1')
 @UseGuards(AuthGuard())
 export class Department1Controller {
   constructor(private department1Service: Department1Service) {}
@@ -20,10 +20,10 @@ export class Department1Controller {
   @Post('/:patientId')
   addPatientDOneData(
     @GetUser('D1') user: User,
-    @Body()
-    addPatientD1DTO: AddPatientD1DTO,
-    @Param('patientId') patientId: string,
-  ) {
+    @Body() addPatientD1DTO: AddPatientD1DTO,
+    @Param('patientId')
+    patientId: string,
+  ): Promise<{ success: boolean }> {
     return this.department1Service.addPatientDOneData(
       patientId,
       addPatientD1DTO,

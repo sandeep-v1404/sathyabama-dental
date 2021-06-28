@@ -6,6 +6,14 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { PatientDOneData } from '../department1/patientDOneData.entity';
+import { PatientDTwoData } from '../department2/patientDTwoData.entity';
+import { PatientDThreeData } from '../department3/patientDThreeData.entity';
+import { PatientDFourData } from '../department4/patientDFourData.entity';
+import { PatientDFiveData } from '../department5/patientDFiveData.entity';
+import { PatientDSixData } from '../department6/patientDSixData.entity';
+import { PatientDSevenData } from '../department7/patientDSevenData.entity';
+import { PatientDEightData } from '../department8/patientDEightData.entity';
+import { PatientDNineData } from '../department9/patientDNineData.entity';
 
 @Entity()
 export class Patient extends BaseEntity {
@@ -39,4 +47,60 @@ export class Patient extends BaseEntity {
     { eager: true },
   )
   patientDOneData: PatientDOneData;
+
+  @OneToOne(
+    (_type) => PatientDTwoData,
+    (patientDTwoData) => patientDTwoData.patient,
+    { eager: true },
+  )
+  patientDTwoData: PatientDTwoData;
+
+  @OneToOne(
+    (_type) => PatientDThreeData,
+    (patientDThreeData) => patientDThreeData.patient,
+    { eager: true },
+  )
+  patientDThreeData: PatientDThreeData;
+
+  @OneToOne(
+    (_type) => PatientDFourData,
+    (patientDFourData) => patientDFourData.patient,
+    { eager: true },
+  )
+  patientDFourData: PatientDFourData;
+
+  @OneToOne(
+    (_type) => PatientDFiveData,
+    (patientDFiveData) => patientDFiveData.patient,
+    { eager: true },
+  )
+  patientDFiveData: PatientDFiveData;
+
+  @OneToOne(
+    (_type) => PatientDSixData,
+    (patientDSixData) => patientDSixData.patient,
+    { eager: true },
+  )
+  patientDSixData: PatientDSixData;
+
+  @OneToOne(
+    (_type) => PatientDSevenData,
+    (patientDSevenData) => patientDSevenData.patient,
+    { eager: true },
+  )
+  patientDSevenData: PatientDSevenData;
+
+  @OneToOne(
+    (_type) => PatientDSevenData,
+    (patientDEightData) => patientDEightData.patient,
+    { eager: true },
+  )
+  patientDEightData: PatientDEightData;
+
+  @OneToOne(
+    (_type) => PatientDSevenData,
+    (patientDNineData) => patientDNineData.patient,
+    { eager: true },
+  )
+  patientDNineData: PatientDNineData;
 }

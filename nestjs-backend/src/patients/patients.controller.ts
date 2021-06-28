@@ -21,8 +21,8 @@ export class PatientsController {
   constructor(private patientsService: PatientsService) {}
 
   @Get('/')
-  getAllPatients(): Promise<Patient[]> {
-    return this.patientsService.getAllPatients();
+  getAllPatients(@GetUser() user: User): Promise<Patient[]> {
+    return this.patientsService.getAllPatients(user.department);
   }
 
   @Get('/:id')

@@ -7,7 +7,6 @@ import Header from './components/layout/Header'
 import Footer from './components/layout/Footer'
 
 import Home from './components/Home'
-import PatientDetails from './components/patient/PatientDetails'
 
 // Auth or User imports
 import Login from './components/user/Login'
@@ -30,6 +29,7 @@ import store from './store'
 import D1 from './components/departments/D1'
 import D2 from './components/departments/D2'
 import D3 from './components/departments/D3'
+import D4 from './components/departments/D4'
 
 function App() {
 
@@ -45,13 +45,13 @@ function App() {
         <Header />
         <Route path="/" component={Home} exact />
         <Route path="/search/:keyword" component={Home} />
-        <Route path="/patient/:id" component={PatientDetails} exact />
 
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
-        <Route path="/D1/:patientId" component={D1} />
+        <ProtectedRoute path="/D1/:patientId" component={D1} exact />
         <Route path="/D2/:patientId" component={D2} />
         <Route path="/D3" component={D3} />
+        <Route path="/D4" component={D4} />
 
         <ProtectedRoute path="/me" component={Profile} exact />
         <ProtectedRoute path="/me/update" component={UpdateProfile} exact />

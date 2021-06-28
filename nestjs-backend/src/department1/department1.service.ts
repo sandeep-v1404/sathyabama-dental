@@ -16,7 +16,7 @@ export class Department1Service {
   async addPatientDOneData(
     patientId: string,
     addPatientD1DTO: AddPatientD1DTO,
-  ) {
+  ): Promise<{ success: boolean }> {
     const { id } = addPatientD1DTO;
 
     const patient = await this.patientsRepository.findOne(patientId, {
@@ -25,16 +25,22 @@ export class Department1Service {
     if (!patient) {
       throw new NotFoundException(`No Patient with Id ${patientId} exists`);
     }
-    if (patient.patientDOneData === undefined) {
+    if (
+      patient.patientDOneData === undefined ||
+      patient.patientDOneData === null
+    ) {
       const d1Data = this.patientsDOneRepository.create({
         patientId,
+        ...addPatientD1DTO,
       });
-      return await this.patientsDOneRepository.save(d1Data);
+      await this.patientsDOneRepository.save(d1Data);
+      return { success: true };
     } else {
-      const d1Data = await this.patientsDOneRepository.update(id, {
+      await this.patientsDOneRepository.update(id, {
         patientId,
+        ...addPatientD1DTO,
       });
-      return d1Data;
+      return { success: true };
     }
   }
 
