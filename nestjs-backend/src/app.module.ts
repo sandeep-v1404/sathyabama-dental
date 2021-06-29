@@ -11,18 +11,37 @@ import { Department6Module } from './department6/department6.module';
 import { Department7Module } from './department7/department7.module';
 import { Department8Module } from './department8/department8.module';
 import { Department9Module } from './department9/department9.module';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { configValidationSchema } from './config.schema';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      envFilePath: [`.env.stage.${process.env.STAGE}`],
+      validationSchema: configValidationSchema,
+    }),
     PatientsModule,
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      database: 'sdh',
-      username: 'postgres',
-      password: 'postgres',
-      synchronize: true,
-      entities: [__dirname + '/../**/*.entity.js'],
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => {
+        const isProduction = configService.get('STAGE') === 'prod';
+
+        return {
+          ssl: isProduction,
+          extra: {
+            ssl: isProduction ? { rejectUnauthorized: false } : null,
+          },
+          type: 'postgres',
+          synchronize: true,
+          entities: [__dirname + '/../**/*.entity.js'],
+          host: configService.get('DB_HOST'),
+          database: configService.get('DB_DATABASE_NAME'),
+          username: configService.get('DB_USERNAME'),
+          password: configService.get('DB_PASSWORD'),
+          port: configService.get('DB_PORT'),
+        };
+      },
     }),
     AuthModule,
     Department1Module,

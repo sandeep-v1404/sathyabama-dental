@@ -27,60 +27,86 @@ export class PatientDTwoData extends BaseEntity {
   chiefComplaint: string;
 
   @Column({ nullable: true })
-  medicalHistorydiabetes: string;
+  medicalHistorydiabetes: boolean;
 
   @Column({ nullable: true })
-  medicalHistoryhypertension: string;
+  medicalHistoryhypertension: boolean;
+
   @Column({ nullable: true })
-  medicalHistorycardiacDisorder: string;
+  medicalHistorycardiacDisorder: boolean;
+
   @Column({ nullable: true })
-  medicalHistoryrheumaticFever: string;
+  medicalHistoryrheumaticFever: boolean;
+
   @Column({ nullable: true })
-  medicalHistoryepilepsy: string;
+  medicalHistoryepilepsy: boolean;
+
   @Column({ nullable: true })
-  medicalHistorybleedingDisorders: string;
+  medicalHistorybleedingDisorders: boolean;
+
   @Column({ nullable: true })
-  medicalHistoryjaundice: string;
+  medicalHistoryjaundice: boolean;
+
   @Column({ nullable: true })
-  medicalHistoryhepatitis: string;
+  medicalHistoryhepatitis: boolean;
+
   @Column({ nullable: true })
-  medicalHistoryasthma: string;
+  medicalHistoryasthma: boolean;
+
   @Column({ nullable: true })
-  medicalHistorytyphoid: string;
+  medicalHistorytyphoid: boolean;
+
   @Column({ nullable: true })
-  medicalHistorydrugAllergy: string;
+  medicalHistorydrugAllergy: boolean;
+
   @Column({ nullable: true })
-  medicalHistoryallergicToLAInjections: string;
+  medicalHistoryallergicToLAInjections: boolean;
+
   @Column({ nullable: true })
-  medicalHistoryanaemia: string;
+  medicalHistoryanaemia: boolean;
+
   @Column({ nullable: true })
-  medicalHistorypregnancy: string;
+  medicalHistorypregnancy: boolean;
+
   @Column({ nullable: true })
-  medicalHistorymenstrualCycle: string;
+  medicalHistorymenstrualCycle: boolean;
+
   @Column({ nullable: true })
-  medicalHistoryothers: string;
+  medicalHistoryothers: boolean;
+
   @Column({ nullable: true })
-  familyHistorydiabetes: string;
+  familyHistorydiabetes: boolean;
+
   @Column({ nullable: true })
-  familyHistorybloodDyscrasias: string;
+  familyHistorybloodDyscrasias: boolean;
+
   @Column({ nullable: true })
-  familyHistoryhypertension: string;
+  familyHistoryhypertension: boolean;
+
   @Column({ nullable: true })
-  familyHistoryconsanguineousMarriage: string;
+  familyHistoryconsanguineousMarriage: boolean;
+
   @Column({ nullable: true })
-  familyHistoryothers: string;
+  familyHistoryothers: boolean;
+
   @Column({ nullable: true })
   clinicalFindings: string;
+
   @Column({ nullable: true })
   diagnosis: string;
+
   @Column({ nullable: true })
   prognosis: string;
+
   @Column({ nullable: true })
   investigations: string;
+
   @Column({ nullable: true })
   radiographs: string;
+
   @Column({ nullable: true })
   treatmentPlan: string;
+
   @Column({ nullable: true })
   treatmentDone: string;
 }

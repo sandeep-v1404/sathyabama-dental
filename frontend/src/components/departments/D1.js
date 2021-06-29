@@ -1,19 +1,18 @@
 import {
-    Box, Button, Flex, FormLabel, Heading, Stack, useColorModeValue, useToast, Text, SimpleGrid
+    Box, Button, Flex, FormLabel, Heading, SimpleGrid, Stack, Text, useColorModeValue, useToast
 } from '@chakra-ui/react'
 import { Form, Formik } from "formik"
 import {
-    InputControl,
-    TextareaControl,
-    CheckboxSingleControl
+    CheckboxSingleControl, InputControl,
+    TextareaControl
 } from "formik-chakra-ui"
+import PropTypes from 'prop-types'
 import React, { Fragment, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import MetaData from '../layout/MetaData'
-import Loader from "../layout/Loader";
-import PropTypes from 'prop-types';
-
-import { updatePatientDataInDepartment } from '../../actions/departmentActions'
+import { clearErrors, updatePatientDataInDepartment } from '../../actions/departmentActions'
+import { UPDATE_DEPT_DATA_RESET } from '../../constants/departmentConstants'
+import Loader from "../layout/Loader"
+import MetaData from '../layout/MetaData';
 
 const D1 = ({ history, match }) => {
     const toast = useToast();
@@ -119,6 +118,25 @@ const D1 = ({ history, match }) => {
 
     const patientId = match.params.patientId;
     useEffect(() => {
+        if (error) {
+            toast({
+                title: error,
+                status: "error",
+                duration: 5000,
+                isClosable: true,
+            });
+            dispatch(clearErrors());
+        }
+        if (success) {
+            toast({
+                title: 'Patient Updated successfully',
+                status: "success",
+                duration: 5000,
+                isClosable: true,
+            });
+            history.push("/");
+            dispatch({ type: UPDATE_DEPT_DATA_RESET })
+        }
         if (patient && patient.patientDOneData !== null && patient.id.toString() === patientId.toString()) {
             setLoadedValues({
                 id: patient.patientDOneData.id,
@@ -212,24 +230,10 @@ const D1 = ({ history, match }) => {
                 referalToDepartments: patient.patientDOneData.referalToDepartments,
             });
         }
+        else {
+            history.push('/')
+        }
 
-        if (error) {
-            toast({
-                title: error,
-                status: "error",
-                duration: 5000,
-                isClosable: true,
-            })
-        }
-        if (success) {
-            toast({
-                title: 'Patient Updated successfully',
-                status: "success",
-                duration: 5000,
-                isClosable: true,
-            })
-            history.push('/');
-        }
 
     }, [dispatch, history, success])
 
@@ -239,14 +243,14 @@ const D1 = ({ history, match }) => {
 
     return (
         <Fragment>
-            <>
-                <MetaData title={`Update D1 data`} />
-                <Flex
-                    minH={'100vh'}
-                    align={'center'}
-                    justify={'center'}
-                    bg={useColorModeValue('gray.50', 'gray.800')}>
-                    <Stack spacing={[4, 8]} mx={'auto'} w={[400, 500, 800]} py={[6, 12]} px={[1, 6]}>
+            <MetaData title={`Update D1 data`} />
+            <Flex
+                minH={'100vh'}
+                align={'center'}
+                justify={'center'}
+                bg={useColorModeValue('gray.50', 'gray.800')}>
+                {
+                    patient && <Stack spacing={[4, 8]} mx={'auto'} w={[400, 500, 800]} py={[6, 12]} px={[1, 6]}>
                         <Stack align={'center'}>
                             <Heading fontSize={['2xl', '3xl', '4xl']}>Update D1 Data</Heading>
                         </Stack>
@@ -494,8 +498,8 @@ const D1 = ({ history, match }) => {
                             </Stack>
                         </Box>
                     </Stack>
-                </Flex>
-            </>
+                }
+            </Flex>
             {loading && <Loader />}
         </Fragment >
     )

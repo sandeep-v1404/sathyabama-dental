@@ -1,4 +1,4 @@
-import { IsString } from 'class-validator';
+import { IsBoolean, IsString } from 'class-validator';
 
 export class AddPatientD2DTO {
   id!: string;
@@ -6,68 +6,68 @@ export class AddPatientD2DTO {
   @IsString()
   chiefComplaint: string;
 
-  @IsString()
-  medicalHistorydiabetes: string;
+  @IsBoolean()
+  medicalHistorydiabetes: boolean;
 
-  @IsString()
-  medicalHistoryhypertension: string;
+  @IsBoolean()
+  medicalHistoryhypertension: boolean;
 
-  @IsString()
-  medicalHistorycardiacDisorder: string;
+  @IsBoolean()
+  medicalHistorycardiacDisorder: boolean;
 
-  @IsString()
-  medicalHistoryrheumaticFever: string;
+  @IsBoolean()
+  medicalHistoryrheumaticFever: boolean;
 
-  @IsString()
-  medicalHistoryepilepsy: string;
+  @IsBoolean()
+  medicalHistoryepilepsy: boolean;
 
-  @IsString()
-  medicalHistorybleedingDisorders: string;
+  @IsBoolean()
+  medicalHistorybleedingDisorders: boolean;
 
-  @IsString()
-  medicalHistoryjaundice: string;
+  @IsBoolean()
+  medicalHistoryjaundice: boolean;
 
-  @IsString()
-  medicalHistoryhepatitis: string;
+  @IsBoolean()
+  medicalHistoryhepatitis: boolean;
 
-  @IsString()
-  medicalHistoryasthma: string;
+  @IsBoolean()
+  medicalHistoryasthma: boolean;
 
-  @IsString()
-  medicalHistorytyphoid: string;
+  @IsBoolean()
+  medicalHistorytyphoid: boolean;
 
-  @IsString()
-  medicalHistorydrugAllergy: string;
+  @IsBoolean()
+  medicalHistorydrugAllergy: boolean;
 
-  @IsString()
-  medicalHistoryallergicToLAInjections: string;
+  @IsBoolean()
+  medicalHistoryallergicToLAInjections: boolean;
 
-  @IsString()
-  medicalHistoryanaemia: string;
+  @IsBoolean()
+  medicalHistoryanaemia: boolean;
 
-  @IsString()
-  medicalHistorypregnancy: string;
+  @IsBoolean()
+  medicalHistorypregnancy: boolean;
 
-  @IsString()
-  medicalHistorymenstrualCycle: string;
+  @IsBoolean()
+  medicalHistorymenstrualCycle: boolean;
 
-  @IsString()
-  medicalHistoryothers: string;
+  @IsBoolean()
+  medicalHistoryothers: boolean;
 
-  @IsString()
-  familyHistorydiabetes: string;
+  @IsBoolean()
+  familyHistorydiabetes: boolean;
 
-  @IsString()
-  familyHistorybloodDyscrasias: string;
+  @IsBoolean()
+  familyHistorybloodDyscrasias: boolean;
 
-  @IsString()
-  familyHistoryhypertension: string;
+  @IsBoolean()
+  familyHistoryhypertension: boolean;
 
-  @IsString()
-  familyHistoryconsanguineousMarriage: string;
+  @IsBoolean()
+  familyHistoryconsanguineousMarriage: boolean;
 
-  @IsString()
-  familyHistoryothers: string;
+  @IsBoolean()
+  familyHistoryothers: boolean;
 
   @IsString()
   clinicalFindings: string;
