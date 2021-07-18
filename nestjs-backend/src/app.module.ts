@@ -46,6 +46,7 @@ import { join } from 'path';
           username: configService.get('DB_USERNAME'),
           password: configService.get('DB_PASSWORD'),
           port: configService.get('DB_PORT'),
+          uuidExtension: 'pgcrypto',
         };
       },
     }),

@@ -72,6 +72,12 @@ export default function Patient({ patient }) {
                                 Tested by D3
                             </ListItem>
                         }
+                        {
+                            patient.patientDFourData && <ListItem _hover={{ color: 'blue.300', cursor: 'pointer' }} onClick={() => history.push(`/D4/${patient.id}`)}>
+                                <ListIcon as={CheckIcon} color="green.400" />
+                                Tested by D4
+                            </ListItem>
+                        }
                     </List>
                     {
                         user.department !== "Administrator" &&

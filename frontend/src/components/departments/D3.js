@@ -22,6 +22,7 @@ const D3 = ({ history, match }) => {
 
     const initialValues = {
         chiefComplaint: "",
+        pastDentalHistory: "",
         medicalHistorydiabetes: false,
         medicalHistoryhypertension: false,
         medicalHistorycardiacDisorder: false,

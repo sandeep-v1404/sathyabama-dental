@@ -1,10 +1,19 @@
-import { Body, Controller, Delete, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Param,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from 'src/auth/get-user.decorator';
 import { User } from 'src/auth/user.entity';
 import { Department8Service } from './department8.service';
 import { AddPatientD8DTO } from './dto/add-patient-d8.dto';
 
 @Controller('D8')
+@UseGuards(AuthGuard())
 export class Department8Controller {
   constructor(private department8Service: Department8Service) {}
 

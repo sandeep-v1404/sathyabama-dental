@@ -37,14 +37,15 @@ import { getConfig } from "../utils/getConfig"
 // Login
 export const login = (email, password) => async (dispatch) => {
     try {
-
+        cookie.remove("token");
         dispatch({ type: LOGIN_REQUEST })
 
         const { data } = await axios.post('/api/auth/signin', { email, password }, getConfig());
         const expires = new Date(Date.now() + (1000 * 60 * 60 * 2));
         cookie.save('token', data.accessToken, { path: '/', expires });
 
-        dispatch(loadUser())
+        dispatch(loadUser());
+
 
     } catch (error) {
         const err = handleHTTPerrors(error)
@@ -84,6 +85,14 @@ export const loadUser = () => async (dispatch) => {
     try {
         dispatch({ type: LOAD_USER_REQUEST })
         const { data } = await axios.get('/api/auth/me', getConfig())
+
+        if (data.role === "Unauthorized") {
+            dispatch({
+                type: LOAD_USER_FAIL,
+            });
+            return;
+        }
+
         dispatch({ type: LOAD_USER_SUCCESS, payload: data })
 
     } catch (error) {
