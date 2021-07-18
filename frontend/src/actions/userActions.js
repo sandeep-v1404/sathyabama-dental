@@ -40,7 +40,7 @@ export const login = (email, password) => async (dispatch) => {
 
         dispatch({ type: LOGIN_REQUEST })
 
-        const { data } = await axios.post('/auth/signin', { email, password }, getConfig());
+        const { data } = await axios.post('/api/auth/signin', { email, password }, getConfig());
         const expires = new Date(Date.now() + (1000 * 60 * 60 * 2));
         cookie.save('token', data.accessToken, { path: '/', expires });
 
@@ -61,7 +61,7 @@ export const register = (userData) => async (dispatch) => {
 
         dispatch({ type: REGISTER_USER_REQUEST })
 
-        const { data } = await axios.post('/auth/signup', userData, getConfig())
+        const { data } = await axios.post('/api/auth/signup', userData, getConfig())
 
         const expires = new Date(Date.now() + (1000 * 60 * 60 * 2));
         cookie.save('token', data.accessToken, { path: '/', expires });
@@ -83,7 +83,7 @@ export const loadUser = () => async (dispatch) => {
 
     try {
         dispatch({ type: LOAD_USER_REQUEST })
-        const { data } = await axios.get('/auth/me', getConfig())
+        const { data } = await axios.get('/api/auth/me', getConfig())
         dispatch({ type: LOAD_USER_SUCCESS, payload: data })
 
     } catch (error) {
@@ -102,7 +102,7 @@ export const updateProfile = (userData) => async (dispatch) => {
 
         dispatch({ type: UPDATE_PROFILE_REQUEST })
 
-        const { data } = await axios.put('/auth/user/update', userData, getConfig())
+        const { data } = await axios.put('/api/auth/user/update', userData, getConfig())
 
         dispatch({
             type: UPDATE_PROFILE_SUCCESS,
@@ -124,7 +124,7 @@ export const updatePassword = (passwords) => async (dispatch) => {
 
         dispatch({ type: UPDATE_PASSWORD_REQUEST })
 
-        const { data } = await axios.put('/auth/updatePassword', passwords, getConfig());
+        const { data } = await axios.put('/api/auth/updatePassword', passwords, getConfig());
         dispatch({
             type: UPDATE_PASSWORD_SUCCESS,
             payload: data
@@ -160,7 +160,7 @@ export const allUsers = () => async (dispatch) => {
 
         dispatch({ type: ALL_USERS_REQUEST })
 
-        const { data } = await axios.get('/auth/users', getConfig())
+        const { data } = await axios.get('/api/auth/users', getConfig())
 
         dispatch({
             type: ALL_USERS_SUCCESS,
@@ -181,7 +181,7 @@ export const updateUser = (id, userData) => async (dispatch) => {
 
         dispatch({ type: UPDATE_USER_REQUEST })
 
-        const { data } = await axios.put(`/auth/users/${id}`, userData, getConfig())
+        const { data } = await axios.put(`/api/auth/users/${id}`, userData, getConfig())
 
         dispatch({
             type: UPDATE_USER_SUCCESS,
@@ -202,7 +202,7 @@ export const getUserDetails = (id) => async (dispatch) => {
 
         dispatch({ type: USER_DETAILS_REQUEST })
 
-        const { data } = await axios.get(`/auth/users/${id}`, getConfig())
+        const { data } = await axios.get(`/api/auth/users/${id}`, getConfig())
 
         dispatch({
             type: USER_DETAILS_SUCCESS,
@@ -223,7 +223,7 @@ export const deleteUser = (id) => async (dispatch) => {
 
         dispatch({ type: DELETE_USER_REQUEST })
 
-        const { data } = await axios.delete(`/auth/users/${id}`, getConfig())
+        const { data } = await axios.delete(`/api/auth/users/${id}`, getConfig())
 
         dispatch({
             type: DELETE_USER_SUCCESS,

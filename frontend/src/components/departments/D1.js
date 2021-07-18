@@ -230,8 +230,8 @@ const D1 = ({ history, match }) => {
                 referalToDepartments: patient.patientDOneData.referalToDepartments,
             });
         }
-        else {
-            history.push('/')
+        if (!patient) {
+            history.push('/');
         }
 
 

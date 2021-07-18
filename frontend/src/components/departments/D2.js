@@ -114,7 +114,7 @@ const D2 = ({ history, match }) => {
                 treatmentDone: patient.patientDTwoData.treatmentDone,
             });
         }
-        else {
+        if (!patient) {
             history.push("/");
         }
 

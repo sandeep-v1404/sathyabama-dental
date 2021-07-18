@@ -14,7 +14,7 @@ export const updatePatientDataInDepartment = (department, patientId, patientData
     try {
 
         dispatch({ type: UPDATE_DEPT_DATA_REQUEST })
-        const { data } = await axios.post(`/${department}/${patientId.toString()}`, patientData, getConfig());
+        const { data } = await axios.post(`/api/${department}/${patientId.toString()}`, patientData, getConfig());
 
         dispatch({
             type: UPDATE_DEPT_DATA_SUCCESS,

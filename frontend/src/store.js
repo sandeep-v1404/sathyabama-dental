@@ -1,6 +1,6 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import { composeWithDevTools } from 'redux-devtools-extension'
+import { composeWithDevTools } from 'redux-devtools-extension/logOnlyInProduction'
 
 import { patientsReducer, newPatientReducer, patientReducer, patientDetailsReducer } from './reducers/patientReducers'
 import { authReducer, userReducer, allUsersReducer, userDetailsReducer } from './reducers/userReducers'

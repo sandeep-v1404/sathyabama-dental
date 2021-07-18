@@ -1,0 +1,31 @@
+New patient - Id
+
+Provisional Diagonosis
+
+Investigations
+
+Final Diagonosis
+
+Treatment Plan
+
+Referal to Departments
+
+1. Department of Periodontia
+2. Department of Oral & Maxillo Facial Surgery
+3. Department of Conservative dentistry & Endodontia
+4. Department of Prosthodontia
+5. Department of Pedodontia
+6. Department of Orthodontia
+7. Department of Public Health dentistry
+8. Department of Oral & Maxillo Facial Pathology
+
+
+NestJS
+dsffsdf236238wq8w8iasjawqwq
+
+
+
+
+
+https://codepen.io/AbdelrhmanAlaa/pen/PoWVNgL
+

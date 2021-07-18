@@ -236,6 +236,7 @@ export class AddPatientD1DTO {
 
   @IsString()
   tonsils: string;
+
   @IsString()
   floorOfTheMouth: string;
 
