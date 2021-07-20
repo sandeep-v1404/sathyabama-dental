@@ -103,8 +103,6 @@ const D4 = ({ history, match }) => {
         if (!patient) {
             history.push("/");
         }
-
-
     }, [dispatch, history, success])
 
     const submitHandler = (patientData) => {
