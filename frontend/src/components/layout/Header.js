@@ -38,12 +38,12 @@ export default function Header() {
 
     return (
         <>
-            <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
+            <Box bg={useColorModeValue('gray', 'gray.900')} px={5} py={3}>
                 <Flex h={16} alignItems={'center'} justifyContent={'space-around'}>
                     <HStack spacing={8} alignItems={'center'}>
                         <LinkBox>
                             <LinkOverlay as={ReachLink} to="/">
-                                <Image boxSize="200px"
+                                <Image boxSize="300px"
                                     objectFit="contain" src="https://www.sathyabama.ac.in/themes/custom/sathyabama/logo.svg" />
                             </LinkOverlay>
                         </LinkBox>

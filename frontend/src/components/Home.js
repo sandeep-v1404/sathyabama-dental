@@ -1,6 +1,6 @@
 import {
     Button, Container, Flex, Stack,
-    Text, useColorModeValue, Heading
+    Text, useColorModeValue, Heading, Image
 } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 import 'rc-slider/assets/index.css';
@@ -16,9 +16,9 @@ import Patient from './patient/Patient';
 
 function MainPage() {
     return (
-        <Container maxW={'5xl'} minH={"100vh"}>
+        <Container maxW={'7xl'} minH={"100vh"}>
             <Stack
-                textAlign={'center'}
+                textAlign={"center"}
                 align={'center'}
                 spacing={{ base: 8, md: 10 }}
                 py={{ base: 20, md: 28 }}>
@@ -26,15 +26,14 @@ function MainPage() {
                     fontWeight={600}
                     fontSize={{ base: '3xl', sm: '4xl', md: '6xl' }}
                     lineHeight={'110%'}>
-                    Meeting scheduling{' '}
                     <Text as={'span'} color={'orange.400'}>
-                        made easy
+                        Sathyabama Dental College and Hospital
                     </Text>
                 </Heading>
-                <Text color={'gray.500'} maxW={'3xl'}>
-                    Never miss a meeting. Never be late for one too. Keep track of your
-                    meetings and receive smart reminders in appropriate times. Read your
-                    smart “Daily Agenda” every morning.
+                <Image boxSize="auto" height={{ sm: 300, lg: "container.sm" }}
+                    src="https://www.sathyabama.ac.in/sites/default/files/inline-images/dental_op_closeup.png.jpg" />
+                <Text color={'gray.500'} fontSize="xl">
+                    Sathyabama Dental College and Hospital, was established in 2009,by Founder Chancellor Colonel Dr. Jeppiaar MA.BL, Ph.D.,with the aim of  producing future dentists of our country with a humane nature and broad scientific knowledge required for dentists.The school of dentistry offers undergraduate course with a duration of five years and post graduate course in three disciplines namely Orthodontics and Dentofacial Orthopedics,Conservative Dentistry and Endodontics,Pediatric and Preventive Dentistry with a duration of three years.We aim at up-to-date dental education which could correspond to requirements & changes in the times,as recommended by Dental Council of India.In order to further develop, we will promote the activation, advancement & internationalization of our dental research as well as the improvement of dental education.
                 </Text>
                 <Stack spacing={6} direction={'row'}>
                     <Button
