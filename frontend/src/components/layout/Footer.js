@@ -2,7 +2,6 @@ import {
     Box,
     Button,
     Container,
-    Link,
     Stack,
     Text,
     useColorModeValue,
@@ -63,12 +62,6 @@ export default function SmallCentered() {
                         </LinkOverlay>
                     </LinkBox>
                 </HStack>
-                <Stack direction={'row'} spacing={6}>
-                    <Link href={'#'}>Home</Link>
-                    <Link href={'#'}>About</Link>
-                    <Link href={'#'}>Blog</Link>
-                    <Link href={'#'}>Contact</Link>
-                </Stack>
             </Container>
 
             <Box

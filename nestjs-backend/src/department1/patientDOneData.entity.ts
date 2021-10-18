@@ -285,4 +285,28 @@ export class PatientDOneData extends BaseEntity {
 
   @Column({ nullable: true })
   referalToDepartments: string;
+
+  @Column({ nullable: true })
+  referToD2: boolean;
+
+  @Column({ nullable: true })
+  referToD3: boolean;
+
+  @Column({ nullable: true })
+  referToD4: boolean;
+
+  @Column({ nullable: true })
+  referToD5: boolean;
+
+  @Column({ nullable: true })
+  referToD6: boolean;
+
+  @Column({ nullable: true })
+  referToD7: boolean;
+
+  @Column({ nullable: true })
+  referToD8: boolean;
+
+  @Column({ nullable: true })
+  referToD9: boolean;
 }

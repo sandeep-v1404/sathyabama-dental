@@ -100,12 +100,13 @@ const PatientsList = ({ history }) => {
                 contact: patient.contactNumber,
                 actions:
                     <HStack>
-                        <Center w="40px" h="40px" bg="blue.300" color="white">
-                            <Link to={`/admin/patient/${patient.id}`} >
+                        <Link to={`/admin/patient/${patient.id}`} >
+                            <Center w="40px" h="40px" borderRadius="2xl" bg="blue.300" color="white">
                                 <EditIcon />
-                            </Link>
-                        </Center>
-                        <Center w="40px" h="40px" bg="red.300" color="white" _hover={{ cursor: "pointer" }} onClick={() => deleteProductHandler(patient.id)}>
+                            </Center>
+                        </Link>
+
+                        <Center borderRadius="2xl" w="40px" h="40px" bg="red.300" color="white" _hover={{ cursor: "pointer" }} onClick={() => deleteProductHandler(patient.id)}>
                             <Box as="span" fontWeight="bold" fontSize="lg" >
                                 <DeleteIcon />
                             </Box>
@@ -124,7 +125,7 @@ const PatientsList = ({ history }) => {
     return (
         <Fragment>
             <MetaData title={'All Patients'} />
-            <div className="container">
+            <div className="container" style={{ height: "100vh" }}>
 
                 <div className="row">
 

@@ -58,9 +58,9 @@ export default function Header() {
                         {user ? (
                             <Menu>
                                 <MenuButton
+                                    color={useColorModeValue('black', 'white')}
                                     _hover={{
                                         textDecoration: 'none',
-                                        color: "black"
                                     }}
                                     as={Button}
                                     mr={2}
@@ -78,8 +78,8 @@ export default function Header() {
                                         {user && user.username}
                                     </Flex>
                                 </MenuButton>
-                                {user && user.department === 'Administrator' && (
-                                    <Sidebar btnref={btnRef} isOpen={isOpen} onClose={onClose} onOpen={onOpen} />
+                                {user && (user.department === 'Administrator' || user.department === "Receptionist") && (
+                                    <Sidebar user={user} btnref={btnRef} isOpen={isOpen} onClose={onClose} onOpen={onOpen} />
                                 )}
                                 <MenuList>
                                     <LinkBox>

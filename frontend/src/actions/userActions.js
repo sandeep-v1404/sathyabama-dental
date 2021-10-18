@@ -89,6 +89,7 @@ export const loadUser = () => async (dispatch) => {
         if (data.role === "Unauthorized") {
             dispatch({
                 type: LOAD_USER_FAIL,
+                payload: "Unauthorized"
             });
             return;
         }

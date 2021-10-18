@@ -31,10 +31,7 @@ export class PatientsController {
   }
 
   @Get('/admin/:userId')
-  getPatientByIdAdmin(
-    @GetUser('Administrator') user: User,
-    @Param('userId') userId: string,
-  ): Promise<Patient> {
+  getPatientByIdAdmin(@Param('userId') userId: string): Promise<Patient> {
     return this.patientsService.getPatientByIdAdmin(userId);
   }
 
@@ -47,7 +44,6 @@ export class PatientsController {
 
   @Put('/:patientId')
   updatePatientDataById(
-    @GetUser('Administrator') _user: User,
     @Body() createPatientDTO: CreatePatientDTO,
     @Param('patientId')
     patientId: number,

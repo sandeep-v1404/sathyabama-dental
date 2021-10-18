@@ -8,7 +8,7 @@ import React from 'react'
 import { Link as ReachLink } from "react-router-dom"
 import PropTypes from 'prop-types';
 
-function Sidebar({ btnRef, isOpen, onClose, onOpen }) {
+function Sidebar({ btnRef, isOpen, onClose, onOpen, user }) {
 
     return (
         <>
@@ -24,7 +24,7 @@ function Sidebar({ btnRef, isOpen, onClose, onOpen }) {
                 <DrawerOverlay />
                 <DrawerContent>
                     <DrawerCloseButton />
-                    <DrawerHeader>Administrator</DrawerHeader>
+                    <DrawerHeader>{user.department}</DrawerHeader>
                     <DrawerBody>
                         <Accordion defaultIndex={[0]} allowMultiple>
                             <AccordionItem>
@@ -55,26 +55,30 @@ function Sidebar({ btnRef, isOpen, onClose, onOpen }) {
                                     </LinkBox>
                                 </AccordionPanel>
                             </AccordionItem>
-                            <AccordionItem>
-                                <h2>
-                                    <AccordionButton>
-                                        <Box flex="1" textAlign="left">
-                                            Users
-                                        </Box>
-                                        <AccordionIcon />
-                                    </AccordionButton>
-                                </h2>
-                                <AccordionPanel pb={4}>
-                                    <LinkBox as={MenuItem} height="30px">
-                                        <LinkOverlay as={ReachLink} to="/admin/users" _hover={{
-                                            textDecoration: 'none',
-                                            color: "black"
-                                        }}>
-                                            All Users
-                                        </LinkOverlay>
-                                    </LinkBox>
-                                </AccordionPanel>
-                            </AccordionItem>
+                            {
+                                user.department === "Administrator" &&
+
+                                <AccordionItem >
+                                    <h2>
+                                        <AccordionButton>
+                                            <Box flex="1" textAlign="left">
+                                                Users
+                                            </Box>
+                                            <AccordionIcon />
+                                        </AccordionButton>
+                                    </h2>
+                                    <AccordionPanel pb={4}>
+                                        <LinkBox as={MenuItem} height="30px">
+                                            <LinkOverlay as={ReachLink} to="/admin/users" _hover={{
+                                                textDecoration: 'none',
+                                                color: "black"
+                                            }}>
+                                                All Users
+                                            </LinkOverlay>
+                                        </LinkBox>
+                                    </AccordionPanel>
+                                </AccordionItem>
+                            }
                         </Accordion>
                     </DrawerBody>
                 </DrawerContent>
@@ -88,5 +92,6 @@ Sidebar.propTypes = {
     btnRef: PropTypes.any,
     isOpen: PropTypes.any,
     onClose: PropTypes.any,
-    onOpen: PropTypes.any
+    onOpen: PropTypes.any,
+    user: PropTypes.any,
 };

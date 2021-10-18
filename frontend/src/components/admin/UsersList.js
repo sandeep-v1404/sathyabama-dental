@@ -89,14 +89,16 @@ const UsersList = ({ history }) => {
                 role: user.role,
                 department: user.department,
                 actions:
+
                     <HStack hidden={user.department === "Administrator"}>
-                        <Center w="40px" h="40px" bg="blue.300" color="white">
-                            <Link to={`/admin/user/${user.id}`}>
+                        <Link to={`/admin/user/${user.id}`}>
+                            <Center w="40px" h="40px" bg="blue.300" color="white">
                                 <EditIcon />
-                            </Link>
-                        </Center>
-                        <Center w="40px" h="40px" bg="red.300" color="white">
-                            <Box as="button" fontWeight="bold" fontSize="lg" onClick={() => deleteUserHandler(user.id)}>
+                            </Center>
+                        </Link>
+
+                        <Center w="40px" h="40px" bg="red.300" color="white" _hover={{ cursor: "pointer" }} onClick={() => deleteUserHandler(user.id)}>
+                            <Box as="button" fontWeight="bold" fontSize="lg" >
                                 <DeleteIcon />
                             </Box>
                         </Center>

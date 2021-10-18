@@ -10,7 +10,7 @@ export default function Profile() {
     const { user } = useSelector(state => state.auth)
 
     return (
-        <Flex justifyContent="center">
+        <Flex justifyContent="center" height="100vh">
             <Center py={'16'}>
                 <MetaData title={'Your Profile'} />
                 <Box

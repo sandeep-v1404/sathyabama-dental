@@ -1,4 +1,4 @@
-import { IsString } from 'class-validator';
+import { IsBoolean, IsString } from 'class-validator';
 
 export class AddPatientD1DTO {
   id!: string;
@@ -264,6 +264,27 @@ export class AddPatientD1DTO {
   @IsString()
   treatmentPlan: string;
 
-  @IsString()
-  referalToDepartments: string;
+  @IsBoolean()
+  referToD2: boolean;
+
+  @IsBoolean()
+  referToD3: boolean;
+
+  @IsBoolean()
+  referToD4: boolean;
+
+  @IsBoolean()
+  referToD5: boolean;
+
+  @IsBoolean()
+  referToD6: boolean;
+
+  @IsBoolean()
+  referToD7: boolean;
+
+  @IsBoolean()
+  referToD8: boolean;
+
+  @IsBoolean()
+  referToD9: boolean;
 }

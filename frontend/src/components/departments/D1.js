@@ -11,6 +11,7 @@ import React, { Fragment, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { clearErrors, updatePatientDataInDepartment } from '../../actions/departmentActions'
 import { UPDATE_DEPT_DATA_RESET } from '../../constants/departmentConstants'
+import { PATIENT_RESET } from '../../constants/patientConstants'
 import Loader from "../layout/Loader"
 import MetaData from '../layout/MetaData';
 
@@ -106,7 +107,14 @@ const D1 = ({ history, match }) => {
         investigations: "",
         finalDiagonosis: "",
         treatmentPlan: "",
-        referalToDepartments: "",
+        referToD2: false,
+        referToD3: false,
+        referToD4: false,
+        referToD5: false,
+        referToD6: false,
+        referToD7: false,
+        referToD8: false,
+        referToD9: false,
     };
 
     const [loadedValues, setLoadedValues] = useState(null);
@@ -136,6 +144,7 @@ const D1 = ({ history, match }) => {
             });
             history.push("/");
             dispatch({ type: UPDATE_DEPT_DATA_RESET })
+            dispatch({ type: PATIENT_RESET })
         }
         if (patient && patient.patientDOneData !== null && patient.id.toString() === patientId.toString()) {
             setLoadedValues({
@@ -227,7 +236,14 @@ const D1 = ({ history, match }) => {
                 investigations: patient.patientDOneData.investigations,
                 finalDiagonosis: patient.patientDOneData.finalDiagonosis,
                 treatmentPlan: patient.patientDOneData.treatmentPlan,
-                referalToDepartments: patient.patientDOneData.referalToDepartments,
+                referToD2: patient.patientDOneData.referToD2,
+                referToD3: patient.patientDOneData.referToD3,
+                referToD4: patient.patientDOneData.referToD4,
+                referToD5: patient.patientDOneData.referToD5,
+                referToD6: patient.patientDOneData.referToD6,
+                referToD7: patient.patientDOneData.referToD7,
+                referToD8: patient.patientDOneData.referToD9,
+                referToD9: patient.patientDOneData.referToD9,
             });
         }
         if (!patient) {
@@ -243,7 +259,7 @@ const D1 = ({ history, match }) => {
 
     return (
         <Fragment>
-            <MetaData title={`Update D1 data`} />
+            <MetaData title={`OMRD Department`} />
             <Flex
                 minH={'100vh'}
                 align={'center'}
@@ -252,7 +268,7 @@ const D1 = ({ history, match }) => {
                 {
                     patient && <Stack spacing={[4, 8]} mx={'auto'} w={[400, 500, 800]} py={[6, 12]} px={[1, 6]}>
                         <Stack align={'center'}>
-                            <Heading fontSize={['2xl', '3xl', '4xl']}>Update D1 Data</Heading>
+                            <Heading fontSize={['2xl', '3xl', '4xl']}>OMRD Department</Heading>
                         </Stack>
                         <Box
                             rounded={'lg'}
@@ -446,34 +462,29 @@ const D1 = ({ history, match }) => {
 
                                             <FormLabel borderRadius={"10"} bg={"blue.300"} m={5} textAlign={"center"}>Referal to Departments  </FormLabel>
 
-                                            <TextareaControl isReadOnly={user.department !== 'D1'} mt={3} name="referalToDepartments" />
-
-                                            <CheckboxSingleControl name="referToD1">
-                                                D1
-                                            </CheckboxSingleControl>
                                             <CheckboxSingleControl name="referToD2">
-                                                D2
+                                                1. Department of Periodontia
                                             </CheckboxSingleControl>
                                             <CheckboxSingleControl name="referToD3">
-                                                D3
+                                                2. Department of Oral & Maxillo Facial Surgery
                                             </CheckboxSingleControl>
                                             <CheckboxSingleControl name="referToD4">
-                                                D4
+                                                3. Department of Conservative dentistry & Endodontia
                                             </CheckboxSingleControl>
                                             <CheckboxSingleControl name="referToD5">
-                                                D5
+                                                4. Department of Prosthodontia
                                             </CheckboxSingleControl>
                                             <CheckboxSingleControl name="referToD6">
-                                                D6
+                                                5. Department of Pedodontia
                                             </CheckboxSingleControl>
                                             <CheckboxSingleControl name="referToD7">
-                                                D7
+                                                6. Department of Orthodontia
                                             </CheckboxSingleControl>
                                             <CheckboxSingleControl name="referToD8">
-                                                D8
+                                                7. Department of Public Health dentistry
                                             </CheckboxSingleControl>
                                             <CheckboxSingleControl name="referToD9">
-                                                D9
+                                                8. Department of Oral & Maxillo Facial Pathology
                                             </CheckboxSingleControl>
 
                                             <Stack spacing={10} mt={3}>

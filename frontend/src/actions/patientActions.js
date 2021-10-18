@@ -37,6 +37,7 @@ export const getPatients = (search) => async (dispatch) => {
         })
 
     } catch (error) {
+        console.log(error);
         const err = handleHTTPerrors(error)
         dispatch({
             type: PATIENT_FAIL,

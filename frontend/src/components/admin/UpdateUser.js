@@ -115,6 +115,7 @@ const UpdateUser = ({ history, match }) => {
                                                     <option value="D7">D7</option>
                                                     <option value="D8">D8</option>
                                                     <option value="D9">D9</option>
+                                                    <option value="Receptionist">Receptionist</option>
                                                 </SelectControl>
                                                 <Stack spacing={10} mt={3}>
                                                     <Button

@@ -16,11 +16,12 @@ const ProtectedRoute = ({ isAdmin, component: Component, ...rest }) => {
                         if (isAuthenticated === false) {
                             return <Redirect to='/login' />
                         }
-
-                        if (isAdmin === true && user.department !== 'Administrator') {
+                        if (isAdmin === true && (user.department !== 'Administrator' && user.department !== 'Receptionist')) {
                             return <Redirect to="/" />
                         }
-
+                        if (isAdmin === true && (user.department === 'Administrator' || user.department === 'Receptionist')) {
+                            return <Component {...props} />
+                        }
                         return <Component {...props} />
                     }}
                 />

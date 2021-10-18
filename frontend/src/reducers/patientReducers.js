@@ -20,6 +20,7 @@ import {
     PATIENT_DETAILS_REQUEST,
     PATIENT_DETAILS_SUCCESS,
     PATIENT_DETAILS_FAIL,
+    PATIENT_RESET,
     CLEAR_ERRORS
 
 } from '../constants/patientConstants'
@@ -154,6 +155,10 @@ export const patientReducer = (state = {}, action) => {
             return {
                 ...state,
                 isUpdated: false
+            }
+        case PATIENT_RESET:
+            return {
+                loading: false,
             }
 
         case CLEAR_ERRORS:

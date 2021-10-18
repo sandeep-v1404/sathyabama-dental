@@ -19,7 +19,10 @@ export const updatePatientDataInDepartment = (department, patientId, patientData
         dispatch({
             type: UPDATE_DEPT_DATA_SUCCESS,
             payload: data
-        })
+        });
+
+
+
 
     } catch (error) {
         const err = handleHTTPerrors(error)

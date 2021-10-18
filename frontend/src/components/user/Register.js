@@ -17,7 +17,7 @@ export default function Register({ history }) {
         password: '',
         department: '',
     });
-    const [show, setShow] = React.useState(false)
+    const [show, setShow] = useState(false)
     const handleClick = () => setShow(!show)
 
     const dispatch = useDispatch();
@@ -30,12 +30,15 @@ export default function Register({ history }) {
         }
         if (error) {
             toast({
-                title: error,
+                title: error.split(" ")[0] === "Key" ? "Account Exists" : error,
                 status: "error",
                 duration: 5000,
                 isClosable: true,
             })
             dispatch(clearErrors());
+        }
+        if (error === "Unauthorized") {
+            history.push('/login')
         }
     }, [dispatch, isAuthenticated, error, history])
 
@@ -72,7 +75,7 @@ export default function Register({ history }) {
                                     name="username"
                                     type="text"
                                     value={user.username}
-                                    onChange={onChange} />
+                                    onChange={onChange} required />
                             </FormControl>
                             <FormControl id="email">
                                 <FormLabel>Email address</FormLabel>
@@ -80,7 +83,7 @@ export default function Register({ history }) {
                                     name="email"
                                     type="email"
                                     value={user.email}
-                                    onChange={onChange} />
+                                    onChange={onChange} required />
                             </FormControl>
                             <FormControl >
                                 <FormLabel>Password</FormLabel>
@@ -92,6 +95,7 @@ export default function Register({ history }) {
                                         pr="4.5rem"
                                         type={show ? "text" : "password"}
                                         placeholder="Enter password"
+                                        required
                                     />
                                     <InputRightElement width="4.5rem">
                                         <Button h="1.75rem" size="sm" onClick={handleClick}>
@@ -102,7 +106,7 @@ export default function Register({ history }) {
                             </FormControl>
                             <FormControl >
                                 <FormLabel>Department</FormLabel>
-                                <Select placeholder="Select option" value={user.department} name="department" onChange={onChange}>
+                                <Select required placeholder="Select option" value={user.department} name="department" onChange={onChange}>
                                     <option value="D1">D1</option>
                                     <option value="D2">D2</option>
                                     <option value="D3">D3</option>
@@ -112,6 +116,7 @@ export default function Register({ history }) {
                                     <option value="D7">D7</option>
                                     <option value="D8">D8</option>
                                     <option value="D9">D9</option>
+                                    <option value="Receptionist">Receptionist</option>
                                 </Select>
                             </FormControl>
                             <Stack spacing={10}>

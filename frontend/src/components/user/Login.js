@@ -67,6 +67,7 @@ export default function Login({ history, location }) {
                             <FormControl id="email">
                                 <FormLabel>Email address</FormLabel>
                                 <Input
+                                    required
                                     type="email"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)} />
@@ -75,6 +76,7 @@ export default function Login({ history, location }) {
                                 <FormLabel>Password</FormLabel>
                                 <InputGroup size="md">
                                     <Input
+                                        required
                                         name="password"
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}

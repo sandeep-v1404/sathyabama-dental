@@ -15,6 +15,7 @@ import PropTypes from 'prop-types';
 
 import { clearErrors, updatePatientDataInDepartment } from '../../actions/departmentActions'
 import { UPDATE_DEPT_DATA_RESET } from '../../constants/departmentConstants'
+import { PATIENT_RESET } from '../../constants/patientConstants'
 
 const D2 = ({ history, match }) => {
     const toast = useToast();
@@ -70,6 +71,7 @@ const D2 = ({ history, match }) => {
             });
             dispatch(clearErrors());
         }
+
         if (success) {
             toast({
                 title: 'Patient Updated successfully',
@@ -79,6 +81,8 @@ const D2 = ({ history, match }) => {
             });
             history.push("/");
             dispatch({ type: UPDATE_DEPT_DATA_RESET })
+            dispatch({ type: PATIENT_RESET })
+
         }
         if (patient && patient.patientDTwoData !== null && patient.id.toString() === patientId.toString()) {
             setLoadedValues({
@@ -117,6 +121,16 @@ const D2 = ({ history, match }) => {
         if (!patient) {
             history.push("/");
         }
+        if (patient && patient.patientDOneData && patient.patientDOneData.referToD2 === false) {
+            toast({
+                title: "Not Authorized",
+                status: "error",
+                duration: 5000,
+                isClosable: true,
+            });
+            history.push("/");
+            dispatch(clearErrors());
+        }
 
 
     }, [dispatch, history, success])
@@ -128,7 +142,7 @@ const D2 = ({ history, match }) => {
     return (
         <Fragment>
 
-            <MetaData title={`Update D2 data`} />
+            <MetaData title={`Department of Periodontia`} />
             <Flex
                 minH={'100vh'}
                 align={'center'}
@@ -138,7 +152,7 @@ const D2 = ({ history, match }) => {
                     patient &&
                     <Stack spacing={[4, 8]} mx={'auto'} w={[400, 500, 800]} py={[6, 12]} px={[1, 6]}>
                         <Stack align={'center'}>
-                            <Heading fontSize={['2xl', '3xl', '4xl']}>Update D2 Data</Heading>
+                            <Heading fontSize={['2xl', '3xl', '4xl']}>Department of Periodontia</Heading>
                         </Stack>
                         <Box
                             rounded={'lg'}
@@ -182,7 +196,7 @@ const D2 = ({ history, match }) => {
 
                                             <FormLabel borderRadius={"10"} bg={"blue.300"} m={5} textAlign={"center"}> Medical History</FormLabel>
 
-                                            <CheckboxSingleControl mt={3} isDisabled={user.department !== 'D2'} name="medicalHistorydiabetes">Diabetes</CheckboxSingleControl>
+                                            <CheckboxSingleControl style={{ touchAction: "none" }} mt={3} isDisabled={user.department !== 'D2'} name="medicalHistorydiabetes">Diabetes</CheckboxSingleControl>
                                             <CheckboxSingleControl mt={3} isDisabled={user.department !== 'D2'} name="medicalHistoryhypertension">Hypertension</CheckboxSingleControl>
                                             <CheckboxSingleControl mt={3} isDisabled={user.department !== 'D2'} name="medicalHistorycardiacDisorder">Cardiac Disorder</CheckboxSingleControl>
                                             <CheckboxSingleControl mt={3} isDisabled={user.department !== 'D2'} name="medicalHistoryrheumaticFever">Rheumatic Fever</CheckboxSingleControl>
