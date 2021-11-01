@@ -74,9 +74,9 @@ const D7 = ({ history, match }) => {
             dispatch({ type: PATIENT_RESET })
 
         }
-        if (patient && patient.patientDSixData !== null && patient.id.toString() === patientId.toString()) {
+        if (patient && patient.patientDSevenData !== null && patient.id.toString() === patientId.toString()) {
             setLoadedValues({
-                id: patient.patientDSixData.id || null,
+                id: patient.patientDSevenData.id || null,
                 chiefComplaints: patient.patientDSevenData.chiefComplaints,
                 historyOfPresentIllness: patient.patientDSevenData.historyOfPresentIllness,
                 dentalHistory: patient.patientDSevenData.dentalHistory,

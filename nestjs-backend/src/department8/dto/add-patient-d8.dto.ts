@@ -7,262 +7,77 @@ export class AddPatientD8DTO {
   chiefComplaint: string;
 
   @IsString()
-  historyOfPresentingIllness: string;
+  historyOfPresentIllness: string;
 
   @IsString()
-  medicalHistory: string;
+  habits: string;
 
   @IsString()
-  surgicalHistory: string;
+  clinicalFeatures: string;
 
   @IsString()
-  dentalHistory: string;
+  aspiration: string;
 
   @IsString()
-  personalHistory: string;
+  radiograph: string;
 
   @IsString()
-  diet: string;
+  surgicalDetails: string;
 
   @IsString()
-  personalHabits: string;
+  typeOfBiopsy: string;
 
   @IsString()
-  familyHistory: string;
+  macroscopicFeatures: string;
 
   @IsString()
-  maritalHistory: string;
+  provisionalDiagnosis: string;
 
   @IsString()
-  stature: string;
+  incisionalBiopsyDiagnosis: string;
 
   @IsString()
-  appearance: string;
+  macroscopicFeatures2: string;
 
   @IsString()
-  built: string;
+  histopathology: string;
 
   @IsString()
-  nourishment: string;
+  diagnosis: string;
 
   @IsString()
-  structuralAlterationsDeformities: string;
+  furtherInvestigation: string;
 
   @IsString()
-  hair: string;
+  chiefComplaint2: string;
 
   @IsString()
-  skin: string;
+  historyOfPresentIllness2: string;
 
   @IsString()
-  pallor: string;
+  habitsDuration: string;
 
   @IsString()
-  icterus: string;
+  clinicalFeatures2: string;
 
   @IsString()
-  pedalEdema: string;
+  aspiration2: string;
 
   @IsString()
-  cyanosis: string;
+  radiograph2: string;
 
   @IsString()
-  bP: string;
+  surgicalDetails2: string;
 
   @IsString()
-  respiratoryRate: string;
+  typeOfBiopsy2: string;
 
   @IsString()
-  pulseRate: string;
+  siteOfBiopsy: string;
 
   @IsString()
-  temperature: string;
+  natureOfTissue: string;
 
   @IsString()
-  cvs: string;
-
-  @IsString()
-  rs: string;
-
-  @IsString()
-  git: string;
-
-  @IsString()
-  cnd: string;
-
-  @IsString()
-  urogenitalSystem: string;
-
-  @IsString()
-  facialSymmetry: string;
-
-  @IsString()
-  earNoseEye: string;
-
-  @IsString()
-  tmj: string;
-
-  @IsString()
-  lips: string;
-
-  @IsString()
-  maxillarySinusTenderness: string;
-
-  @IsString()
-  lymphNodes: string;
-
-  @IsString()
-  intraOralExamination: string;
-
-  @IsString()
-  openingOfTheMouth: string;
-
-  @IsString()
-  interincisalDistance: string;
-
-  @IsString()
-  jawDeviation: string;
-
-  @IsString()
-  teethNumber: string;
-
-  @IsString()
-  teethSize: string;
-
-  @IsString()
-  teethShape: string;
-
-  @IsString()
-  teethColour: string;
-
-  @IsString()
-  teethMissingTooth: string;
-
-  @IsString()
-  teethRestoredTooth: string;
-
-  @IsString()
-  teethStains: string;
-
-  @IsString()
-  teethCaries: string;
-
-  @IsString()
-  teethAttrition: string;
-
-  @IsString()
-  teethAbrasion: string;
-
-  @IsString()
-  teethErosion: string;
-
-  @IsString()
-  teethMobility: string;
-
-  @IsString()
-  teethRootStumps: string;
-
-  @IsString()
-  teethFracture: string;
-
-  @IsString()
-  teethRetainedDeciduous: string;
-
-  @IsString()
-  teethPartiallyErupted: string;
-
-  @IsString()
-  teethDevelopmentalAnomalies: string;
-
-  @IsString()
-  gingivaColour: string;
-
-  @IsString()
-  gingivaContour: string;
-
-  @IsString()
-  gingivaConsistency: string;
-
-  @IsString()
-  gingivaCalculus: string;
-
-  @IsString()
-  gingivalRecession: string;
-
-  @IsString()
-  gingivaPeriodontalPocket: string;
-
-  @IsString()
-  alveolarMucosa: string;
-
-  @IsString()
-  buccalMucosaColour: string;
-
-  @IsString()
-  buccalMucosaConsistency: string;
-
-  @IsString()
-  buccalMucosaOpeningOfStensonSDuct: string;
-
-  @IsString()
-  labialMucosa: string;
-
-  @IsString()
-  palateHardPalate: string;
-
-  @IsString()
-  palateSoftPalate: string;
-
-  @IsString()
-  tongueSize: string;
-
-  @IsString()
-  tongueMovement: string;
-
-  @IsString()
-  tongueAttachment: string;
-
-  @IsString()
-  tongueDorsalSurface: string;
-
-  @IsString()
-  tongueVentralSurface: string;
-
-  @IsString()
-  tongueEdge: string;
-
-  @IsString()
-  tongueLateralSurface: string;
-
-  @IsString()
-  tonsils: string;
-  @IsString()
-  floorOfTheMouth: string;
-
-  @IsString()
-  pillarsOfTheFauces: string;
-
-  @IsString()
-  inspection: string;
-
-  @IsString()
-  palpation: string;
-
-  @IsString()
-  summary: string;
-
-  @IsString()
-  provisionalDiagonosis: string;
-
-  @IsString()
-  investigations: string;
-
-  @IsString()
-  finalDiagonosis: string;
-
-  @IsString()
-  treatmentPlan: string;
-
-  @IsString()
-  referalToDepartments: string;
+  provisionalDiagnosis2: string;
 }
