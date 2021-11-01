@@ -1,6 +1,9 @@
-button:focus,
-button:active,
-a:focus {
+a,
+button {
   outline: none !important;
-  box-shadow: none;
+  box-shadow: none !important;
+}
+
+a:hover {
+  text-decoration: none !important;
 }

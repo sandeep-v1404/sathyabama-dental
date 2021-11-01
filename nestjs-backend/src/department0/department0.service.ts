@@ -1,23 +1,23 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { AddPatientD9DTO } from 'src/department9/dto/add-patient-d9.dto';
-import { PatientsDNineRepository } from 'src/department9/patientsDNine.repository';
 import { PatientsRepository } from 'src/patients/patients.repository';
+import { AddPatientD0DTO } from './dto/add-patient-d0.dto';
+import { PatientsDZeroRepository } from './patientsDZero.repository';
 
 @Injectable()
-export class Department9Service {
+export class Department0Service {
   constructor(
-    @InjectRepository(PatientsDNineRepository)
-    private patientsDNineRepository: PatientsDNineRepository,
+    @InjectRepository(PatientsDZeroRepository)
+    private patientsDZeroRepository: PatientsDZeroRepository,
     @InjectRepository(PatientsRepository)
     private patientsRepository: PatientsRepository,
   ) {}
 
-  async addPatientDNineData(
+  async addPatientDZeroData(
     patientId: string,
-    addPatientD9DTO: AddPatientD9DTO,
+    addPatientD0DTO: AddPatientD0DTO,
   ): Promise<{ success: boolean }> {
-    const { id } = addPatientD9DTO;
+    const { id } = addPatientD0DTO;
 
     const patient = await this.patientsRepository.findOne(patientId, {
       loadRelationIds: true,
@@ -26,26 +26,26 @@ export class Department9Service {
       throw new NotFoundException(`No Patient with Id ${patientId} exists`);
     }
     if (
-      patient.patientDNineData === undefined ||
-      patient.patientDNineData === null
+      patient.patientDZeroData === undefined ||
+      patient.patientDZeroData === null
     ) {
-      const d2Data = this.patientsDNineRepository.create({
+      const d0Data = this.patientsDZeroRepository.create({
         patientId,
-        ...addPatientD9DTO,
+        ...addPatientD0DTO,
       });
-      await this.patientsDNineRepository.save(d2Data);
+      await this.patientsDZeroRepository.save(d0Data);
       return { success: true };
     } else {
-      await this.patientsDNineRepository.update(id, {
+      await this.patientsDZeroRepository.update(id, {
         patientId,
-        ...addPatientD9DTO,
+        ...addPatientD0DTO,
       });
       return { success: true };
     }
   }
 
-  async deletePatientDNineDataById(patientId: string) {
-    const found = await this.patientsDNineRepository.findOne({ patientId });
+  async deletePatientDZeroDataById(patientId: string) {
+    const found = await this.patientsDZeroRepository.findOne({ patientId });
     if (!found) {
       throw new NotFoundException(`No Patient with ${patientId} exists`);
     }

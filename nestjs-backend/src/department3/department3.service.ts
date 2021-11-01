@@ -29,11 +29,11 @@ export class Department3Service {
       patient.patientDThreeData === undefined ||
       patient.patientDThreeData === null
     ) {
-      const d2Data = this.patientsDThreeRepository.create({
+      const data = this.patientsDThreeRepository.create({
         patientId,
         ...addPatientD3DTO,
       });
-      await this.patientsDThreeRepository.save(d2Data);
+      await this.patientsDThreeRepository.save(data);
       return { success: true };
     } else {
       await this.patientsDThreeRepository.update(id, {

@@ -107,15 +107,33 @@ export default function Register({ history }) {
                             <FormControl >
                                 <FormLabel>Department</FormLabel>
                                 <Select required placeholder="Select option" value={user.department} name="department" onChange={onChange}>
-                                    <option value="D1">D1</option>
-                                    <option value="D2">D2</option>
-                                    <option value="D3">D3</option>
-                                    <option value="D4">D4</option>
-                                    <option value="D5">D5</option>
-                                    <option value="D6">D6</option>
-                                    <option value="D7">D7</option>
-                                    <option value="D8">D8</option>
-                                    <option value="D9">D9</option>
+                                    <option value="D0">
+                                        1. OMRD Department
+                                    </option>
+                                    <option value="D1">
+                                        2. Department of Periodontia
+                                    </option>
+                                    <option value="D2">
+                                        3. Department of Oral & Maxillo Facial Surgery
+                                    </option>
+                                    <option value="D3">
+                                        4. Department of Conservative dentistry & Endodontia
+                                    </option>
+                                    <option value="D4">
+                                        5. Department of Prosthodontia
+                                    </option>
+                                    <option value="D5">
+                                        6. Department of Pedodontia
+                                    </option>
+                                    <option value="D6">
+                                        7. Department of Orthodontia
+                                    </option>
+                                    <option value="D7">
+                                        8. Department of Public Health dentistry
+                                    </option>
+                                    <option value="D8">
+                                        9. Department of Oral & Maxillo Facial Pathology
+                                    </option>
                                     <option value="Receptionist">Receptionist</option>
                                 </Select>
                             </FormControl>

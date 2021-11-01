@@ -26,287 +26,86 @@ export class PatientDOneData extends BaseEntity {
   chiefComplaint: string;
 
   @Column({ nullable: true })
-  historyOfPresentingIllness: string;
+  medicalHistorydiabetes: boolean;
 
   @Column({ nullable: true })
-  medicalHistory: string;
+  medicalHistoryhypertension: boolean;
 
   @Column({ nullable: true })
-  surgicalHistory: string;
+  medicalHistorycardiacDisorder: boolean;
 
   @Column({ nullable: true })
-  dentalHistory: string;
+  medicalHistoryrheumaticFever: boolean;
 
   @Column({ nullable: true })
-  personalHistory: string;
+  medicalHistoryepilepsy: boolean;
 
   @Column({ nullable: true })
-  diet: string;
+  medicalHistorybleedingDisorders: boolean;
 
   @Column({ nullable: true })
-  personalHabits: string;
+  medicalHistoryjaundice: boolean;
 
   @Column({ nullable: true })
-  familyHistory: string;
+  medicalHistoryhepatitis: boolean;
 
   @Column({ nullable: true })
-  maritalHistory: string;
+  medicalHistoryasthma: boolean;
 
   @Column({ nullable: true })
-  stature: string;
+  medicalHistorytyphoid: boolean;
 
   @Column({ nullable: true })
-  appearance: string;
+  medicalHistorydrugAllergy: boolean;
 
   @Column({ nullable: true })
-  built: string;
+  medicalHistoryallergicToLAInjections: boolean;
 
   @Column({ nullable: true })
-  nourishment: string;
+  medicalHistoryanaemia: boolean;
 
   @Column({ nullable: true })
-  structuralAlterationsDeformities: string;
+  medicalHistorypregnancy: boolean;
 
   @Column({ nullable: true })
-  hair: string;
+  medicalHistorymenstrualCycle: boolean;
 
   @Column({ nullable: true })
-  skin: string;
+  medicalHistoryothers: boolean;
 
   @Column({ nullable: true })
-  pallor: string;
+  familyHistorydiabetes: boolean;
 
   @Column({ nullable: true })
-  icterus: string;
+  familyHistorybloodDyscrasias: boolean;
 
   @Column({ nullable: true })
-  pedalEdema: string;
+  familyHistoryhypertension: boolean;
 
   @Column({ nullable: true })
-  cyanosis: string;
+  familyHistoryconsanguineousMarriage: boolean;
 
   @Column({ nullable: true })
-  bP: string;
+  familyHistoryothers: boolean;
 
   @Column({ nullable: true })
-  respiratoryRate: string;
+  clinicalFindings: string;
 
   @Column({ nullable: true })
-  pulseRate: string;
+  diagnosis: string;
 
   @Column({ nullable: true })
-  temperature: string;
-
-  @Column({ nullable: true })
-  cvs: string;
-
-  @Column({ nullable: true })
-  rs: string;
-
-  @Column({ nullable: true })
-  git: string;
-
-  @Column({ nullable: true })
-  cnd: string;
-
-  @Column({ nullable: true })
-  urogenitalSystem: string;
-
-  @Column({ nullable: true })
-  facialSymmetry: string;
-
-  @Column({ nullable: true })
-  earNoseEye: string;
-
-  @Column({ nullable: true })
-  tmj: string;
-
-  @Column({ nullable: true })
-  lips: string;
-
-  @Column({ nullable: true })
-  maxillarySinusTenderness: string;
-
-  @Column({ nullable: true })
-  lymphNodes: string;
-
-  @Column({ nullable: true })
-  intraOralExamination: string;
-
-  @Column({ nullable: true })
-  openingOfTheMouth: string;
-
-  @Column({ nullable: true })
-  interincisalDistance: string;
-
-  @Column({ nullable: true })
-  jawDeviation: string;
-
-  @Column({ nullable: true })
-  teethNumber: string;
-
-  @Column({ nullable: true })
-  teethSize: string;
-
-  @Column({ nullable: true })
-  teethShape: string;
-
-  @Column({ nullable: true })
-  teethColour: string;
-
-  @Column({ nullable: true })
-  teethMissingTooth: string;
-
-  @Column({ nullable: true })
-  teethRestoredTooth: string;
-
-  @Column({ nullable: true })
-  teethStains: string;
-
-  @Column({ nullable: true })
-  teethCaries: string;
-
-  @Column({ nullable: true })
-  teethAttrition: string;
-
-  @Column({ nullable: true })
-  teethAbrasion: string;
-
-  @Column({ nullable: true })
-  teethErosion: string;
-
-  @Column({ nullable: true })
-  teethMobility: string;
-
-  @Column({ nullable: true })
-  teethRootStumps: string;
-
-  @Column({ nullable: true })
-  teethFracture: string;
-
-  @Column({ nullable: true })
-  teethRetainedDeciduous: string;
-
-  @Column({ nullable: true })
-  teethPartiallyErupted: string;
-
-  @Column({ nullable: true })
-  teethDevelopmentalAnomalies: string;
-
-  @Column({ nullable: true })
-  gingivaColour: string;
-
-  @Column({ nullable: true })
-  gingivaContour: string;
-
-  @Column({ nullable: true })
-  gingivaConsistency: string;
-
-  @Column({ nullable: true })
-  gingivaCalculus: string;
-
-  @Column({ nullable: true })
-  gingivalRecession: string;
-
-  @Column({ nullable: true })
-  gingivaPeriodontalPocket: string;
-
-  @Column({ nullable: true })
-  alveolarMucosa: string;
-
-  @Column({ nullable: true })
-  buccalMucosaColour: string;
-
-  @Column({ nullable: true })
-  buccalMucosaConsistency: string;
-
-  @Column({ nullable: true })
-  buccalMucosaOpeningOfStensonSDuct: string;
-
-  @Column({ nullable: true })
-  labialMucosa: string;
-
-  @Column({ nullable: true })
-  palateHardPalate: string;
-
-  @Column({ nullable: true })
-  palateSoftPalate: string;
-
-  @Column({ nullable: true })
-  tongueSize: string;
-
-  @Column({ nullable: true })
-  tongueMovement: string;
-
-  @Column({ nullable: true })
-  tongueAttachment: string;
-
-  @Column({ nullable: true })
-  tongueDorsalSurface: string;
-
-  @Column({ nullable: true })
-  tongueVentralSurface: string;
-
-  @Column({ nullable: true })
-  tongueEdge: string;
-
-  @Column({ nullable: true })
-  tongueLateralSurface: string;
-
-  @Column({ nullable: true })
-  tonsils: string;
-
-  @Column({ nullable: true })
-  floorOfTheMouth: string;
-
-  @Column({ nullable: true })
-  pillarsOfTheFauces: string;
-
-  @Column({ nullable: true })
-  inspection: string;
-
-  @Column({ nullable: true })
-  palpation: string;
-
-  @Column({ nullable: true })
-  summary: string;
-
-  @Column({ nullable: true })
-  provisionalDiagonosis: string;
+  prognosis: string;
 
   @Column({ nullable: true })
   investigations: string;
 
   @Column({ nullable: true })
-  finalDiagonosis: string;
+  radiographs: string;
 
   @Column({ nullable: true })
   treatmentPlan: string;
 
   @Column({ nullable: true })
-  referalToDepartments: string;
-
-  @Column({ nullable: true })
-  referToD2: boolean;
-
-  @Column({ nullable: true })
-  referToD3: boolean;
-
-  @Column({ nullable: true })
-  referToD4: boolean;
-
-  @Column({ nullable: true })
-  referToD5: boolean;
-
-  @Column({ nullable: true })
-  referToD6: boolean;
-
-  @Column({ nullable: true })
-  referToD7: boolean;
-
-  @Column({ nullable: true })
-  referToD8: boolean;
-
-  @Column({ nullable: true })
-  referToD9: boolean;
+  treatmentDone: string;
 }

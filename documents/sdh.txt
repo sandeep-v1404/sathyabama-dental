@@ -10,8 +10,7 @@ Treatment Plan
 
 Referal to Departments
 
-1.OMRD
-
+0. OMRD
 1. Department of Periodontia
 2. Department of Oral & Maxillo Facial Surgery
 3. Department of Conservative dentistry & Endodontia

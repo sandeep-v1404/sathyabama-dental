@@ -5,6 +5,7 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { PatientDZeroData } from 'src/department0/patientDZeroData.entity';
 import { PatientDOneData } from '../department1/patientDOneData.entity';
 import { PatientDTwoData } from '../department2/patientDTwoData.entity';
 import { PatientDThreeData } from '../department3/patientDThreeData.entity';
@@ -13,7 +14,6 @@ import { PatientDFiveData } from '../department5/patientDFiveData.entity';
 import { PatientDSixData } from '../department6/patientDSixData.entity';
 import { PatientDSevenData } from '../department7/patientDSevenData.entity';
 import { PatientDEightData } from '../department8/patientDEightData.entity';
-import { PatientDNineData } from '../department9/patientDNineData.entity';
 
 @Entity()
 export class Patient extends BaseEntity {
@@ -40,6 +40,13 @@ export class Patient extends BaseEntity {
 
   @Column()
   residentialAddress: string;
+
+  @OneToOne(
+    (_type) => PatientDZeroData,
+    (patientDZeroData) => patientDZeroData.patient,
+    { eager: true },
+  )
+  patientDZeroData: PatientDZeroData;
 
   @OneToOne(
     (_type) => PatientDOneData,
@@ -96,11 +103,4 @@ export class Patient extends BaseEntity {
     { eager: true },
   )
   patientDEightData: PatientDEightData;
-
-  @OneToOne(
-    (_type) => PatientDSevenData,
-    (patientDNineData) => patientDNineData.patient,
-    { eager: true },
-  )
-  patientDNineData: PatientDNineData;
 }

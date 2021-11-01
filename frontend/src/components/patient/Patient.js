@@ -54,41 +54,42 @@ export default function Patient({ patient }) {
                 <Box align={'center'} px={6} py={10}>
                     <List spacing={3}>
                         {
-                            patient.patientDOneData && <ListItem _hover={{ color: 'blue.300', cursor: 'pointer' }} onClick={() => history.push(`/D1/${patient.id}`)}>
+                            patient.patientDZeroData && <ListItem _hover={{ color: 'blue.300', cursor: 'pointer' }} onClick={() => history.push(`/D0/${patient.id}`)}>
                                 <ListIcon as={CheckIcon} color="green.400" />
                                 Tested by OMRD
                             </ListItem>
                         }
                         {
-                            patient.patientDOneData && patient.patientDOneData.referToD2 === true && patient.patientDTwoData && <ListItem _hover={{ color: 'blue.300', cursor: 'pointer' }} onClick={() => history.push(`/D2/${patient.id}`)}>
+                            patient.patientDZeroData && patient.patientDZeroData.referToD2 === true && patient.patientDOneData && <ListItem _hover={{ color: 'blue.300', cursor: 'pointer' }} onClick={() => history.push(`/D1/${patient.id}`)}>
                                 <ListIcon as={CheckIcon} color="green.400" />
                                 Department of Periodontia
                             </ListItem>
                         }
 
                         {
-                            patient.patientDThreeData && <ListItem _hover={{ color: 'blue.300', cursor: 'pointer' }} onClick={() => history.push(`/D2/${patient.id}`)}>
+                            patient.patientDZeroData && patient.patientDZeroData.referToD3 === true && patient.patientDTwoData && <ListItem _hover={{ color: 'blue.300', cursor: 'pointer' }} onClick={() => history.push(`/D2/${patient.id}`)}>
                                 <ListIcon as={CheckIcon} color="green.400" />
                                 Department of Oral & Maxillo Facial Surgery
                             </ListItem>
                         }
                         {
-                            patient.patientDFourData && <ListItem _hover={{ color: 'blue.300', cursor: 'pointer' }} onClick={() => history.push(`/D3/${patient.id}`)}>
+                            patient.patientDZeroData && patient.patientDZeroData.referToD4 === true && patient.patientDThreeData && <ListItem _hover={{ color: 'blue.300', cursor: 'pointer' }} onClick={() => history.push(`/D3/${patient.id}`)}>
                                 <ListIcon as={CheckIcon} color="green.400" />
                                 Department of Conservative dentistry & Endodontia
 
                             </ListItem>
                         }
                         {
-                            patient.patientDFiveData && <ListItem _hover={{ color: 'blue.300', cursor: 'pointer' }} onClick={() => history.push(`/D4/${patient.id}`)}>
+                            patient.patientDZeroData && patient.patientDZeroData.referToD5 === true && patient.patientDFourData && <ListItem _hover={{ color: 'blue.300', cursor: 'pointer' }} onClick={() => history.push(`/D4/${patient.id}`)}>
                                 <ListIcon as={CheckIcon} color="green.400" />
                                 Department of Conservative dentistry & Endodontia
                             </ListItem>
                         }
                     </List>
                     {
-                        user.department === "D1" &&
+                        user.department === "D0" &&
                         <Button
+                            whiteSpace={"normal"}
                             disabled={user.role === "Unauthorized"}
                             mt={10}
                             w={'full'}
@@ -107,8 +108,9 @@ export default function Patient({ patient }) {
                         </Button>
                     }
                     {
-                        user.department === "D2" && patient.patientDOneData && patient.patientDOneData.referToD2 === true &&
+                        user.department === "D1" && patient.patientDZeroData && patient.patientDZeroData.referToD1 === true &&
                         <Button
+                            whiteSpace={"normal"}
                             disabled={user.role === "Unauthorized"}
                             mt={10}
                             w={'full'}
@@ -127,8 +129,9 @@ export default function Patient({ patient }) {
                         </Button>
                     }
                     {
-                        user.department === "D3" && patient.patientDOneData && patient.patientDOneData.referToD3 === true &&
+                        user.department === "D2" && patient.patientDZeroData && patient.patientDZeroData.referToD2 === true &&
                         <Button
+                            whiteSpace={"normal"}
                             disabled={user.role === "Unauthorized"}
                             mt={10}
                             w={'full'}
@@ -147,27 +150,7 @@ export default function Patient({ patient }) {
                         </Button>
                     }
                     {
-                        user.department === "D4" && patient.patientDOneData && patient.patientDOneData.referToD4 === true &&
-                        <Button
-                            disabled={user.role === "Unauthorized"}
-                            mt={10}
-                            w={'full'}
-                            bg={'green.400'}
-                            color={'white'}
-                            rounded={'xl'}
-                            boxShadow={'0 5px 20px 0px rgb(72 187 120 / 43%)'}
-                            onClick={() => { history.push(`/${user.department}/${patient.id}`) }}
-                            _hover={{
-                                bg: 'green.500',
-                            }}
-                            _focus={{
-                                bg: 'green.500',
-                            }}>\
-                            Department of Conservative dentistry & Endodontia
-                        </Button>
-                    }
-                    {
-                        user.department === "D5" && patient.patientDOneData && patient.patientDOneData.referToD5 === true &&
+                        user.department === "D3" && patient.patientDZeroData && patient.patientDZeroData.referToD3 === true &&
                         <Button
                             disabled={user.role === "Unauthorized"}
                             mt={10}
@@ -183,7 +166,7 @@ export default function Patient({ patient }) {
                             _focus={{
                                 bg: 'green.500',
                             }}>
-                            OMRD Department Analysis
+                            Department of Conservative dentistry & Endodontia
                         </Button>
                     }
                 </Box>

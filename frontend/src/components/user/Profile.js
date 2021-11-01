@@ -5,6 +5,7 @@ import {
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link as ReachLink } from "react-router-dom";
+import { handleDepartment } from '../../utils/handleDepartment';
 import MetaData from '../layout/MetaData';
 export default function Profile() {
     const { user } = useSelector(state => state.auth)
@@ -47,7 +48,7 @@ export default function Profile() {
                         {user.email}
                     </Text>
                     <Text fontWeight={600} color={'gray.500'} mb={4}>
-                        {user.department}
+                        {handleDepartment(user.department)}
                     </Text>
                     <Stack mt={8} direction={'row'} spacing={4}>
                         <Button

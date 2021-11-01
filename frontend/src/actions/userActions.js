@@ -85,7 +85,6 @@ export const loadUser = () => async (dispatch) => {
     try {
         dispatch({ type: LOAD_USER_REQUEST })
         const { data } = await axios.get('/api/auth/me', getConfig())
-
         if (data.role === "Unauthorized") {
             dispatch({
                 type: LOAD_USER_FAIL,

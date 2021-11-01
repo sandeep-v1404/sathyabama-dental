@@ -12,7 +12,7 @@ import { useColorMode } from "@chakra-ui/react"
 import { HStack, Center, Box, useToast } from "@chakra-ui/react"
 import { EditIcon, DeleteIcon } from "@chakra-ui/icons"
 import PropTypes from 'prop-types';
-
+import { handleDepartment } from "../../utils/handleDepartment"
 const UsersList = ({ history }) => {
     const toast = useToast()
     const { colorMode, } = useColorMode()
@@ -87,7 +87,7 @@ const UsersList = ({ history }) => {
                 name: user.username,
                 email: user.email,
                 role: user.role,
-                department: user.department,
+                department: handleDepartment(user.department),
                 actions:
 
                     <HStack hidden={user.department === "Administrator"}>

@@ -1,12 +1,9 @@
 import {
-    Box, Button, Flex, FormLabel, Heading, Stack, useColorModeValue, useToast, Text, SimpleGrid
+    Box, Button, Flex,
+    Heading, Stack, useColorModeValue, useToast, Text, SimpleGrid,
 } from '@chakra-ui/react'
 import { Form, Formik } from "formik"
-import {
-    InputControl,
-    TextareaControl,
-    CheckboxSingleControl
-} from "formik-chakra-ui"
+import { InputControl, TextareaControl } from "formik-chakra-ui"
 import React, { Fragment, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import MetaData from '../layout/MetaData'
@@ -15,42 +12,44 @@ import PropTypes from 'prop-types';
 
 import { clearErrors, updatePatientDataInDepartment } from '../../actions/departmentActions'
 import { UPDATE_DEPT_DATA_RESET } from '../../constants/departmentConstants'
+import { PATIENT_RESET } from '../../constants/patientConstants'
 
 const D3 = ({ history, match }) => {
     const toast = useToast();
     const { user } = useSelector(state => state.auth);
 
     const initialValues = {
-        chiefComplaint: "",
-        pastDentalHistory: "",
-        medicalHistorydiabetes: false,
-        medicalHistoryhypertension: false,
-        medicalHistorycardiacDisorder: false,
-        medicalHistoryrheumaticFever: false,
-        medicalHistoryepilepsy: false,
-        medicalHistorybleedingDisorders: false,
-        medicalHistoryjaundice: false,
-        medicalHistoryhepatitis: false,
-        medicalHistoryasthma: false,
-        medicalHistorytyphoid: false,
-        medicalHistorydrugAllergy: false,
-        medicalHistoryallergicToLAInjections: false,
-        medicalHistoryanaemia: false,
-        medicalHistorypregnancy: false,
-        medicalHistorymenstrualCycle: false,
-        medicalHistoryothers: false,
-        familyHistorydiabetes: false,
-        familyHistorybloodDyscrasias: false,
-        familyHistoryhypertension: false,
-        familyHistoryconsanguineousMarriage: false,
-        familyHistoryothers: false,
-        clinicalFindings: "",
-        diagnosis: "",
-        prognosis: "",
-        investigations: "",
-        radiographs: "",
-        treatmentPlan: "",
-        treatmentDone: "",
+        chiefComplaint: '',
+        historyOfPresentingIllness: '',
+        pastDentalHistory: '',
+        pastMedicalHistory: '',
+        allergiesIfAny: '',
+        extraOralExamination: '',
+        intraOralExamination: '',
+        periodontalStatus: '',
+        provisionalDiagnosis: '',
+        differentialDiagnosis: '',
+        diagnosticTests: '',
+        radiographicInterpretation: '',
+        otherInvestigations: '',
+        diagnosis: '',
+        treatmentAdvised: '',
+        patientMotivation: '',
+        treatmentNotes: '',
+        toothNumber: '',
+        accessCavityPreparationAndPulpExtirpation: '',
+        bioMechanicalPreparation: '',
+        obturation: '',
+        postOperativeRadiograph: '',
+        existingRestorationsAndStatus: '',
+        radiographicPulpExposure: '',
+        laminaDura: '',
+        periapicalRadiolucency: '',
+        periodontalStatus2: '',
+        natureOfRootCanalInInvolvedTooth: '',
+        previousEndodonticTreatment: '',
+        fractureOfTeeth: '',
+        anyOtherAbnormalities: '',
     };
 
     const [loadedValues, setLoadedValues] = useState(null);
@@ -71,6 +70,7 @@ const D3 = ({ history, match }) => {
             });
             dispatch(clearErrors());
         }
+
         if (success) {
             toast({
                 title: 'Patient Updated successfully',
@@ -80,43 +80,58 @@ const D3 = ({ history, match }) => {
             });
             history.push("/");
             dispatch({ type: UPDATE_DEPT_DATA_RESET })
+            dispatch({ type: PATIENT_RESET })
+
         }
-        if (patient && patient.patientDTwoData !== null && patient.id.toString() === patientId.toString()) {
+        if (patient && patient.patientDThreeData !== null && patient.id.toString() === patientId.toString()) {
             setLoadedValues({
                 id: patient.patientDTwoData.id || null,
-                chiefComplaint: patient.patientDTwoData.chiefComplaint,
-                medicalHistorydiabetes: patient.patientDTwoData.medicalHistorydiabetes,
-                medicalHistoryhypertension: patient.patientDTwoData.medicalHistoryhypertension,
-                medicalHistorycardiacDisorder: patient.patientDTwoData.medicalHistorycardiacDisorder,
-                medicalHistoryrheumaticFever: patient.patientDTwoData.medicalHistoryrheumaticFever,
-                medicalHistoryepilepsy: patient.patientDTwoData.medicalHistoryepilepsy,
-                medicalHistorybleedingDisorders: patient.patientDTwoData.medicalHistorybleedingDisorders,
-                medicalHistoryjaundice: patient.patientDTwoData.medicalHistoryjaundice,
-                medicalHistoryhepatitis: patient.patientDTwoData.medicalHistoryhepatitis,
-                medicalHistoryasthma: patient.patientDTwoData.medicalHistoryasthma,
-                medicalHistorytyphoid: patient.patientDTwoData.medicalHistorytyphoid,
-                medicalHistorydrugAllergy: patient.patientDTwoData.medicalHistorydrugAllergy,
-                medicalHistoryallergicToLAInjections: patient.patientDTwoData.medicalHistoryallergicToLAInjections,
-                medicalHistoryanaemia: patient.patientDTwoData.medicalHistoryanaemia,
-                medicalHistorypregnancy: patient.patientDTwoData.medicalHistorypregnancy,
-                medicalHistorymenstrualCycle: patient.patientDTwoData.medicalHistorymenstrualCycle,
-                medicalHistoryothers: patient.patientDTwoData.medicalHistoryothers,
-                familyHistorydiabetes: patient.patientDTwoData.familyHistorydiabetes,
-                familyHistorybloodDyscrasias: patient.patientDTwoData.familyHistorybloodDyscrasias,
-                familyHistoryhypertension: patient.patientDTwoData.familyHistoryhypertension,
-                familyHistoryconsanguineousMarriage: patient.patientDTwoData.familyHistoryconsanguineousMarriage,
-                familyHistoryothers: patient.patientDTwoData.familyHistoryothers,
-                clinicalFindings: patient.patientDTwoData.clinicalFindings,
-                diagnosis: patient.patientDTwoData.diagnosis,
-                prognosis: patient.patientDTwoData.prognosis,
-                investigations: patient.patientDTwoData.investigations,
-                radiographs: patient.patientDTwoData.radiographs,
-                treatmentPlan: patient.patientDTwoData.treatmentPlan,
-                treatmentDone: patient.patientDTwoData.treatmentDone,
+                chiefComplaint: patient.patientDThreeData.chiefComplaint,
+                historyOfPresentingIllness: patient.patientDThreeData.historyOfPresentingIllness,
+                pastDentalHistory: patient.patientDThreeData.pastDentalHistory,
+                pastMedicalHistory: patient.patientDThreeData.pastMedicalHistory,
+                allergiesIfAny: patient.patientDThreeData.allergiesIfAny,
+                extraOralExamination: patient.patientDThreeData.extraOralExamination,
+                intraOralExamination: patient.patientDThreeData.intraOralExamination,
+                periodontalStatus: patient.patientDThreeData.periodontalStatus,
+                provisionalDiagnosis: patient.patientDThreeData.provisionalDiagnosis,
+                differentialDiagnosis: patient.patientDThreeData.differentialDiagnosis,
+                diagnosticTests: patient.patientDThreeData.diagnosticTests,
+                radiographicInterpretation: patient.patientDThreeData.radiographicInterpretation,
+                otherInvestigations: patient.patientDThreeData.otherInvestigations,
+                diagnosis: patient.patientDThreeData.diagnosis,
+                treatmentAdvised: patient.patientDThreeData.treatmentAdvised,
+                patientMotivation: patient.patientDThreeData.patientMotivation,
+                treatmentNotes: patient.patientDThreeData.treatmentNotes,
+                toothNumber: patient.patientDThreeData.toothNumber,
+                accessCavityPreparationAndPulpExtirpation: patient.patientDThreeData.accessCavityPreparationAndPulpExtirpation,
+                bioMechanicalPreparation: patient.patientDThreeData.bioMechanicalPreparation,
+                obturation: patient.patientDThreeData.obturation,
+                postOperativeRadiograph: patient.patientDThreeData.postOperativeRadiograph,
+                existingRestorationsAndStatus: patient.patientDThreeData.existingRestorationsAndStatus,
+                radiographicPulpExposure: patient.patientDThreeData.radiographicPulpExposure,
+                laminaDura: patient.patientDThreeData.laminaDura,
+                periapicalRadiolucency: patient.patientDThreeData.periapicalRadiolucency,
+                periodontalStatus2: patient.patientDThreeData.periodontalStatus,
+                natureOfRootCanalInInvolvedTooth: patient.patientDThreeData.natureOfRootCanalInInvolvedTooth,
+                previousEndodonticTreatment: patient.patientDThreeData.previousEndodonticTreatment,
+                fractureOfTeeth: patient.patientDThreeData.fractureOfTeeth,
+                anyOtherAbnormalities: patient.patientDThreeData.anyOtherAbnormalities,
+
             });
         }
         if (!patient) {
             history.push("/");
+        }
+        if (patient && patient.patientDOneData && patient.patientDOneData.referToD3 === false) {
+            toast({
+                title: "Not Authorized",
+                status: "error",
+                duration: 5000,
+                isClosable: true,
+            });
+            history.push("/");
+            dispatch(clearErrors());
         }
 
 
@@ -129,7 +144,7 @@ const D3 = ({ history, match }) => {
     return (
         <Fragment>
 
-            <MetaData title={`Update D3 data`} />
+            <MetaData title={`Department of Oral & Maxillo Facial Surgery`} />
             <Flex
                 minH={'100vh'}
                 align={'center'}
@@ -137,7 +152,7 @@ const D3 = ({ history, match }) => {
                 bg={useColorModeValue('gray.50', 'gray.800')}>
                 {
                     patient &&
-                    <Stack spacing={[4, 8]} mx={'auto'} w={[400, 500, 800]} py={[6, 12]} px={[1, 6]}>
+                    <Stack spacing={[4, 8]} mx={'auto'} w={[400, 500, 900]} py={[6, 12]} px={[1, 6]}>
                         <Stack align={'center'}>
                             <Heading fontSize={['2xl', '3xl', '4xl']}>Department of Oral & Maxillo Facial Surgery</Heading>
                         </Stack>
@@ -165,7 +180,8 @@ const D3 = ({ history, match }) => {
 
                             </SimpleGrid>
                             <Box mt={3} mb={3}>
-                                Residential Address<Text fontSize="md" fontWeight="bold"> {patient.residentialAddress}</Text>
+                                Residential Address
+                                <Text fontSize="md" fontWeight="bold"> {patient.residentialAddress}</Text>
                             </Box>
                             <Stack spacing={4}>
                                 <Formik
@@ -179,58 +195,38 @@ const D3 = ({ history, match }) => {
                                         <Form>
                                             <InputControl hidden name="id" />
 
-                                            <InputControl mt={3} isReadOnly={user.department !== 'D3'} name="chiefComplaint" label="Chief Complaint" />
-
-                                            <FormLabel borderRadius={"10"} bg={"blue.300"} m={5} textAlign={"center"}> Medical History</FormLabel>
-
-                                            <CheckboxSingleControl mt={3} isDisabled={user.department !== 'D3'} name="medicalHistorydiabetes">Diabetes</CheckboxSingleControl>
-                                            <CheckboxSingleControl mt={3} isDisabled={user.department !== 'D3'} name="medicalHistoryhypertension">Hypertension</CheckboxSingleControl>
-                                            <CheckboxSingleControl mt={3} isDisabled={user.department !== 'D3'} name="medicalHistorycardiacDisorder">Cardiac Disorder</CheckboxSingleControl>
-                                            <CheckboxSingleControl mt={3} isDisabled={user.department !== 'D3'} name="medicalHistoryrheumaticFever">Rheumatic Fever</CheckboxSingleControl>
-                                            <CheckboxSingleControl mt={3} isDisabled={user.department !== 'D3'} name="medicalHistoryepilepsy">Epilepsy</CheckboxSingleControl>
-                                            <CheckboxSingleControl mt={3} isDisabled={user.department !== 'D3'} name="medicalHistorybleedingDisorders">
-
-                                                Bleeding Disorders
-                                            </CheckboxSingleControl>
-                                            <CheckboxSingleControl mt={3} isDisabled={user.department !== 'D3'} name="medicalHistoryjaundice">Jaundice</CheckboxSingleControl>
-
-                                            <CheckboxSingleControl mt={3} isDisabled={user.department !== 'D3'} name="medicalHistoryhepatitis">Hepatitis</CheckboxSingleControl>
-                                            <CheckboxSingleControl mt={3} isDisabled={user.department !== 'D3'} name="medicalHistoryasthma">Asthma</CheckboxSingleControl>
-                                            <CheckboxSingleControl mt={3} isDisabled={user.department !== 'D3'} name="medicalHistorytyphoid">Typhoid</CheckboxSingleControl>
-                                            <CheckboxSingleControl mt={3} isDisabled={user.department !== 'D3'} name="medicalHistorydrugAllergy">
-                                                Drug Allergy
-                                            </CheckboxSingleControl>
-                                            <CheckboxSingleControl mt={3} isDisabled={user.department !== 'D3'} name="medicalHistoryallergicToLAInjections">
-                                                Allergic to L.A Injections
-                                            </CheckboxSingleControl>
-                                            <CheckboxSingleControl mt={3} isDisabled={user.department !== 'D3'} name="medicalHistoryanaemia">
-                                                Anaemia
-                                            </CheckboxSingleControl>
-                                            <CheckboxSingleControl mt={3} isDisabled={user.department !== 'D3'} name="medicalHistorypregnancy">
-                                                Pregnancy
-                                            </CheckboxSingleControl>
-                                            <CheckboxSingleControl mt={3} isDisabled={user.department !== 'D3'} name="medicalHistorymenstrualCycle">
-                                                Menstrual Cycle
-                                            </CheckboxSingleControl>
-                                            <CheckboxSingleControl mt={3} isDisabled={user.department !== 'D3'} name="medicalHistoryothers">
-                                                Others
-                                            </CheckboxSingleControl>
-
-                                            <FormLabel borderRadius={"10"} bg={"blue.300"} m={5} textAlign={"center"}>Family History </FormLabel>
-
-                                            <CheckboxSingleControl mt={3} isDisabled={user.department !== 'D3'} name="familyHistorydiabetes">Diabetes</CheckboxSingleControl>
-                                            <CheckboxSingleControl mt={3} isDisabled={user.department !== 'D3'} name="familyHistorybloodDyscrasias">Blood Dyscrasias</CheckboxSingleControl>
-                                            <CheckboxSingleControl mt={3} isDisabled={user.department !== 'D3'} name="familyHistoryhypertension">Hypertension</CheckboxSingleControl>
-                                            <CheckboxSingleControl mt={3} isDisabled={user.department !== 'D3'} name="familyHistoryconsanguineousMarriage">Consanguineous Marriage</CheckboxSingleControl>
-                                            <CheckboxSingleControl mt={3} isDisabled={user.department !== 'D3'} name="familyHistoryothers">Others</CheckboxSingleControl>
-
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D3'} name="clinicalFindings" label="Clinical Findings" />
+                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D3'} name="chiefComplaint" label="Chief Complaint" />
+                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D3'} name="historyOfPresentingIllness" label="History of Presenting Illness" />
+                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D3'} name="pastDentalHistory" label="Past Dental History" />
+                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D3'} name="pastMedicalHistory" label="Past Medical History:  " />
+                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D3'} name="allergiesIfAny" label="Allergies If Any:" />
+                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D3'} name="extraOralExamination" label="Extra Oral Examination:" />
+                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D3'} name="intraOralExamination" label="Intra Oral Examination:" />
+                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D3'} name="periodontalStatus" label="Periodontal  Status" />
+                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D3'} name="provisionalDiagnosis" label="Provisional  Diagnosis" />
+                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D3'} name="differentialDiagnosis" label="Differential  Diagnosis:" />
+                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D3'} name="diagnosticTests" label="Diagnostic  Tests" />
+                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D3'} name="radiographicInterpretation" label="Radiographic  Interpretation :" />
+                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D3'} name="otherInvestigations" label="Other Investigations" />
                                             <TextareaControl mt={3} isReadOnly={user.department !== 'D3'} name="diagnosis" label="Diagnosis" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D3'} name="prognosis" label="Prognosis" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D3'} name="investigations" label="Investigations" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D3'} name="radiographs" label="Radiographs" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D3'} name="treatmentPlan" label="Treatment Plan" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D3'} name="treatmentDone" label="Treatment Done" />
+                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D3'} name="treatmentAdvised" label="Treatment  Advised" />
+                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D3'} name="patientMotivation" label="Patient Motivation" />
+                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D3'} name="treatmentNotes" label="Treatment Notes" />
+                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D3'} name="toothNumber" label="Tooth Number" />
+                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D3'} name="accessCavityPreparationAndPulpExtirpation" label="Access Cavity Preparation and Pulp Extirpation:" />
+                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D3'} name="bioMechanicalPreparation" label="Bio- Mechanical Preparation" />
+                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D3'} name="obturation" label="Obturation" />
+                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D3'} name="postOperativeRadiograph" label="Post Operative Radiograph" />
+                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D3'} name="existingRestorationsAndStatus" label="Existing  Restorations and Status" />
+                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D3'} name="radiographicPulpExposure" label="Radiographic  Pulp Exposure" />
+                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D3'} name="laminaDura" label="Lamina Dura" />
+                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D3'} name="periapicalRadiolucency" label="Periapical  Radiolucency" />
+                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D3'} name="periodontalStatus" label="Periodontal  Status" />
+                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D3'} name="natureOfRootCanalInInvolvedTooth" label="Nature  of Root Canal in Involved  Tooth" />
+                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D3'} name="previousEndodonticTreatment" label="Previous Endodontic  Treatment" />
+                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D3'} name="fractureOfTeeth" label="Fracture of Teeth" />
+                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D3'} name="anyOtherAbnormalities" label="Any Other Abnormalities" />
+
 
                                             <Stack spacing={10} mt={3}>
                                                 <Button

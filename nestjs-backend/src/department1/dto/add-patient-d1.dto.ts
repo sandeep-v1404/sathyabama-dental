@@ -6,285 +6,87 @@ export class AddPatientD1DTO {
   @IsString()
   chiefComplaint: string;
 
-  @IsString()
-  historyOfPresentingIllness: string;
-
-  @IsString()
-  medicalHistory: string;
-
-  @IsString()
-  surgicalHistory: string;
-
-  @IsString()
-  dentalHistory: string;
-
-  @IsString()
-  personalHistory: string;
-
-  @IsString()
-  diet: string;
-
-  @IsString()
-  personalHabits: string;
-
-  @IsString()
-  familyHistory: string;
-
-  @IsString()
-  maritalHistory: string;
-
-  @IsString()
-  stature: string;
-
-  @IsString()
-  appearance: string;
-
-  @IsString()
-  built: string;
-
-  @IsString()
-  nourishment: string;
-
-  @IsString()
-  structuralAlterationsDeformities: string;
-
-  @IsString()
-  hair: string;
-
-  @IsString()
-  skin: string;
-
-  @IsString()
-  pallor: string;
-
-  @IsString()
-  icterus: string;
-
-  @IsString()
-  pedalEdema: string;
-
-  @IsString()
-  cyanosis: string;
-
-  @IsString()
-  bP: string;
-
-  @IsString()
-  respiratoryRate: string;
-
-  @IsString()
-  pulseRate: string;
-
-  @IsString()
-  temperature: string;
-
-  @IsString()
-  cvs: string;
-
-  @IsString()
-  rs: string;
-
-  @IsString()
-  git: string;
-
-  @IsString()
-  cnd: string;
-
-  @IsString()
-  urogenitalSystem: string;
-
-  @IsString()
-  facialSymmetry: string;
-
-  @IsString()
-  earNoseEye: string;
-
-  @IsString()
-  tmj: string;
-
-  @IsString()
-  lips: string;
-
-  @IsString()
-  maxillarySinusTenderness: string;
-
-  @IsString()
-  lymphNodes: string;
+  @IsBoolean()
+  medicalHistorydiabetes: boolean;
 
-  @IsString()
-  intraOralExamination: string;
-
-  @IsString()
-  openingOfTheMouth: string;
-
-  @IsString()
-  interincisalDistance: string;
-
-  @IsString()
-  jawDeviation: string;
-
-  @IsString()
-  teethNumber: string;
-
-  @IsString()
-  teethSize: string;
-
-  @IsString()
-  teethShape: string;
-
-  @IsString()
-  teethColour: string;
-
-  @IsString()
-  teethMissingTooth: string;
-
-  @IsString()
-  teethRestoredTooth: string;
-
-  @IsString()
-  teethStains: string;
-
-  @IsString()
-  teethCaries: string;
-
-  @IsString()
-  teethAttrition: string;
-
-  @IsString()
-  teethAbrasion: string;
-
-  @IsString()
-  teethErosion: string;
-
-  @IsString()
-  teethMobility: string;
-
-  @IsString()
-  teethRootStumps: string;
-
-  @IsString()
-  teethFracture: string;
+  @IsBoolean()
+  medicalHistoryhypertension: boolean;
 
-  @IsString()
-  teethRetainedDeciduous: string;
-
-  @IsString()
-  teethPartiallyErupted: string;
-
-  @IsString()
-  teethDevelopmentalAnomalies: string;
-
-  @IsString()
-  gingivaColour: string;
-
-  @IsString()
-  gingivaContour: string;
-
-  @IsString()
-  gingivaConsistency: string;
-
-  @IsString()
-  gingivaCalculus: string;
-
-  @IsString()
-  gingivalRecession: string;
-
-  @IsString()
-  gingivaPeriodontalPocket: string;
+  @IsBoolean()
+  medicalHistorycardiacDisorder: boolean;
 
-  @IsString()
-  alveolarMucosa: string;
+  @IsBoolean()
+  medicalHistoryrheumaticFever: boolean;
 
-  @IsString()
-  buccalMucosaColour: string;
+  @IsBoolean()
+  medicalHistoryepilepsy: boolean;
 
-  @IsString()
-  buccalMucosaConsistency: string;
+  @IsBoolean()
+  medicalHistorybleedingDisorders: boolean;
 
-  @IsString()
-  buccalMucosaOpeningOfStensonSDuct: string;
+  @IsBoolean()
+  medicalHistoryjaundice: boolean;
 
-  @IsString()
-  labialMucosa: string;
+  @IsBoolean()
+  medicalHistoryhepatitis: boolean;
 
-  @IsString()
-  palateHardPalate: string;
+  @IsBoolean()
+  medicalHistoryasthma: boolean;
 
-  @IsString()
-  palateSoftPalate: string;
+  @IsBoolean()
+  medicalHistorytyphoid: boolean;
 
-  @IsString()
-  tongueSize: string;
+  @IsBoolean()
+  medicalHistorydrugAllergy: boolean;
 
-  @IsString()
-  tongueMovement: string;
+  @IsBoolean()
+  medicalHistoryallergicToLAInjections: boolean;
 
-  @IsString()
-  tongueAttachment: string;
+  @IsBoolean()
+  medicalHistoryanaemia: boolean;
 
-  @IsString()
-  tongueDorsalSurface: string;
+  @IsBoolean()
+  medicalHistorypregnancy: boolean;
 
-  @IsString()
-  tongueVentralSurface: string;
+  @IsBoolean()
+  medicalHistorymenstrualCycle: boolean;
 
-  @IsString()
-  tongueEdge: string;
+  @IsBoolean()
+  medicalHistoryothers: boolean;
 
-  @IsString()
-  tongueLateralSurface: string;
+  @IsBoolean()
+  familyHistorydiabetes: boolean;
 
-  @IsString()
-  tonsils: string;
+  @IsBoolean()
+  familyHistorybloodDyscrasias: boolean;
 
-  @IsString()
-  floorOfTheMouth: string;
+  @IsBoolean()
+  familyHistoryhypertension: boolean;
 
-  @IsString()
-  pillarsOfTheFauces: string;
+  @IsBoolean()
+  familyHistoryconsanguineousMarriage: boolean;
 
-  @IsString()
-  inspection: string;
+  @IsBoolean()
+  familyHistoryothers: boolean;
 
   @IsString()
-  palpation: string;
+  clinicalFindings: string;
 
   @IsString()
-  summary: string;
+  diagnosis: string;
 
   @IsString()
-  provisionalDiagonosis: string;
+  prognosis: string;
 
   @IsString()
   investigations: string;
 
   @IsString()
-  finalDiagonosis: string;
+  radiographs: string;
 
   @IsString()
   treatmentPlan: string;
 
-  @IsBoolean()
-  referToD2: boolean;
-
-  @IsBoolean()
-  referToD3: boolean;
-
-  @IsBoolean()
-  referToD4: boolean;
-
-  @IsBoolean()
-  referToD5: boolean;
-
-  @IsBoolean()
-  referToD6: boolean;
-
-  @IsBoolean()
-  referToD7: boolean;
-
-  @IsBoolean()
-  referToD8: boolean;
-
-  @IsBoolean()
-  referToD9: boolean;
+  @IsString()
+  treatmentDone: string;
 }

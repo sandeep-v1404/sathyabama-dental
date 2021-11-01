@@ -26,10 +26,10 @@ import ProtectedRoute from './components/route/ProtectedRoute'
 import { loadUser } from './actions/userActions'
 import { useSelector } from 'react-redux'
 import store from './store'
+import D0 from './components/departments/D0'
 import D1 from './components/departments/D1'
 import D2 from './components/departments/D2'
-// import D3 from './components/departments/D3'
-import D4 from './components/departments/D4'
+import D3 from './components/departments/D3'
 
 function App() {
 
@@ -48,10 +48,11 @@ function App() {
 
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
-        <ProtectedRoute path="/D1/:patientId" component={D1} exact />
+        <ProtectedRoute path="/D0/:patientId" component={D0} exact />
+        <Route path="/D1/:patientId" component={D1} exact />
         <Route path="/D2/:patientId" component={D2} exact />
-        {/* <Route path="/D3" component={D3} /> */}
-        <Route path="/D4/:patientId" component={D4} exact />
+
+        <Route path="/D3/:patientId" component={D3} exact />
 
         <ProtectedRoute path="/me" component={Profile} exact />
         <ProtectedRoute path="/me/update" component={UpdateProfile} exact />

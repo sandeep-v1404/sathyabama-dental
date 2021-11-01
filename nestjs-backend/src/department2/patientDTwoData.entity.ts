@@ -23,90 +23,35 @@ export class PatientDTwoData extends BaseEntity {
   @JoinColumn({ name: 'patientId' })
   patient: Patient;
 
-  @Column({ nullable: true })
-  chiefComplaint: string;
-
-  @Column({ nullable: true })
-  medicalHistorydiabetes: boolean;
-
-  @Column({ nullable: true })
-  medicalHistoryhypertension: boolean;
-
-  @Column({ nullable: true })
-  medicalHistorycardiacDisorder: boolean;
-
-  @Column({ nullable: true })
-  medicalHistoryrheumaticFever: boolean;
-
-  @Column({ nullable: true })
-  medicalHistoryepilepsy: boolean;
-
-  @Column({ nullable: true })
-  medicalHistorybleedingDisorders: boolean;
-
-  @Column({ nullable: true })
-  medicalHistoryjaundice: boolean;
-
-  @Column({ nullable: true })
-  medicalHistoryhepatitis: boolean;
-
-  @Column({ nullable: true })
-  medicalHistoryasthma: boolean;
-
-  @Column({ nullable: true })
-  medicalHistorytyphoid: boolean;
-
-  @Column({ nullable: true })
-  medicalHistorydrugAllergy: boolean;
-
-  @Column({ nullable: true })
-  medicalHistoryallergicToLAInjections: boolean;
-
-  @Column({ nullable: true })
-  medicalHistoryanaemia: boolean;
-
-  @Column({ nullable: true })
-  medicalHistorypregnancy: boolean;
-
-  @Column({ nullable: true })
-  medicalHistorymenstrualCycle: boolean;
-
-  @Column({ nullable: true })
-  medicalHistoryothers: boolean;
-
-  @Column({ nullable: true })
-  familyHistorydiabetes: boolean;
-
-  @Column({ nullable: true })
-  familyHistorybloodDyscrasias: boolean;
-
-  @Column({ nullable: true })
-  familyHistoryhypertension: boolean;
-
-  @Column({ nullable: true })
-  familyHistoryconsanguineousMarriage: boolean;
-
-  @Column({ nullable: true })
-  familyHistoryothers: boolean;
-
-  @Column({ nullable: true })
-  clinicalFindings: string;
-
-  @Column({ nullable: true })
-  diagnosis: string;
-
-  @Column({ nullable: true })
-  prognosis: string;
-
-  @Column({ nullable: true })
-  investigations: string;
-
-  @Column({ nullable: true })
-  radiographs: string;
-
-  @Column({ nullable: true })
-  treatmentPlan: string;
-
-  @Column({ nullable: true })
-  treatmentDone: string;
+  @Column({ nullable: true }) chiefComplaint: string;
+  @Column({ nullable: true }) historyOfPresentingIllness: string;
+  @Column({ nullable: true }) pastMedicalHistory: string;
+  @Column({ nullable: true }) diabetes: string;
+  @Column({ nullable: true }) hypertension: string;
+  @Column({ nullable: true }) allergy: string;
+  @Column({ nullable: true }) asthma: string;
+  @Column({ nullable: true }) anemia: string;
+  @Column({ nullable: true }) epilepsy: string;
+  @Column({ nullable: true }) cardiacComplication: string;
+  @Column({ nullable: true }) bleedingDisorder: string;
+  @Column({ nullable: true }) jaundice: string;
+  @Column({ nullable: true }) pepticUlcer: string;
+  @Column({ nullable: true }) gitProblem: string;
+  @Column({ nullable: true }) other: string;
+  @Column({ nullable: true }) pastSurgicalHistory: string;
+  @Column({ nullable: true }) pastDentalHistory: string;
+  @Column({ nullable: true }) personalHabits: string;
+  @Column({ nullable: true }) generalPhysicalExamination: string;
+  @Column({ nullable: true }) extraOral: string;
+  @Column({ nullable: true }) hardTissue: string;
+  @Column({ nullable: true }) softTissue: string;
+  @Column({ nullable: true }) provisionalDiagnosis: string;
+  @Column({ nullable: true }) differentialDiagnosis: string;
+  @Column({ nullable: true }) investigations: string;
+  @Column({ nullable: true }) finalDiagnosis: string;
+  @Column({ nullable: true }) treatmentPlan: string;
+  @Column({ nullable: true }) treatmentDone: string;
+  @Column({ nullable: true }) medicationPrescribed: string;
+  @Column({ nullable: true }) summary: string;
+  @Column({ nullable: true }) grade: string;
 }
