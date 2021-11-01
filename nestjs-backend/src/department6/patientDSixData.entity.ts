@@ -26,263 +26,86 @@ export class PatientDSixData extends BaseEntity {
   chiefComplaint: string;
 
   @Column({ nullable: true })
-  historyOfPresentingIllness: string;
+  preNatalHistory: string;
+
+  @Column({ nullable: true })
+  postNatalHistory: string;
+
+  @Column({ nullable: true })
+  habits: string;
+
+  @Column({ nullable: true })
+  injuries: string;
 
   @Column({ nullable: true })
   medicalHistory: string;
 
   @Column({ nullable: true })
-  surgicalHistory: string;
-
-  @Column({ nullable: true })
   dentalHistory: string;
 
   @Column({ nullable: true })
-  personalHistory: string;
+  familialMalocclusionHistory: string;
 
   @Column({ nullable: true })
-  diet: string;
+  generalHistory: string;
 
   @Column({ nullable: true })
-  personalHabits: string;
+  brushingHabits: string;
 
   @Column({ nullable: true })
-  familyHistory: string;
+  pubertalStatus: string;
 
   @Column({ nullable: true })
-  maritalHistory: string;
+  anyOtherInformation: string;
 
   @Column({ nullable: true })
-  stature: string;
+  physicalStatus: string;
 
   @Column({ nullable: true })
-  appearance: string;
+  clinicalExamination: string;
 
   @Column({ nullable: true })
-  built: string;
+  extraOralExamination: string;
 
   @Column({ nullable: true })
-  nourishment: string;
+  functionalExamination: string;
 
   @Column({ nullable: true })
-  structuralAlterationsDeformities: string;
+  amountOfIncisorExposure: string;
 
   @Column({ nullable: true })
-  hair: string;
+  tMJExamination: string;
 
   @Column({ nullable: true })
-  skin: string;
+  softTissues: string;
 
   @Column({ nullable: true })
-  pallor: string;
+  tongue: string;
 
   @Column({ nullable: true })
-  icterus: string;
+  oralMucosa: string;
 
   @Column({ nullable: true })
-  pedalEdema: string;
+  hardTissues: string;
 
   @Column({ nullable: true })
-  cyanosis: string;
+  maxillaryArch: string;
 
   @Column({ nullable: true })
-  bP: string;
+  mandibularArch: string;
 
   @Column({ nullable: true })
-  respiratoryRate: string;
+  relationOfMandibularToMaxillaryArch: string;
 
   @Column({ nullable: true })
-  pulseRate: string;
+  anteroPosteriorRelationship: string;
 
   @Column({ nullable: true })
-  temperature: string;
+  verticalRelationship: string;
 
   @Column({ nullable: true })
-  cvs: string;
+  transverseRelationship: string;
 
   @Column({ nullable: true })
-  rs: string;
-
-  @Column({ nullable: true })
-  git: string;
-
-  @Column({ nullable: true })
-  cnd: string;
-
-  @Column({ nullable: true })
-  urogenitalSystem: string;
-
-  @Column({ nullable: true })
-  facialSymmetry: string;
-
-  @Column({ nullable: true })
-  earNoseEye: string;
-
-  @Column({ nullable: true })
-  tmj: string;
-
-  @Column({ nullable: true })
-  lips: string;
-
-  @Column({ nullable: true })
-  maxillarySinusTenderness: string;
-
-  @Column({ nullable: true })
-  lymphNodes: string;
-
-  @Column({ nullable: true })
-  intraOralExamination: string;
-
-  @Column({ nullable: true })
-  openingOfTheMouth: string;
-
-  @Column({ nullable: true })
-  interincisalDistance: string;
-
-  @Column({ nullable: true })
-  jawDeviation: string;
-
-  @Column({ nullable: true })
-  teethNumber: string;
-
-  @Column({ nullable: true })
-  teethSize: string;
-
-  @Column({ nullable: true })
-  teethShape: string;
-
-  @Column({ nullable: true })
-  teethColour: string;
-
-  @Column({ nullable: true })
-  teethMissingTooth: string;
-
-  @Column({ nullable: true })
-  teethRestoredTooth: string;
-
-  @Column({ nullable: true })
-  teethStains: string;
-
-  @Column({ nullable: true })
-  teethCaries: string;
-
-  @Column({ nullable: true })
-  teethAttrition: string;
-
-  @Column({ nullable: true })
-  teethAbrasion: string;
-
-  @Column({ nullable: true })
-  teethErosion: string;
-
-  @Column({ nullable: true })
-  teethMobility: string;
-
-  @Column({ nullable: true })
-  teethRootStumps: string;
-
-  @Column({ nullable: true })
-  teethFracture: string;
-
-  @Column({ nullable: true })
-  teethRetainedDeciduous: string;
-
-  @Column({ nullable: true })
-  teethPartiallyErupted: string;
-
-  @Column({ nullable: true })
-  teethDevelopmentalAnomalies: string;
-
-  @Column({ nullable: true })
-  gingivaColour: string;
-
-  @Column({ nullable: true })
-  gingivaContour: string;
-
-  @Column({ nullable: true })
-  gingivaConsistency: string;
-
-  @Column({ nullable: true })
-  gingivaCalculus: string;
-
-  @Column({ nullable: true })
-  gingivalRecession: string;
-
-  @Column({ nullable: true })
-  gingivaPeriodontalPocket: string;
-
-  @Column({ nullable: true })
-  alveolarMucosa: string;
-
-  @Column({ nullable: true })
-  buccalMucosaColour: string;
-
-  @Column({ nullable: true })
-  buccalMucosaConsistency: string;
-
-  @Column({ nullable: true })
-  buccalMucosaOpeningOfStensonSDuct: string;
-
-  @Column({ nullable: true })
-  labialMucosa: string;
-
-  @Column({ nullable: true })
-  palateHardPalate: string;
-
-  @Column({ nullable: true })
-  palateSoftPalate: string;
-
-  @Column({ nullable: true })
-  tongueSize: string;
-
-  @Column({ nullable: true })
-  tongueMovement: string;
-
-  @Column({ nullable: true })
-  tongueAttachment: string;
-
-  @Column({ nullable: true })
-  tongueDorsalSurface: string;
-
-  @Column({ nullable: true })
-  tongueVentralSurface: string;
-
-  @Column({ nullable: true })
-  tongueEdge: string;
-
-  @Column({ nullable: true })
-  tongueLateralSurface: string;
-
-  @Column({ nullable: true })
-  tonsils: string;
-
-  @Column({ nullable: true })
-  floorOfTheMouth: string;
-
-  @Column({ nullable: true })
-  pillarsOfTheFauces: string;
-
-  @Column({ nullable: true })
-  inspection: string;
-
-  @Column({ nullable: true })
-  palpation: string;
-
-  @Column({ nullable: true })
-  summary: string;
-
-  @Column({ nullable: true })
-  provisionalDiagonosis: string;
-
-  @Column({ nullable: true })
-  investigations: string;
-
-  @Column({ nullable: true })
-  finalDiagonosis: string;
-
-  @Column({ nullable: true })
-  treatmentPlan: string;
-
-  @Column({ nullable: true })
-  referalToDepartments: string;
+  intraOralRadiographs: string;
 }

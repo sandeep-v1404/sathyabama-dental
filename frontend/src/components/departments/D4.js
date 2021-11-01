@@ -159,6 +159,7 @@ const D4 = ({ history, match }) => {
                                     {() => (
                                         <Form>
                                             <InputControl hidden name="id" />
+
                                             <TextareaControl mt={3} isReadOnly={user.department !== 'D4'} name="chiefComplaint" label="Chief Complaint" />
                                             <TextareaControl mt={3} isReadOnly={user.department !== 'D4'} name="medicalHistory" label="Medical History" />
                                             <TextareaControl mt={3} isReadOnly={user.department !== 'D4'} name="dentalHistory" label="Dental History " />

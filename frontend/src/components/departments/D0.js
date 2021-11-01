@@ -195,6 +195,7 @@ const D0 = ({ history, match }) => {
                                     {({ isSubmitting }) => (
                                         <Form>
                                             <InputControl hidden name="id" />
+
                                             <TextareaControl mt={3} isReadOnly={user.department !== 'D0'} name="chiefComplaint" label="Chief Complaint" />
                                             <TextareaControl mt={3} isReadOnly={user.department !== 'D0'} name="historyOfPresentingIllness" label="History of Presenting Illness" />
                                             <TextareaControl mt={3} isReadOnly={user.department !== 'D0'} name="medicalHistory" label="Medical History" />
