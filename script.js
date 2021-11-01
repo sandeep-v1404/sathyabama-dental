@@ -1,71 +1,71 @@
-let dname = "D3";
-let num = "Three";
+let dname = "D0";
+let num = "Zero";
 
 let a = [
     "Chief Complaint",
     "History of Presenting Illness",
-    "Past Dental History",
-    "Past Medical History:  ",
-    "Allergies If Any:",
-    "Extra Oral Examination:",
-    "Intra Oral Examination:",
-    "Periodontal  Status",
-    "Provisional  Diagnosis",
-    "Differential  Diagnosis:",
-    "Diagnostic  Tests",
-    "Radiographic  Interpretation :",
-    "Other Investigations",
-    "Diagnosis",
-    "Treatment  Advised",
-    "Patient Motivation",
-    "Treatment Notes",
-    "Tooth Number",
-    "Access Cavity Preparation and Pulp Extirpation:",
-    "Bio- Mechanical Preparation",
-    "Obturation",
-    "Post Operative Radiograph",
-    "Existing  Restorations and Status",
-    "Radiographic  Pulp Exposure",
-    "Lamina Dura",
-    "Periapical  Radiolucency",
-    "Periodontal  Status",
-    "Nature  of Root Canal in Involved  Tooth",
-    "Previous Endodontic  Treatment",
-    "Fracture of Teeth",
-    "Any Other Abnormalities",
+    "Medical History",
+    "Surgical History",
+    "Dental History",
+    "Personal History",
+    "Family History",
+    "Marital History",
+    "General Examination",
+    "Vital Signs",
+    "Systemic Examination",
+    "Extra Oral Examination",
+    "Intra Oral Examination",
+    "Hard Tissue Examination",
+    "Teeth",
+    "Gingiva",
+    "Alveolar Mucosa",
+    "Buccal Mucosa",
+    "Labial Mucosa",
+    "Palate",
+    "Tongue",
+    "Tonsils",
+    "Floor of the Mouth",
+    "Pillars of the Fauces",
+    "Examination of the Lesion",
+    "Summary",
+    "Provisional Diagnosis",
+    "Differential Diagnosis",
+    "Investigations",
+    "Final Diagnosis",
+    "Treatment Plan",
 ]
 let b = [
     "chiefComplaint",
     "historyOfPresentingIllness",
-    "pastDentalHistory",
-    "pastMedicalHistory",
-    "allergiesIfAny",
+    "medicalHistory",
+    "surgicalHistory",
+    "dentalHistory",
+    "personalHistory",
+    "familyHistory",
+    "maritalHistory",
+    "generalExamination",
+    "vitalSigns",
+    "systemicExamination",
     "extraOralExamination",
     "intraOralExamination",
-    "periodontalStatus",
+    "hardTissueExamination",
+    "teeth",
+    "gingiva",
+    "alveolarMucosa",
+    "buccalMucosa",
+    "labialMucosa",
+    "palate",
+    "tongue",
+    "tonsils",
+    "floorOfTheMouth",
+    "pillarsOfTheFauces",
+    "examinationOfTheLesion",
+    "summary",
     "provisionalDiagnosis",
     "differentialDiagnosis",
-    "diagnosticTests",
-    "radiographicInterpretation",
-    "otherInvestigations",
-    "diagnosis",
-    "treatmentAdvised",
-    "patientMotivation",
-    "treatmentNotes",
-    "toothNumber",
-    "accessCavityPreparationAndPulpExtirpation",
-    "bioMechanicalPreparation",
-    "obturation",
-    "postOperativeRadiograph",
-    "existingRestorationsAndStatus",
-    "radiographicPulpExposure",
-    "laminaDura",
-    "periapicalRadiolucency",
-    "periodontalStatus",
-    "natureOfRootCanalInInvolvedTooth",
-    "previousEndodonticTreatment",
-    "fractureOfTeeth",
-    "anyOtherAbnormalities",
+    "investigations",
+    "finalDiagnosis",
+    "treatmentPlan",
 ]
 const fs = require('fs');
 const stream = fs.createWriteStream("script1-html.txt");
@@ -95,7 +95,6 @@ stream2.once('open', function (fd) {
 const stream3 = fs.createWriteStream("script4b-entity.txt");
 stream3.once('open', function () {
     for (let index = 0; index < b.length; index++) {
-        console.log();
         stream3.write(`
     @Column({ nullable: true })
     ${b[index]}:string;\n`);
@@ -106,7 +105,6 @@ stream3.once('open', function () {
 const stream4 = fs.createWriteStream("script4b-add.txt");
 stream4.once('open', function (fd) {
     for (let index = 0; index < b.length; index++) {
-        console.log();
         stream4.write(`
 @IsString()
 ${b[index]}: string;\n
