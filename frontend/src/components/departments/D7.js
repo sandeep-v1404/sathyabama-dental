@@ -125,7 +125,7 @@ const D7 = ({ history, match }) => {
     return (
         <Fragment>
 
-            <MetaData title={`Department of Orthodontia`} />
+            <MetaData title={`Department of Public Health dentistry`} />
             <Flex
                 minH={'100vh'}
                 align={'center'}
@@ -135,7 +135,7 @@ const D7 = ({ history, match }) => {
                     patient &&
                     <Stack spacing={[4, 8]} mx={'auto'} w={[400, 500, 900]} py={[6, 12]} px={[1, 6]}>
                         <Stack align={'center'}>
-                            <Heading fontSize={['2xl', '3xl', '4xl']}>Department of Orthodontia</Heading>
+                            <Heading fontSize={['2xl', '3xl', '4xl']}>Department of Public Health dentistry</Heading>
                         </Stack>
                         <Box
                             rounded={'lg'}

@@ -133,7 +133,7 @@ const D8 = ({ history, match }) => {
     return (
         <Fragment>
 
-            <MetaData title={`Department of Orthodontia`} />
+            <MetaData title={`Department of Oral & Maxillo Facial Pathology`} />
             <Flex
                 minH={'100vh'}
                 align={'center'}
@@ -143,7 +143,7 @@ const D8 = ({ history, match }) => {
                     patient &&
                     <Stack spacing={[4, 8]} mx={'auto'} w={[400, 500, 900]} py={[6, 12]} px={[1, 6]}>
                         <Stack align={'center'}>
-                            <Heading fontSize={['2xl', '3xl', '4xl']}>Department of Orthodontia</Heading>
+                            <Heading fontSize={['2xl', '3xl', '4xl']}>Department of Oral & Maxillo Facial Pathology</Heading>
                         </Stack>
                         <Box
                             rounded={'lg'}
@@ -195,21 +195,21 @@ const D8 = ({ history, match }) => {
                                             <TextareaControl mt={3} isReadOnly={user.department !== 'D8'} name="macroscopicFeatures" label="Macroscopic Features" />
                                             <TextareaControl mt={3} isReadOnly={user.department !== 'D8'} name="provisionalDiagnosis" label="Provisional Diagnosis" />
                                             <TextareaControl mt={3} isReadOnly={user.department !== 'D8'} name="incisionalBiopsyDiagnosis" label="Incisional Biopsy Diagnosis" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D8'} name="macroscopicFeatures" label="Macroscopic Features" />
+                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D8'} name="macroscopicFeatures2" label="Macroscopic Features" />
                                             <TextareaControl mt={3} isReadOnly={user.department !== 'D8'} name="histopathology" label="Histopathology" />
                                             <TextareaControl mt={3} isReadOnly={user.department !== 'D8'} name="diagnosis" label="Diagnosis" />
                                             <TextareaControl mt={3} isReadOnly={user.department !== 'D8'} name="furtherInvestigation" label="Further investigation" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D8'} name="chiefComplaint" label="Chief Complaint" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D8'} name="historyOfPresentIllness" label="History of Present Illness" />
+                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D8'} name="chiefComplaint2" label="Chief Complaint" />
+                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D8'} name="historyOfPresentIllness2" label="History of Present Illness" />
                                             <TextareaControl mt={3} isReadOnly={user.department !== 'D8'} name="habitsDuration" label="Habits & Duration" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D8'} name="clinicalFeatures" label="Clinical Features" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D8'} name="aspiration" label="Aspiration" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D8'} name="radiograph" label="Radiograph" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D8'} name="surgicalDetails" label="Surgical Details" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D8'} name="typeOfBiopsy" label="Type of biopsy" />
+                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D8'} name="clinicalFeatures2" label="Clinical Features" />
+                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D8'} name="aspiration2" label="Aspiration" />
+                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D8'} name="radiograph2" label="Radiograph" />
+                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D8'} name="surgicalDetails2" label="Surgical Details" />
+                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D8'} name="typeOfBiopsy2" label="Type of biopsy" />
                                             <TextareaControl mt={3} isReadOnly={user.department !== 'D8'} name="siteOfBiopsy" label="Site of Biopsy" />
                                             <TextareaControl mt={3} isReadOnly={user.department !== 'D8'} name="natureOfTissue" label="Nature of Tissue:" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D8'} name="provisionalDiagnosis" label="Provisional Diagnosis:" />
+                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D8'} name="provisionalDiagnosis2" label="Provisional Diagnosis:" />
 
                                             <Stack spacing={10} mt={3}>
                                                 <Button

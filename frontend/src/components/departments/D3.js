@@ -144,7 +144,7 @@ const D3 = ({ history, match }) => {
     return (
         <Fragment>
 
-            <MetaData title={`Department of Oral & Maxillo Facial Surgery`} />
+            <MetaData title={`Department of Conservative dentistry & Endodontia`} />
             <Flex
                 minH={'100vh'}
                 align={'center'}
@@ -154,7 +154,7 @@ const D3 = ({ history, match }) => {
                     patient &&
                     <Stack spacing={[4, 8]} mx={'auto'} w={[400, 500, 900]} py={[6, 12]} px={[1, 6]}>
                         <Stack align={'center'}>
-                            <Heading fontSize={['2xl', '3xl', '4xl']}>Department of Oral & Maxillo Facial Surgery</Heading>
+                            <Heading fontSize={['2xl', '3xl', '4xl']}>Department of Conservative dentistry & Endodontia</Heading>
                         </Stack>
                         <Box
                             rounded={'lg'}
@@ -221,7 +221,7 @@ const D3 = ({ history, match }) => {
                                             <TextareaControl mt={3} isReadOnly={user.department !== 'D3'} name="radiographicPulpExposure" label="Radiographic  Pulp Exposure" />
                                             <TextareaControl mt={3} isReadOnly={user.department !== 'D3'} name="laminaDura" label="Lamina Dura" />
                                             <TextareaControl mt={3} isReadOnly={user.department !== 'D3'} name="periapicalRadiolucency" label="Periapical  Radiolucency" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D3'} name="periodontalStatus" label="Periodontal  Status" />
+                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D3'} name="periodontalStatus2" label="Periodontal  Status" />
                                             <TextareaControl mt={3} isReadOnly={user.department !== 'D3'} name="natureOfRootCanalInInvolvedTooth" label="Nature  of Root Canal in Involved  Tooth" />
                                             <TextareaControl mt={3} isReadOnly={user.department !== 'D3'} name="previousEndodonticTreatment" label="Previous Endodontic  Treatment" />
                                             <TextareaControl mt={3} isReadOnly={user.department !== 'D3'} name="fractureOfTeeth" label="Fracture of Teeth" />
