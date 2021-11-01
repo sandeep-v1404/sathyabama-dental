@@ -16,7 +16,7 @@ export class PatientDEightData extends BaseEntity {
   @Column({ nullable: true })
   patientId: string;
 
-  @OneToOne((_type) => Patient, (patient) => patient.patientDTwoData, {
+  @OneToOne((_type) => Patient, (patient) => patient.patientDEightData, {
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'patientId' })
