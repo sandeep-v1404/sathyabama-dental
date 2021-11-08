@@ -85,7 +85,7 @@ const D3 = ({ history, match }) => {
         }
         if (patient && patient.patientDThreeData !== null && patient.id.toString() === patientId.toString()) {
             setLoadedValues({
-                id: patient.patientDTwoData.id || null,
+                id: patient.patientDThreeData.id || null,
                 chiefComplaint: patient.patientDThreeData.chiefComplaint,
                 historyOfPresentingIllness: patient.patientDThreeData.historyOfPresentingIllness,
                 pastDentalHistory: patient.patientDThreeData.pastDentalHistory,

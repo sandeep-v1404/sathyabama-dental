@@ -10,8 +10,8 @@ import MetaData from '../layout/MetaData'
 import Loader from "../layout/Loader";
 import PropTypes from 'prop-types';
 
-import { clearErrors, updatePatientDataInDepartment } from '../../actions/departmentActions'
-import { UPDATE_DEPT_DATA_RESET } from '../../constants/departmentConstants'
+import { clearErrors, deletePatientDataInDepartment, updatePatientDataInDepartment } from '../../actions/departmentActions'
+import { DELETE_DEPT_DATA_RESET, UPDATE_DEPT_DATA_RESET } from '../../constants/departmentConstants'
 import { PATIENT_RESET } from '../../constants/patientConstants'
 
 const D7 = ({ history, match }) => {
@@ -48,7 +48,7 @@ const D7 = ({ history, match }) => {
     const dispatch = useDispatch();
 
     const { patient } = useSelector(state => state.patient);
-    const { loading, success, error } = useSelector(state => state.department);
+    const { loading, success, error, deleted } = useSelector(state => state.department);
 
     const patientId = match.params.patientId;
     useEffect(() => {
@@ -60,6 +60,17 @@ const D7 = ({ history, match }) => {
                 isClosable: true,
             });
             dispatch(clearErrors());
+        }
+        if (deleted) {
+            toast({
+                title: 'Patient Deleted successfully',
+                status: "info",
+                duration: 5000,
+                isClosable: true,
+            });
+            history.push("/");
+            dispatch({ type: DELETE_DEPT_DATA_RESET })
+            dispatch({ type: PATIENT_RESET })
         }
 
         if (success) {
@@ -116,12 +127,14 @@ const D7 = ({ history, match }) => {
         }
 
 
-    }, [dispatch, history, success])
+    }, [dispatch, history, success, deleted])
 
     const submitHandler = (patientData) => {
         dispatch(updatePatientDataInDepartment(user.department, patientId, patientData));
     }
-
+    const deleteHandler = () => {
+        dispatch(deletePatientDataInDepartment(user.department, patientId));
+    }
     return (
         <Fragment>
 
@@ -213,6 +226,21 @@ const D7 = ({ history, match }) => {
                                                     }}>
                                                     Update
                                                 </Button>
+                                                {
+                                                    user.department === 'D7' && patient && patient.patientDSevenData &&
+                                                    <Button
+                                                        onClick={deleteHandler}
+                                                        boxShadow={
+                                                            '0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)'
+                                                        }
+                                                        bg={'red.400'}
+                                                        color={'white'}
+                                                        _hover={{
+                                                            bg: 'red.500',
+                                                        }}>
+                                                        Delete Patient
+                                                    </Button>
+                                                }
                                             </Stack>
                                         </Form>
                                     )}

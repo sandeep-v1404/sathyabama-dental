@@ -32,7 +32,7 @@ const UpdateUser = ({ history, match }) => {
                 username: user.username,
                 email: user.email,
                 role: user.role,
-                department: user.department
+                department: user.department,
             })
         }
 
@@ -47,15 +47,14 @@ const UpdateUser = ({ history, match }) => {
         }
 
         if (isUpdated) {
+            history.push('/admin/users')
+            window.location.reload();
             toast({
                 title: 'User updated successfully',
                 status: "success",
                 duration: 5000,
                 isClosable: true,
             })
-
-            history.push('/admin/users')
-
             dispatch({
                 type: UPDATE_USER_RESET
             })
@@ -97,6 +96,7 @@ const UpdateUser = ({ history, match }) => {
                                             <Form>
                                                 <InputControl mt={3} name="username" label="Username" />
                                                 <InputControl mt={3} name="email" label="Email" />
+                                                <InputControl mt={3} name="password" label="Password" />
                                                 <SelectControl mt={3} isReadOnly={user.department === 'Administrator'}
                                                     name="role" label="Role"
                                                 >

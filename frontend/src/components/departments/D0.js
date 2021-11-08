@@ -131,7 +131,7 @@ const D0 = ({ history, match }) => {
                 referToD5: patient.patientDZeroData.referToD5,
                 referToD6: patient.patientDZeroData.referToD6,
                 referToD7: patient.patientDZeroData.referToD7,
-                referToD8: patient.patientDZeroData.referToD9,
+                referToD8: patient.patientDZeroData.referToD8,
             });
         }
         if (!patient) {

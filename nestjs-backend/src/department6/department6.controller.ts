@@ -4,6 +4,7 @@ import {
   Delete,
   Param,
   Post,
+  Logger,
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
@@ -15,6 +16,7 @@ import { AddPatientD6DTO } from './dto/add-patient-d6.dto';
 @Controller('D6')
 @UseGuards(AuthGuard())
 export class Department6Controller {
+  private logger = new Logger('DepartmentSix');
   constructor(private department6Service: Department6Service) {}
 
   @Post('/:patientId')
@@ -24,6 +26,7 @@ export class Department6Controller {
     @Param('patientId')
     patientId: string,
   ): Promise<{ success: boolean }> {
+    this.logger.verbose('Patient Created/Updated');
     return this.department6Service.addPatientDSixData(
       patientId,
       addPatientD6DTO,
@@ -35,6 +38,7 @@ export class Department6Controller {
     @GetUser('D6') user: User,
     @Param('patientId') patientId: string,
   ) {
+    this.logger.verbose('Patient Deleted');
     return this.department6Service.deletePatientDSixDataById(patientId);
   }
 }

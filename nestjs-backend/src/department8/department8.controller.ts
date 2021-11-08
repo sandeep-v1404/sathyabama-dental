@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Delete,
+  Logger,
   Param,
   Post,
   UseGuards,
@@ -15,6 +16,8 @@ import { AddPatientD8DTO } from './dto/add-patient-d8.dto';
 @Controller('D8')
 @UseGuards(AuthGuard())
 export class Department8Controller {
+  private logger = new Logger('DepartmentEight');
+
   constructor(private department8Service: Department8Service) {}
 
   @Post('/:patientId')
@@ -24,6 +27,7 @@ export class Department8Controller {
     @Param('patientId')
     patientId: string,
   ): Promise<{ success: boolean }> {
+    this.logger.verbose('Patient Created/Updated');
     return this.department8Service.addPatientDEightData(
       patientId,
       addPatientD8DTO,
@@ -35,6 +39,7 @@ export class Department8Controller {
     @GetUser('D8') user: User,
     @Param('patientId') patientId: string,
   ) {
+    this.logger.verbose('Patient Deleted');
     return this.department8Service.deletePatientDEightDataById(patientId);
   }
 }

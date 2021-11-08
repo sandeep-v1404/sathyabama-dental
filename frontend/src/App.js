@@ -30,6 +30,11 @@ import D0 from './components/departments/D0'
 import D1 from './components/departments/D1'
 import D2 from './components/departments/D2'
 import D3 from './components/departments/D3'
+import D4 from './components/departments/D4'
+import D5 from './components/departments/D5'
+import D6 from './components/departments/D6'
+import D7 from './components/departments/D7'
+import D8 from './components/departments/D8'
 
 function App() {
 
@@ -51,8 +56,12 @@ function App() {
         <ProtectedRoute path="/D0/:patientId" component={D0} exact />
         <Route path="/D1/:patientId" component={D1} exact />
         <Route path="/D2/:patientId" component={D2} exact />
-
         <Route path="/D3/:patientId" component={D3} exact />
+        <Route path="/D4/:patientId" component={D4} exact />
+        <Route path="/D5/:patientId" component={D5} exact />
+        <Route path="/D6/:patientId" component={D6} exact />
+        <Route path="/D7/:patientId" component={D7} exact />
+        <Route path="/D8/:patientId" component={D8} exact />
 
         <ProtectedRoute path="/me" component={Profile} exact />
         <ProtectedRoute path="/me/update" component={UpdateProfile} exact />

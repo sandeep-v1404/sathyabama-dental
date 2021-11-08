@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Delete,
+  Logger,
   Param,
   Post,
   UseGuards,
@@ -15,6 +16,8 @@ import { Department4Service } from './department4.service';
 @Controller('D4')
 @UseGuards(AuthGuard())
 export class Department4Controller {
+  private logger = new Logger('DepartmentFour');
+
   constructor(private department4Service: Department4Service) {}
 
   @Post('/:patientId')
@@ -24,6 +27,7 @@ export class Department4Controller {
     @Param('patientId')
     patientId: string,
   ): Promise<{ success: boolean }> {
+    this.logger.verbose('Patient Created/Updated');
     return this.department4Service.addPatientDFourData(
       patientId,
       addPatientD4DTO,
@@ -35,6 +39,7 @@ export class Department4Controller {
     @GetUser('D4') user: User,
     @Param('patientId') patientId: string,
   ) {
+    this.logger.verbose('Patient Deleted');
     return this.department4Service.deletePatientDFourDataById(patientId);
   }
 }

@@ -19,13 +19,13 @@ export default function Patient({ patient }) {
         >
 
             <Box
-                w={[300, 400, 600]}
+                w={['lg', 400, 600]}
                 boxShadow={'2xl'}
                 rounded={'md'}
                 overflow={'hidden'}>
                 <Stack
                     textAlign={'center'}
-                    p={6}
+                    p={[3, 6]}
                     align={'center'}>
                     <Box
                         fontSize="2xl"
@@ -51,8 +51,8 @@ export default function Patient({ patient }) {
                         </Text>
                     </Stack>
                 </Stack>
-                <Box align={'center'} px={6} py={10}>
-                    <List spacing={3}>
+                <Box align={'center'} px={[1, 6]} py={10}>
+                    <List spacing={3} >
                         {
                             patient.patientDZeroData && <ListItem _hover={{ color: 'blue.300', cursor: 'pointer' }} onClick={() => history.push(`/D0/${patient.id}`)}>
                                 <ListIcon as={CheckIcon} color="green.400" />
@@ -60,35 +60,60 @@ export default function Patient({ patient }) {
                             </ListItem>
                         }
                         {
-                            patient.patientDZeroData && patient.patientDZeroData.referToD2 === true && patient.patientDOneData && <ListItem _hover={{ color: 'blue.300', cursor: 'pointer' }} onClick={() => history.push(`/D1/${patient.id}`)}>
+                            patient.patientDZeroData && patient.patientDZeroData.referToD1 === true && patient.patientDOneData && <ListItem _hover={{ color: 'blue.300', cursor: 'pointer' }} onClick={() => history.push(`/D1/${patient.id}`)}>
                                 <ListIcon as={CheckIcon} color="green.400" />
                                 Department of Periodontia
                             </ListItem>
                         }
 
                         {
-                            patient.patientDZeroData && patient.patientDZeroData.referToD3 === true && patient.patientDTwoData && <ListItem _hover={{ color: 'blue.300', cursor: 'pointer' }} onClick={() => history.push(`/D2/${patient.id}`)}>
+                            patient.patientDZeroData && patient.patientDZeroData.referToD2 === true && patient.patientDTwoData && <ListItem _hover={{ color: 'blue.300', cursor: 'pointer' }} onClick={() => history.push(`/D2/${patient.id}`)}>
                                 <ListIcon as={CheckIcon} color="green.400" />
                                 Department of Oral & Maxillo Facial Surgery
                             </ListItem>
                         }
                         {
-                            patient.patientDZeroData && patient.patientDZeroData.referToD4 === true && patient.patientDThreeData && <ListItem _hover={{ color: 'blue.300', cursor: 'pointer' }} onClick={() => history.push(`/D3/${patient.id}`)}>
+                            patient.patientDZeroData && patient.patientDZeroData.referToD3 === true && patient.patientDThreeData && <ListItem _hover={{ color: 'blue.300', cursor: 'pointer' }} onClick={() => history.push(`/D3/${patient.id}`)}>
                                 <ListIcon as={CheckIcon} color="green.400" />
                                 Department of Conservative dentistry & Endodontia
 
                             </ListItem>
                         }
                         {
-                            patient.patientDZeroData && patient.patientDZeroData.referToD5 === true && patient.patientDFourData && <ListItem _hover={{ color: 'blue.300', cursor: 'pointer' }} onClick={() => history.push(`/D4/${patient.id}`)}>
+                            patient.patientDZeroData && patient.patientDZeroData.referToD4 === true && patient.patientDFourData && <ListItem _hover={{ color: 'blue.300', cursor: 'pointer' }} onClick={() => history.push(`/D4/${patient.id}`)}>
                                 <ListIcon as={CheckIcon} color="green.400" />
-                                Department of Conservative dentistry & Endodontia
+                                Department of Prosthodontia
+                            </ListItem>
+                        }
+                        {
+                            patient.patientDZeroData && patient.patientDZeroData.referToD5 === true && patient.patientDFiveData && <ListItem _hover={{ color: 'blue.300', cursor: 'pointer' }} onClick={() => history.push(`/D5/${patient.id}`)}>
+                                <ListIcon as={CheckIcon} color="green.400" />
+                                Department of Pedodontia
+                            </ListItem>
+                        }
+                        {
+                            patient.patientDZeroData && patient.patientDZeroData.referToD6 === true && patient.patientDSixData && <ListItem _hover={{ color: 'blue.300', cursor: 'pointer' }} onClick={() => history.push(`/D6/${patient.id}`)}>
+                                <ListIcon as={CheckIcon} color="green.400" />
+                                Department of Orthodontia
+                            </ListItem>
+                        }
+                        {
+                            patient.patientDZeroData && patient.patientDZeroData.referToD7 === true && patient.patientDSevenData && <ListItem _hover={{ color: 'blue.300', cursor: 'pointer' }} onClick={() => history.push(`/D7/${patient.id}`)}>
+                                <ListIcon as={CheckIcon} color="green.400" />
+                                Department of Public Health dentistry
+                            </ListItem>
+                        }
+                        {
+                            patient.patientDZeroData && patient.patientDZeroData.referToD8 === true && patient.patientDEightData && <ListItem _hover={{ color: 'blue.300', cursor: 'pointer' }} onClick={() => history.push(`/D8/${patient.id}`)}>
+                                <ListIcon as={CheckIcon} color="green.400" />
+                                Department of Oral & Maxillo Facial Pathology
                             </ListItem>
                         }
                     </List>
                     {
                         user.department === "D0" &&
                         <Button
+                            fontSize={["xs", 'lg']}
                             whiteSpace={"normal"}
                             disabled={user.role === "Unauthorized"}
                             mt={10}
@@ -110,6 +135,7 @@ export default function Patient({ patient }) {
                     {
                         user.department === "D1" && patient.patientDZeroData && patient.patientDZeroData.referToD1 === true &&
                         <Button
+                            fontSize={["xs", 'lg']}
                             whiteSpace={"normal"}
                             disabled={user.role === "Unauthorized"}
                             mt={10}
@@ -131,6 +157,8 @@ export default function Patient({ patient }) {
                     {
                         user.department === "D2" && patient.patientDZeroData && patient.patientDZeroData.referToD2 === true &&
                         <Button
+                            fontSize={["xs", 'lg']}
+
                             whiteSpace={"normal"}
                             disabled={user.role === "Unauthorized"}
                             mt={10}
@@ -152,6 +180,7 @@ export default function Patient({ patient }) {
                     {
                         user.department === "D3" && patient.patientDZeroData && patient.patientDZeroData.referToD3 === true &&
                         <Button
+                            fontSize={["xs", 'lg']}
                             disabled={user.role === "Unauthorized"}
                             mt={10}
                             w={'full'}
@@ -167,6 +196,114 @@ export default function Patient({ patient }) {
                                 bg: 'green.500',
                             }}>
                             Department of Conservative dentistry & Endodontia
+                        </Button>
+                    }
+                    {
+                        user.department === "D4" && patient.patientDZeroData && patient.patientDZeroData.referToD4 === true &&
+                        <Button
+                            fontSize={["xs", 'lg']}
+                            disabled={user.role === "Unauthorized"}
+                            mt={10}
+                            w={'full'}
+                            bg={'green.400'}
+                            color={'white'}
+                            rounded={'xl'}
+                            boxShadow={'0 5px 20px 0px rgb(72 187 120 / 43%)'}
+                            onClick={() => { history.push(`/${user.department}/${patient.id}`) }}
+                            _hover={{
+                                bg: 'green.500',
+                            }}
+                            _focus={{
+                                bg: 'green.500',
+                            }}>
+                            Department of Prosthodontia
+
+                        </Button>
+                    }
+                    {
+                        user.department === "D5" && patient.patientDZeroData && patient.patientDZeroData.referToD5 === true &&
+                        <Button
+                            fontSize={["xs", 'lg']}
+                            disabled={user.role === "Unauthorized"}
+                            mt={10}
+                            w={'full'}
+                            bg={'green.400'}
+                            color={'white'}
+                            rounded={'xl'}
+                            boxShadow={'0 5px 20px 0px rgb(72 187 120 / 43%)'}
+                            onClick={() => { history.push(`/${user.department}/${patient.id}`) }}
+                            _hover={{
+                                bg: 'green.500',
+                            }}
+                            _focus={{
+                                bg: 'green.500',
+                            }}>
+                            Department of Pedodontia
+
+                        </Button>
+                    }
+                    {
+                        user.department === "D6" && patient.patientDZeroData && patient.patientDZeroData.referToD6 === true &&
+                        <Button
+                            fontSize={["xs", 'lg']}
+                            disabled={user.role === "Unauthorized"}
+                            mt={10}
+                            w={'full'}
+                            bg={'green.400'}
+                            color={'white'}
+                            rounded={'xl'}
+                            boxShadow={'0 5px 20px 0px rgb(72 187 120 / 43%)'}
+                            onClick={() => { history.push(`/${user.department}/${patient.id}`) }}
+                            _hover={{
+                                bg: 'green.500',
+                            }}
+                            _focus={{
+                                bg: 'green.500',
+                            }}>
+                            Department of Orthodontia
+
+                        </Button>
+                    }
+                    {
+                        user.department === "D7" && patient.patientDZeroData && patient.patientDZeroData.referToD7 === true &&
+                        <Button
+                            fontSize={["xs", 'lg']}
+                            disabled={user.role === "Unauthorized"}
+                            mt={10}
+                            w={'full'}
+                            bg={'green.400'}
+                            color={'white'}
+                            rounded={'xl'}
+                            boxShadow={'0 5px 20px 0px rgb(72 187 120 / 43%)'}
+                            onClick={() => { history.push(`/${user.department}/${patient.id}`) }}
+                            _hover={{
+                                bg: 'green.500',
+                            }}
+                            _focus={{
+                                bg: 'green.500',
+                            }}>
+                            Department of Public Health dentistry
+                        </Button>
+                    }
+                    {
+                        user.department === "D8" && patient.patientDZeroData && patient.patientDZeroData.referToD8 === true &&
+                        <Button
+                            fontSize={["xs", 'lg']}
+                            disabled={user.role === "Unauthorized"}
+                            mt={10}
+                            w={'full'}
+                            bg={'green.400'}
+                            color={'white'}
+                            rounded={'xl'}
+                            boxShadow={'0 5px 20px 0px rgb(72 187 120 / 43%)'}
+                            onClick={() => { history.push(`/${user.department}/${patient.id}`) }}
+                            _hover={{
+                                bg: 'green.500',
+                            }}
+                            _focus={{
+                                bg: 'green.500',
+                            }}>
+                            Department of Oral & Maxillo Facial Pathology
                         </Button>
                     }
                 </Box>

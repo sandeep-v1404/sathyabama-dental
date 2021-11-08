@@ -98,7 +98,7 @@ export class Patient extends BaseEntity {
   patientDSevenData: PatientDSevenData;
 
   @OneToOne(
-    (_type) => PatientDSevenData,
+    (_type) => PatientDEightData,
     (patientDEightData) => patientDEightData.patient,
     { eager: true },
   )
