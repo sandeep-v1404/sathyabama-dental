@@ -10,8 +10,8 @@ import MetaData from '../layout/MetaData'
 import Loader from "../layout/Loader";
 import PropTypes from 'prop-types';
 
-import { clearErrors, updatePatientDataInDepartment } from '../../actions/departmentActions'
-import { UPDATE_DEPT_DATA_RESET } from '../../constants/departmentConstants'
+import { clearErrors, deletePatientDataInDepartment, updatePatientDataInDepartment } from '../../actions/departmentActions'
+import { DELETE_DEPT_DATA_RESET, UPDATE_DEPT_DATA_RESET } from '../../constants/departmentConstants'
 import { PATIENT_RESET } from '../../constants/patientConstants'
 import handleKeyDown from '../../utils/handleKeyDown'
 
@@ -21,34 +21,34 @@ const D6 = ({ history, match }) => {
 
     const initialValues = {
         chiefComplaint: '',
-        preNatalHistory: '',
-        postNatalHistory: '',
+        preNatalHistory: 'Informer \nCondition of Mother during Pregnancy \nDelivery \nType',
+        postNatalHistory: 'Feeding:\nDuration and Frequency of bottle:\nMilestones of Development:\nNORMAL \nSitting : 6months \nCrawling : 9months \nStanding : 12months \nWalking : 15months \nRunning : 18months \nPhonation : 20months',
         habits: '',
         injuries: '',
-        medicalHistory: '',
+        medicalHistory: 'Childhood diseases \nHistory of Tonsillectomy and Adenoidectomy:',
         dentalHistory: '',
-        familialMalocclusionHistory: '',
-        generalHistory: '',
+        familialMalocclusionHistory: 'Parents:\nSiblings:',
+        generalHistory: "Reasons for taking Orthodontic Treatment  \nEsthetics/Function/Speech/Hygiene  \nPatient's Concern for Orthodontic  Treatment  \nAttitude of patient towards treatment",
         brushingHabits: '',
         pubertalStatus: '',
         anyOtherInformation: '',
-        physicalStatus: '',
+        physicalStatus: 'Build:\nHeight:',
         clinicalExamination: '',
-        extraOralExamination: '',
-        functionalExamination: '',
-        amountOfIncisorExposure: '',
-        tMJExamination: '',
-        softTissues: '',
-        tongue: '',
+        extraOralExamination: 'Shape of head :\nFacial Form  :\nFacial Profile  :\nFacial divergence :\nNasolabial angle :\nSymmetry :\nFacial proportions :\nClinical FMA :\nLip Length :\nAt the Philtrum :\nAt Corner of Mouth :\nInterlabial Gap :\nLip Posture And Tonicity :\nMento Labial Sulcus :\nV.T.O :\nNaso Labial Angle :\nSmile Arc',
+        functionalExamination: 'Respiration :\nMastication :\nPostural rest position  :\nPerioral muscle activity :\nHyperactive  mentalis/hypotonic upperlip  :\nDeglutition Speech :\nRest',
+        amountOfIncisorExposure: 'At Rest :.....................mm\nDuring Speech :....................mm\nDuring Smile :.....................mm ',
+        tMJExamination: 'Jaw Function / TMJ complaint now	       No		Yes \nIf yes specify___________________\nHistory of pain 			       No		Yes    	- duration\nHistory of sounds			       No		Yes    	- duration\nTM Joint tenderness to palpation	       No		Yes	Rt				Lt\nMuscle tenderness to palpation	       No		Yes	- if yes, where\nRange of Motion: Max opening  ________m.m	Protusion  ___________m.m\n	        	    Rt Excursion  ________m.m	Left Excursion________m.m',
+        softTissues: 'Oral Hygiene Status :\nGingiva	: Normal/Oedematous/Fibrous\nBrushing Habits : Good/Satisfactory/Poor\nPosition of Mucogingival Junction :\nFrenal Attachment : \nUpper :\nLower :',
+        tongue: 'Size:\nShape:\nMovements:\nPosture:',
         oralMucosa: '',
-        hardTissues: '',
-        maxillaryArch: '',
-        mandibularArch: '',
-        relationOfMandibularToMaxillaryArch: '',
-        anteroPosteriorRelationship: '',
-        verticalRelationship: '',
-        transverseRelationship: '',
-        intraOralRadiographs: '',
+        hardTissues: 'Number of teeth present :\nNumber of unerupted teeth:\nSupernumerary/missing teeth:\nSize, form of teeth:\nTexture:\nCaries:\nEndodontically treated:\nOcclusal wear facets:',
+        maxillaryArch: 'Shape : average/ ‘v’ shaped / ‘u’ shaped / square\nArch symmetry : symmetrical / asymmetrical\nArch alignment :\nPalatal contour :',
+        mandibularArch: 'Shape :	average/ ‘v’ shaped / ‘u’ shaped / square\nArch symmetry :	symmetrical / asymmetrical\nArch alignment :\nCurve of spee :',
+        relationOfMandibularToMaxillaryArch: 'MIDLINE:\nUpper:\nLower:\nFunctional:\nMaximum opening (incisal edges):\nFreeway space:\nCurve of spee:',
+        anteroPosteriorRelationship: 'Molar relation :\nCanine Relation: \nIncisor Relation: Overjet________m.m',
+        verticalRelationship: 'Overbite_______m.m/________%',
+        transverseRelationship: 'Crossbite / Scissor bite etc.,',
+        intraOralRadiographs: 'Intra Oral Radiographs:\n    1. Teeth Present: \n    2. Teeth Absent:  \n    3. Root Resorption				Root Formation				\n    4. Eruption Levels				Lamina dura and height of interdental crest\n    5. Supernumerary teeth			Third Molar\n    6. Pathological Conditions			Any other special Investigations:a',
     };
 
     const [loadedValues, setLoadedValues] = useState(null);
@@ -56,7 +56,7 @@ const D6 = ({ history, match }) => {
     const dispatch = useDispatch();
 
     const { patient } = useSelector(state => state.patient);
-    const { loading, success, error } = useSelector(state => state.department);
+    const { loading, success, error, deleted } = useSelector(state => state.department);
 
     const patientId = match.params.patientId;
     useEffect(() => {
@@ -68,6 +68,17 @@ const D6 = ({ history, match }) => {
                 isClosable: true,
             });
             dispatch(clearErrors());
+        }
+        if (deleted) {
+            toast({
+                title: 'Patient Deleted successfully',
+                status: "info",
+                duration: 5000,
+                isClosable: true,
+            });
+            history.push("/");
+            dispatch({ type: DELETE_DEPT_DATA_RESET })
+            dispatch({ type: PATIENT_RESET })
         }
 
         if (success) {
@@ -131,12 +142,14 @@ const D6 = ({ history, match }) => {
         }
 
 
-    }, [dispatch, history, success])
+    }, [dispatch, history, success, deleted])
 
     const submitHandler = (patientData) => {
         dispatch(updatePatientDataInDepartment(user.department, patientId, patientData));
     }
-
+    const deleteHandler = () => {
+        dispatch(deletePatientDataInDepartment(user.department, patientId));
+    }
     return (
         <Fragment>
 
@@ -235,6 +248,21 @@ const D6 = ({ history, match }) => {
                                                     }}>
                                                     Update
                                                 </Button>
+                                                {
+                                                    user.department === 'D6' && patient && patient.patientDSixData &&
+                                                    <Button
+                                                        onClick={deleteHandler}
+                                                        boxShadow={
+                                                            '0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)'
+                                                        }
+                                                        bg={'red.400'}
+                                                        color={'white'}
+                                                        _hover={{
+                                                            bg: 'red.500',
+                                                        }}>
+                                                        Delete Patient
+                                                    </Button>
+                                                }
                                             </Stack>
                                         </Form>
                                     )}
