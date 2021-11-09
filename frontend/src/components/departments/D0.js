@@ -9,8 +9,8 @@ import {
 import PropTypes from 'prop-types'
 import React, { Fragment, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { clearErrors, updatePatientDataInDepartment } from '../../actions/departmentActions'
-import { UPDATE_DEPT_DATA_RESET } from '../../constants/departmentConstants'
+import { clearErrors, deletePatientDataInDepartment, updatePatientDataInDepartment } from '../../actions/departmentActions'
+import { DELETE_DEPT_DATA_RESET, UPDATE_DEPT_DATA_RESET } from '../../constants/departmentConstants'
 import { PATIENT_RESET } from '../../constants/patientConstants'
 import Loader from "../layout/Loader"
 import MetaData from '../layout/MetaData';
@@ -26,30 +26,30 @@ const D0 = ({ history, match }) => {
         medicalHistory: '',
         surgicalHistory: '',
         dentalHistory: '',
-        personalHistory: '',
+        personalHistory: 'Diet:\nPersonal Habits:',
         familyHistory: '',
         maritalHistory: '',
-        generalExamination: '',
-        vitalSigns: '',
-        systemicExamination: '',
-        extraOralExamination: '',
+        generalExamination: 'Stature:\nAppearance:\nBuilt:\nNourishment:\nStructural Alterations & Deformities:\nHair:\nSkin:\nPallor:\nIcterus:\nPedal Edema:\nCyanosis:',
+        vitalSigns: 'B.P:\nRespiratory rate:\nPulse rate:\nTemperature:',
+        systemicExamination: '1.CVS: \n2.RS: \n3.GIT: \n4.CNS: \n5.Urogenital System:',
+        extraOralExamination: 'Facial symmetry:\nEar, Nose, Eye:\nTMJ:\nLips:\nMaxillary sinus tenderness:\nLymph Nodes:',
         intraOralExamination: '',
-        hardTissueExamination: '',
-        teeth: '',
-        gingiva: '',
+        hardTissueExamination: 'Opening of the mouth:\nInterincisal distance:\nJaw Deviation:',
+        teeth: 'Number: \nSize: \nShape: \nColour: \nMissing Tooth: \nRestored Tooth: \nStains: \nCaries: \nAttrition: \nAbrasion: \nErosion: \nMobility \nRoot Stumps: \nFracture: \nRetained Deciduous: \nPartially Erupted: \nDevelopmental Anomalies:',
+        gingiva: 'Colour: \nContour: \nConsistency: \nCalculus: \nGingival recession: \nPeriodontal Pocket:',
         alveolarMucosa: '',
-        buccalMucosa: '',
+        buccalMucosa: 'Colour: \nConsistency: \nOpening of Stenson’s duct:',
         labialMucosa: '',
-        palate: '',
-        tongue: '',
+        palate: 'Hard Palate:\nSoft Palate:',
+        tongue: 'Size: \nMovement: \nAttachment: \nDorsal Surface: \n     Circumvallate papillae \n     Filliform papillae \n     Fungiform papillae \nVentral Surface: \nEdge: \nLateral Surface:',
         tonsils: '',
         floorOfTheMouth: '',
         pillarsOfTheFauces: '',
-        examinationOfTheLesion: '',
+        examinationOfTheLesion: 'Inspection:\nPalpation:',
         summary: '',
         provisionalDiagnosis: '',
         differentialDiagnosis: '',
-        investigations: '',
+        investigations: 'Radiographs\nBlood investigation\nOthers',
         finalDiagnosis: '',
         treatmentPlan: '',
         referToD1: false,
@@ -67,7 +67,7 @@ const D0 = ({ history, match }) => {
     const dispatch = useDispatch();
 
     const { patient } = useSelector(state => state.patient);
-    const { loading, success, error } = useSelector(state => state.department);
+    const { loading, success, error, deleted } = useSelector(state => state.department);
 
     const patientId = match.params.patientId;
     useEffect(() => {
@@ -80,6 +80,18 @@ const D0 = ({ history, match }) => {
             });
             dispatch(clearErrors());
         }
+        if (deleted) {
+            toast({
+                title: 'Patient Deleted successfully',
+                status: "info",
+                duration: 5000,
+                isClosable: true,
+            });
+            history.push("/");
+            dispatch({ type: DELETE_DEPT_DATA_RESET })
+            dispatch({ type: PATIENT_RESET })
+        }
+
         if (success) {
             toast({
                 title: 'Patient Updated successfully',
@@ -140,10 +152,13 @@ const D0 = ({ history, match }) => {
         }
 
 
-    }, [dispatch, history, success])
+    }, [dispatch, history, success, deleted])
 
     const submitHandler = (patientData) => {
         dispatch(updatePatientDataInDepartment(user.department, patientId, patientData));
+    }
+    const deleteHandler = () => {
+        dispatch(deletePatientDataInDepartment(user.department, patientId));
     }
 
     return (
@@ -208,10 +223,13 @@ const D0 = ({ history, match }) => {
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D0'} name="generalExamination" label="General Examination" />
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D0'} name="vitalSigns" label="Vital Signs" />
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D0'} name="systemicExamination" label="Systemic Examination" />
+                                            <FormLabel borderRadius={"10"} bg={"blue.300"} m={5} textAlign={"center"}>Local Examination  </FormLabel>
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D0'} name="extraOralExamination" label="Extra Oral Examination" />
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D0'} name="intraOralExamination" label="Intra Oral Examination" />
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D0'} name="hardTissueExamination" label="Hard Tissue Examination" />
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D0'} name="teeth" label="Teeth" />
+                                            <FormLabel borderRadius={"10"} bg={"blue.300"} m={5} textAlign={"center"}>Soft Tissue Examination  </FormLabel>
+
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D0'} name="gingiva" label="Gingiva" />
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D0'} name="alveolarMucosa" label="Alveolar Mucosa" />
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D0'} name="buccalMucosa" label="Buccal Mucosa" />
@@ -272,6 +290,21 @@ const D0 = ({ history, match }) => {
                                                     }}>
                                                     Update
                                                 </Button>
+                                                {
+                                                    user.department === 'D0' && patient && patient.patientDOneData &&
+                                                    <Button
+                                                        onClick={deleteHandler}
+                                                        boxShadow={
+                                                            '0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)'
+                                                        }
+                                                        bg={'red.400'}
+                                                        color={'white'}
+                                                        _hover={{
+                                                            bg: 'red.500',
+                                                        }}>
+                                                        Delete Patient
+                                                    </Button>
+                                                }
                                             </Stack>
                                         </Form>
                                     )}
