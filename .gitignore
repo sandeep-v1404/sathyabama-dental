@@ -18,3 +18,5 @@ documents/D7.txt
 documents/D8.txt
 
 documents/.~lock*
+
+frontend/.gitignore

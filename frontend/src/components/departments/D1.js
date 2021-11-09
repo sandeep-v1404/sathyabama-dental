@@ -1,21 +1,20 @@
 import {
-    Box, Button, Flex, FormLabel, Heading, Stack, useColorModeValue, useToast, Text, SimpleGrid
+    Box, Button, Flex, Heading, SimpleGrid, Stack, Text, useColorModeValue, useToast
 } from '@chakra-ui/react'
 import { Form, Formik } from "formik"
 import {
     InputControl,
-    TextareaControl,
-    CheckboxSingleControl
+    TextareaControl
 } from "formik-chakra-ui"
+import PropTypes from 'prop-types'
 import React, { Fragment, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import MetaData from '../layout/MetaData'
-import Loader from "../layout/Loader";
-import PropTypes from 'prop-types';
-
 import { clearErrors, deletePatientDataInDepartment, updatePatientDataInDepartment } from '../../actions/departmentActions'
 import { DELETE_DEPT_DATA_RESET, UPDATE_DEPT_DATA_RESET } from '../../constants/departmentConstants'
 import { PATIENT_RESET } from '../../constants/patientConstants'
+import Loader from "../layout/Loader"
+import MetaData from '../layout/MetaData'
+
 
 const D1 = ({ history, match }) => {
     const toast = useToast();
@@ -23,27 +22,8 @@ const D1 = ({ history, match }) => {
 
     const initialValues = {
         chiefComplaint: "",
-        medicalHistorydiabetes: false,
-        medicalHistoryhypertension: false,
-        medicalHistorycardiacDisorder: false,
-        medicalHistoryrheumaticFever: false,
-        medicalHistoryepilepsy: false,
-        medicalHistorybleedingDisorders: false,
-        medicalHistoryjaundice: false,
-        medicalHistoryhepatitis: false,
-        medicalHistoryasthma: false,
-        medicalHistorytyphoid: false,
-        medicalHistorydrugAllergy: false,
-        medicalHistoryallergicToLAInjections: false,
-        medicalHistoryanaemia: false,
-        medicalHistorypregnancy: false,
-        medicalHistorymenstrualCycle: false,
-        medicalHistoryothers: false,
-        familyHistorydiabetes: false,
-        familyHistorybloodDyscrasias: false,
-        familyHistoryhypertension: false,
-        familyHistoryconsanguineousMarriage: false,
-        familyHistoryothers: false,
+        medicalHistory: "Diabetes/Hypertension/Cardiac Disorder/Rheumatic Fever/Epilepsy/ Bleeding Disorders\nJaundice/ Hepatitis / Asthma / Typhoid / Drug Allergy/Allergic to L.A Injections/Anaemia\nPregnancy / Menstrual Cycle/Others",
+        familyHistory: 'Diabetes/Blood Dyscrasias/Hypertension/Consanguineous Marriage/Other',
         clinicalFindings: "",
         diagnosis: "",
         prognosis: "",
@@ -100,27 +80,8 @@ const D1 = ({ history, match }) => {
             setLoadedValues({
                 id: patient.patientDOneData.id || null,
                 chiefComplaint: patient.patientDOneData.chiefComplaint,
-                medicalHistorydiabetes: patient.patientDOneData.medicalHistorydiabetes,
-                medicalHistoryhypertension: patient.patientDOneData.medicalHistoryhypertension,
-                medicalHistorycardiacDisorder: patient.patientDOneData.medicalHistorycardiacDisorder,
-                medicalHistoryrheumaticFever: patient.patientDOneData.medicalHistoryrheumaticFever,
-                medicalHistoryepilepsy: patient.patientDOneData.medicalHistoryepilepsy,
-                medicalHistorybleedingDisorders: patient.patientDOneData.medicalHistorybleedingDisorders,
-                medicalHistoryjaundice: patient.patientDOneData.medicalHistoryjaundice,
-                medicalHistoryhepatitis: patient.patientDOneData.medicalHistoryhepatitis,
-                medicalHistoryasthma: patient.patientDOneData.medicalHistoryasthma,
-                medicalHistorytyphoid: patient.patientDOneData.medicalHistorytyphoid,
-                medicalHistorydrugAllergy: patient.patientDOneData.medicalHistorydrugAllergy,
-                medicalHistoryallergicToLAInjections: patient.patientDOneData.medicalHistoryallergicToLAInjections,
-                medicalHistoryanaemia: patient.patientDOneData.medicalHistoryanaemia,
-                medicalHistorypregnancy: patient.patientDOneData.medicalHistorypregnancy,
-                medicalHistorymenstrualCycle: patient.patientDOneData.medicalHistorymenstrualCycle,
-                medicalHistoryothers: patient.patientDOneData.medicalHistoryothers,
-                familyHistorydiabetes: patient.patientDOneData.familyHistorydiabetes,
-                familyHistorybloodDyscrasias: patient.patientDOneData.familyHistorybloodDyscrasias,
-                familyHistoryhypertension: patient.patientDOneData.familyHistoryhypertension,
-                familyHistoryconsanguineousMarriage: patient.patientDOneData.familyHistoryconsanguineousMarriage,
-                familyHistoryothers: patient.patientDOneData.familyHistoryothers,
+                medicalHistory: patient.patientDOneData.medicalHistory,
+                familyHistory: patient.patientDOneData.familyHistory,
                 clinicalFindings: patient.patientDOneData.clinicalFindings,
                 diagnosis: patient.patientDOneData.diagnosis,
                 prognosis: patient.patientDOneData.prognosis,
@@ -203,52 +164,9 @@ const D1 = ({ history, match }) => {
                                     {() => (
                                         <Form>
                                             <InputControl hidden name="id" />
-
-                                            <InputControl mt={3} isReadOnly={user.department !== 'D1'} name="chiefComplaint" label="Chief Complaint" />
-
-                                            <FormLabel borderRadius={"10"} bg={"blue.300"} m={5} textAlign={"center"}> Medical History</FormLabel>
-
-                                            <CheckboxSingleControl style={{ touchAction: "none" }} mt={3} isDisabled={user.department !== 'D1'} name="medicalHistorydiabetes">Diabetes</CheckboxSingleControl>
-                                            <CheckboxSingleControl mt={3} isDisabled={user.department !== 'D1'} name="medicalHistoryhypertension">Hypertension</CheckboxSingleControl>
-                                            <CheckboxSingleControl mt={3} isDisabled={user.department !== 'D1'} name="medicalHistorycardiacDisorder">Cardiac Disorder</CheckboxSingleControl>
-                                            <CheckboxSingleControl mt={3} isDisabled={user.department !== 'D1'} name="medicalHistoryrheumaticFever">Rheumatic Fever</CheckboxSingleControl>
-                                            <CheckboxSingleControl mt={3} isDisabled={user.department !== 'D1'} name="medicalHistoryepilepsy">Epilepsy</CheckboxSingleControl>
-                                            <CheckboxSingleControl mt={3} isDisabled={user.department !== 'D1'} name="medicalHistorybleedingDisorders">
-
-                                                Bleeding Disorders
-                                            </CheckboxSingleControl>
-                                            <CheckboxSingleControl mt={3} isDisabled={user.department !== 'D1'} name="medicalHistoryjaundice">Jaundice</CheckboxSingleControl>
-
-                                            <CheckboxSingleControl mt={3} isDisabled={user.department !== 'D1'} name="medicalHistoryhepatitis">Hepatitis</CheckboxSingleControl>
-                                            <CheckboxSingleControl mt={3} isDisabled={user.department !== 'D1'} name="medicalHistoryasthma">Asthma</CheckboxSingleControl>
-                                            <CheckboxSingleControl mt={3} isDisabled={user.department !== 'D1'} name="medicalHistorytyphoid">Typhoid</CheckboxSingleControl>
-                                            <CheckboxSingleControl mt={3} isDisabled={user.department !== 'D1'} name="medicalHistorydrugAllergy">
-                                                Drug Allergy
-                                            </CheckboxSingleControl>
-                                            <CheckboxSingleControl mt={3} isDisabled={user.department !== 'D1'} name="medicalHistoryallergicToLAInjections">
-                                                Allergic to L.A Injections
-                                            </CheckboxSingleControl>
-                                            <CheckboxSingleControl mt={3} isDisabled={user.department !== 'D1'} name="medicalHistoryanaemia">
-                                                Anaemia
-                                            </CheckboxSingleControl>
-                                            <CheckboxSingleControl mt={3} isDisabled={user.department !== 'D1'} name="medicalHistorypregnancy">
-                                                Pregnancy
-                                            </CheckboxSingleControl>
-                                            <CheckboxSingleControl mt={3} isDisabled={user.department !== 'D1'} name="medicalHistorymenstrualCycle">
-                                                Menstrual Cycle
-                                            </CheckboxSingleControl>
-                                            <CheckboxSingleControl mt={3} isDisabled={user.department !== 'D1'} name="medicalHistoryothers">
-                                                Others
-                                            </CheckboxSingleControl>
-
-                                            <FormLabel borderRadius={"10"} bg={"blue.300"} m={5} textAlign={"center"}>Family History </FormLabel>
-
-                                            <CheckboxSingleControl mt={3} isDisabled={user.department !== 'D1'} name="familyHistorydiabetes">Diabetes</CheckboxSingleControl>
-                                            <CheckboxSingleControl mt={3} isDisabled={user.department !== 'D1'} name="familyHistorybloodDyscrasias">Blood Dyscrasias</CheckboxSingleControl>
-                                            <CheckboxSingleControl mt={3} isDisabled={user.department !== 'D1'} name="familyHistoryhypertension">Hypertension</CheckboxSingleControl>
-                                            <CheckboxSingleControl mt={3} isDisabled={user.department !== 'D1'} name="familyHistoryconsanguineousMarriage">Consanguineous Marriage</CheckboxSingleControl>
-                                            <CheckboxSingleControl mt={3} isDisabled={user.department !== 'D1'} name="familyHistoryothers">Others</CheckboxSingleControl>
-
+                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D1'} name="chiefComplaint" label="Chief Complaint" />
+                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D1'} name="medicalHistory" label="Medical History" />
+                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D1'} name="familyHistory" label="Family History" />
                                             <TextareaControl mt={3} isReadOnly={user.department !== 'D1'} name="clinicalFindings" label="Clinical Findings" />
                                             <TextareaControl mt={3} isReadOnly={user.department !== 'D1'} name="diagnosis" label="Diagnosis" />
                                             <TextareaControl mt={3} isReadOnly={user.department !== 'D1'} name="prognosis" label="Prognosis" />

@@ -26,18 +26,6 @@ export class PatientDTwoData extends BaseEntity {
   @Column({ nullable: true }) chiefComplaint: string;
   @Column({ nullable: true }) historyOfPresentingIllness: string;
   @Column({ nullable: true }) pastMedicalHistory: string;
-  @Column({ nullable: true }) diabetes: string;
-  @Column({ nullable: true }) hypertension: string;
-  @Column({ nullable: true }) allergy: string;
-  @Column({ nullable: true }) asthma: string;
-  @Column({ nullable: true }) anemia: string;
-  @Column({ nullable: true }) epilepsy: string;
-  @Column({ nullable: true }) cardiacComplication: string;
-  @Column({ nullable: true }) bleedingDisorder: string;
-  @Column({ nullable: true }) jaundice: string;
-  @Column({ nullable: true }) pepticUlcer: string;
-  @Column({ nullable: true }) gitProblem: string;
-  @Column({ nullable: true }) other: string;
   @Column({ nullable: true }) pastSurgicalHistory: string;
   @Column({ nullable: true }) pastDentalHistory: string;
   @Column({ nullable: true }) personalHabits: string;

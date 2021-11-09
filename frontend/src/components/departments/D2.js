@@ -3,7 +3,7 @@ import {
     Heading, Stack, useColorModeValue, useToast, Text, SimpleGrid
 } from '@chakra-ui/react'
 import { Form, Formik } from "formik"
-import { InputControl } from "formik-chakra-ui"
+import { InputControl, TextareaControl } from "formik-chakra-ui"
 import React, { Fragment, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import MetaData from '../layout/MetaData'
@@ -21,29 +21,17 @@ const D2 = ({ history, match }) => {
     const initialValues = {
         chiefComplaint: "",
         historyOfPresentingIllness: "",
-        pastMedicalHistory: "",
-        diabetes: "",
-        hypertension: "",
-        allergy: "",
-        asthma: "",
-        anemia: "",
-        epilepsy: "",
-        cardiacComplication: "",
-        bleedingDisorder: "",
-        jaundice: "",
-        pepticUlcer: "",
-        gitProblem: "",
-        other: "",
+        pastMedicalHistory: "Diabetes: \nHypertension:\nAllergy:\nAsthma:\nAnemia:\nEpilepsy:\nCardiac Complication:\nBleeding Disorder:\nJaundice:\nPeptic Ulcer:",
         pastSurgicalHistory: "",
         pastDentalHistory: "",
-        personalHabits: "",
-        generalPhysicalExamination: "",
-        extraOral: "",
-        hardTissue: "",
-        softTissue: "",
+        personalHabits: "Smoking\nAlcohol\nPan Chewing",
+        generalPhysicalExamination: "Built:\nGait: \nNourishment:\nBlood Pressure: \nPulse Rate: \nRespiratory Rate:\nPallor:\nIcterus: \nClubbing:\nCyanosis:\nPedel Odema:",
+        extraOral: "Skin - \nFacial Symmetry - \nTmj \nMouth Opening - \nDeviation of Mandible - \nLymph Node - \nLip - \nCommisure -",
+        hardTissue: "Number of Teethpresent - \nMissing Tooth - \nDental Caries - \nRoot Stumps - \nFractured Tooth - \nRetaineddeciduous \nMobility - \nCalculus - \nStains - \nHard Palate -",
+        softTissue: "Gingiva:  \nA)  Buccal - \nB)  Lingual - \n\nMucosa: \nA)  Buccal- \nB)  Lingual - \n\nVestibule: \nA)  Buccal - \nB)  Lingual - \n\nTongue: \nA)  Dorsal - \nB)  Ventral - \n\nFloor of the Mouth:  \n\nSoft Palate:",
         provisionalDiagnosis: "",
         differentialDiagnosis: "",
-        investigations: "",
+        investigations: "X-Ray: \nBlood:",
         finalDiagnosis: "",
         treatmentPlan: "",
         treatmentDone: "",
@@ -100,18 +88,6 @@ const D2 = ({ history, match }) => {
                 chiefComplaint: patient.patientDTwoData.chiefComplaint,
                 historyOfPresentingIllness: patient.patientDTwoData.historyOfPresentingIllness,
                 pastMedicalHistory: patient.patientDTwoData.pastMedicalHistory,
-                diabetes: patient.patientDTwoData.diabetes,
-                hypertension: patient.patientDTwoData.hypertension,
-                allergy: patient.patientDTwoData.allergy,
-                asthma: patient.patientDTwoData.asthma,
-                anemia: patient.patientDTwoData.anemia,
-                epilepsy: patient.patientDTwoData.epilepsy,
-                cardiacComplication: patient.patientDTwoData.cardiacComplication,
-                bleedingDisorder: patient.patientDTwoData.bleedingDisorder,
-                jaundice: patient.patientDTwoData.jaundice,
-                pepticUlcer: patient.patientDTwoData.pepticUlcer,
-                gitProblem: patient.patientDTwoData.gitProblem,
-                other: patient.patientDTwoData.other,
                 pastSurgicalHistory: patient.patientDTwoData.pastSurgicalHistory,
                 pastDentalHistory: patient.patientDTwoData.pastDentalHistory,
                 personalHabits: patient.patientDTwoData.personalHabits,
@@ -153,6 +129,10 @@ const D2 = ({ history, match }) => {
     }
     const deleteHandler = () => {
         dispatch(deletePatientDataInDepartment(user.department, patientId));
+    }
+    const handleKeyDown = (e) => {
+        e.target.style.height = 'inherit';
+        e.target.style.height = `${e.target.scrollHeight}px`;
     }
     return (
         <Fragment>
@@ -198,6 +178,7 @@ const D2 = ({ history, match }) => {
                             </Box>
                             <Stack spacing={4}>
                                 <Formik
+
                                     enableReinitialize
                                     initialValues={loadedValues || initialValues}
                                     onSubmit={(values) => {
@@ -208,37 +189,25 @@ const D2 = ({ history, match }) => {
                                         <Form>
                                             <InputControl hidden name="id" />
 
-                                            <InputControl mt={3} isReadOnly={user.department !== 'D2'} name="chiefComplant" label="Chief Complaint:" />
-                                            <InputControl mt={3} isReadOnly={user.department !== 'D2'} name="historyOfPresentingIllness" label="History of Presenting Illness:" />
-                                            <InputControl mt={3} isReadOnly={user.department !== 'D2'} name="pastMedicalHistory" label="Past Medical History: " />
-                                            <InputControl mt={3} isReadOnly={user.department !== 'D2'} name="diabetes" label="Diabetes: " />
-                                            <InputControl mt={3} isReadOnly={user.department !== 'D2'} name="hypertension" label="Hypertension:" />
-                                            <InputControl mt={3} isReadOnly={user.department !== 'D2'} name="allergy" label="Allergy:" />
-                                            <InputControl mt={3} isReadOnly={user.department !== 'D2'} name="asthma" label="Asthma:" />
-                                            <InputControl mt={3} isReadOnly={user.department !== 'D2'} name="anemia" label="Anemia:" />
-                                            <InputControl mt={3} isReadOnly={user.department !== 'D2'} name="epilepsy" label="Epilepsy:" />
-                                            <InputControl mt={3} isReadOnly={user.department !== 'D2'} name="cardiacComplication" label="Cardiac Complication:" />
-                                            <InputControl mt={3} isReadOnly={user.department !== 'D2'} name="bleedingDisorder" label="Bleeding Disorder:" />
-                                            <InputControl mt={3} isReadOnly={user.department !== 'D2'} name="jaundice" label="Jaundice:" />
-                                            <InputControl mt={3} isReadOnly={user.department !== 'D2'} name="pepticUlcer" label="Peptic Ulcer:" />
-                                            <InputControl mt={3} isReadOnly={user.department !== 'D2'} name="gitProblem" label="Git Problem:" />
-                                            <InputControl mt={3} isReadOnly={user.department !== 'D2'} name="other" label="Other:" />
-                                            <InputControl mt={3} isReadOnly={user.department !== 'D2'} name="pastSurgicalHistory" label="Past Surgical History:" />
-                                            <InputControl mt={3} isReadOnly={user.department !== 'D2'} name="pastDentalHistory" label="Past Dental History:" />
-                                            <InputControl mt={3} isReadOnly={user.department !== 'D2'} name="personalHabits" label="Personal Habits:" />
-                                            <InputControl mt={3} isReadOnly={user.department !== 'D2'} name="generalPhysicalExamination" label="General Physical Examination:" />
-                                            <InputControl mt={3} isReadOnly={user.department !== 'D2'} name="extraOral" label="Extra Oral:" />
-                                            <InputControl mt={3} isReadOnly={user.department !== 'D2'} name="hardTissue" label="Hard Tissue:" />
-                                            <InputControl mt={3} isReadOnly={user.department !== 'D2'} name="softTissue" label="Soft Tissue:" />
-                                            <InputControl mt={3} isReadOnly={user.department !== 'D2'} name="provisionalDiagnosis" label="Provisional Diagnosis:" />
-                                            <InputControl mt={3} isReadOnly={user.department !== 'D2'} name="differentialDiagnosis" label="Differential Diagnosis:" />
-                                            <InputControl mt={3} isReadOnly={user.department !== 'D2'} name="investigations" label="Investigations:" />
-                                            <InputControl mt={3} isReadOnly={user.department !== 'D2'} name="finalDiagnosis" label="Final Diagnosis:" />
-                                            <InputControl mt={3} isReadOnly={user.department !== 'D2'} name="treatmentPlan" label="Treatment Plan:" />
-                                            <InputControl mt={3} isReadOnly={user.department !== 'D2'} name="treatmentDone" label="Treatment Done:" />
-                                            <InputControl mt={3} isReadOnly={user.department !== 'D2'} name="medicationPrescribed" label="Medication Prescribed:" />
-                                            <InputControl mt={3} isReadOnly={user.department !== 'D2'} name="summary" label="Summary:" />
-                                            <InputControl mt={3} isReadOnly={user.department !== 'D2'} name="grade" label="Grade:" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D2'} name="chiefComplaint" label="Chief Complaint:" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D2'} name="historyOfPresentingIllness" label="History of Presenting Illness:" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D2'} name="pastMedicalHistory" label="Past Medical History: " />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D2'} name="pastSurgicalHistory" label="Past Surgical History:" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D2'} name="pastDentalHistory" label="Past Dental History:" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D2'} name="personalHabits" label="Personal Habits:" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D2'} name="generalPhysicalExamination" label="General Physical Examination:" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D2'} name="extraOral" label="Extra Oral:" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D2'} name="hardTissue" label="Hard Tissue:" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D2'} name="softTissue" label="Soft Tissue:" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D2'} name="provisionalDiagnosis" label="Provisional Diagnosis:" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D2'} name="differentialDiagnosis" label="Differential Diagnosis:" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D2'} name="investigations" label="Investigations:" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D2'} name="finalDiagnosis" label="Final Diagnosis:" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D2'} name="treatmentPlan" label="Treatment Plan:" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D2'} name="treatmentDone" label="Treatment Done:" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D2'} name="medicationPrescribed" label="Medication Prescribed:" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D2'} name="summary" label="Summary:" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D2'} name="grade" label="Grade:" />
 
                                             <Stack spacing={10} mt={3}>
                                                 <Button
