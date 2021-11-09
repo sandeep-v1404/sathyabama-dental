@@ -1,5 +1,5 @@
 import {
-    Box, Button, Flex,
+    Box, Button, Flex, FormLabel,
     Heading, Stack, useColorModeValue, useToast, Text, SimpleGrid,
 } from '@chakra-ui/react'
 import { Form, Formik } from "formik"
@@ -10,8 +10,8 @@ import MetaData from '../layout/MetaData'
 import Loader from "../layout/Loader";
 import PropTypes from 'prop-types';
 
-import { clearErrors, updatePatientDataInDepartment } from '../../actions/departmentActions'
-import { UPDATE_DEPT_DATA_RESET } from '../../constants/departmentConstants'
+import { clearErrors, deletePatientDataInDepartment, updatePatientDataInDepartment } from '../../actions/departmentActions'
+import { DELETE_DEPT_DATA_RESET, UPDATE_DEPT_DATA_RESET } from '../../constants/departmentConstants'
 import { PATIENT_RESET } from '../../constants/patientConstants'
 import handleKeyDown from '../../utils/handleKeyDown'
 
@@ -24,16 +24,16 @@ const D5 = ({ history, match }) => {
         historyOfPresentingIllness: '',
         pastMedicalHistory: '',
         pastDentalHistory: '',
-        personalHistory: '',
-        oralHygieneHabits: '',
-        oralHabits: '',
+        personalHistory: 'Diet:  Veg / Non Veg\nFeeding habits: Bottle Fed / Breast Fed',
+        oralHygieneHabits: 'Frequency of brushing :\nBrush / Finger / Neem Stick/Others  :\nType Of Dentifrice:',
+        oralHabits: 'Frequency :\nDuration :\n',
         numberOfSugarExposures: '',
         cariogenicNonCariogenicDiet: '',
-        generalExamination: '',
-        extraOralExamination: '',
-        intraOralExamination: '',
-        teethPresent: '',
-        occlusalAnalysis: '',
+        generalExamination: 'Height :\nWeight :',
+        extraOralExamination: 'Profile :\nFace:\nTMJ\nLymph Nodes: ',
+        intraOralExamination: 'Soft Tissue Examination:\n\nHard Tissue Examination:\n\nNo Of Teeth Present:',
+        teethPresent: 'Decayed Teeth:\nMissing Teeth:\nFilled Teeth:\nDMFT / deft Score:',
+        occlusalAnalysis: 'Spacing:  Primate/ Interdental/ Diastema/ Generalized\nOverjet(mm): Overbite (mm):\nCrossbite:\nMidline : Normal / Deviated\nCanine Relationship:\nMolar Relationship:\nPrimary: Flush Terminal / Mesial Step / Distal Step\nPermanent: Class I / II / III',
         provisionalDiagnosis: '',
         investigations: '',
         radiographicInterpretation: '',
@@ -43,28 +43,28 @@ const D5 = ({ history, match }) => {
         reviewRecall: '',
         chiefComplaint2: '',
         historyOfPresentingIllness2: '',
-        parentalHistory: '',
-        prenatalHistory: '',
-        natalHistory: '',
+        parentalHistory: "Were you / your spouse's teeth grey, yellow or brownish in colour?\nAny other problem with your / your spouse's teeth?\nAre you / your spouse frightened of dental treatment ?",
+        prenatalHistory: "Mother's condition during pregnancy:\nWere you on any drug therapy?\nIf yes, what drug & for how long ?\nAre you / your spouse RH negative ?",
+        natalHistory: 'Delivery:Full Term / Premature\nType: Normal / Forceps / Caesarean',
         pastMedicalHistory2: '',
         pastDentalHistory2: '',
-        pastNatalHistory: '',
+        pastNatalHistory: 'Feeding : Breast / Bottle / Combination \n\nDuration & Frequency : \n\nType of nipple used for bottle-feeding : \n\nMilestones of development:          Normal  /   Delayed \n\nChildhood Diseases: \n\nWas your child Immunized : \n\nHabits: \n\nDoes he/ she have frequent minor accidents or injuries? Yes / No \n\nDoes he/ she have any mental physical \n\ndisability or any other disease? Yes / No \n\nIs he/ she allergic to any food or Drugs? Specify : \n\nDoes he/ she have difficulty in making friends? Yes / No \n\nDoes he/ she fail to get along with other Children? Yes / No \n\nDoes he/ she play Indoor or Outdoors \n\nDoes he/ she have sibling? \n\nIf yes, what is their age? \n\nDoes he/ she have difficulty in keeping up with School work :  Yes / No \n\nHas he/ she visited a dentist before : Yes / No \n\nDoes he/ she fear the dentist? If yes, why?',
         numberOfSugarExposures2: '',
         cariogenicNonCariogenicDiet2: '',
-        generalExamination2: '',
-        extraOralExamination2: '',
-        intraOralExamination2: '',
+        generalExamination2: 'Build: \nGait: \nHeight:  \nPosture: \nWeight: \nBody type: \nShape of head:',
+        extraOralExamination2: 'Facial Form  \nFacial Profile \nFacial Symmetry: \nFacial Divergence: \nLip posture & Tonicity:  \nTMJ Examination \nLymph node Examination',
+        intraOralExamination2: 'Skin  / lips  \nMucosa(LabiaI/Buccal)  \nPalate \nFloor of mouth  \nTongue  \nGlands  \nGingiva  \nTonsils \nFrenal Attachment',
         teethPresent2: '',
         clinicalFindings: '',
-        molarRelationship: '',
+        molarRelationship: 'Primary \nPermanent   \nPrimate space  \nEruption Sequence',
         canineRelationship: '',
-        incisorRelationship: '',
-        midline: '',
-        archLength: '',
+        incisorRelationship: 'Overjet  \nOverbite \nOpenbite  \nCross bite',
+        midline: ' Normal / deviated',
+        archLength: 'Maxilla : Adequate / Inadequate \nMandible : Adequate / Inadequate \nAnalysis recommended : Yes / No',
         radiographicInvestigations: '',
         diagnosis2: '',
         treatmentPlan2: '',
-        modeOfManagement: '',
+        modeOfManagement: 'Chair-side / Inhalation Sedation / General Anaesthesia',
         studyModelsAnalysis: '',
         xRays: '',
         cephalogram: '',
@@ -76,7 +76,7 @@ const D5 = ({ history, match }) => {
     const dispatch = useDispatch();
 
     const { patient } = useSelector(state => state.patient);
-    const { loading, success, error } = useSelector(state => state.department);
+    const { loading, success, error, deleted } = useSelector(state => state.department);
 
     const patientId = match.params.patientId;
     useEffect(() => {
@@ -88,6 +88,17 @@ const D5 = ({ history, match }) => {
                 isClosable: true,
             });
             dispatch(clearErrors());
+        }
+        if (deleted) {
+            toast({
+                title: 'Patient Deleted successfully',
+                status: "info",
+                duration: 5000,
+                isClosable: true,
+            });
+            history.push("/");
+            dispatch({ type: DELETE_DEPT_DATA_RESET })
+            dispatch({ type: PATIENT_RESET })
         }
 
         if (success) {
@@ -170,13 +181,14 @@ const D5 = ({ history, match }) => {
             dispatch(clearErrors());
         }
 
-
-    }, [dispatch, history, success])
+    }, [dispatch, history, success, deleted])
 
     const submitHandler = (patientData) => {
         dispatch(updatePatientDataInDepartment(user.department, patientId, patientData));
     }
-
+    const deleteHandler = () => {
+        dispatch(deletePatientDataInDepartment(user.department, patientId));
+    }
     return (
         <Fragment>
 
@@ -230,6 +242,7 @@ const D5 = ({ history, match }) => {
                                     {() => (
                                         <Form>
                                             <InputControl hidden name="id" />
+                                            <FormLabel borderRadius={"10"} bg={"blue.300"} m={5} textAlign={"center"}>Under Graduate Case Sheet </FormLabel>
 
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="chiefComplaint" label="Chief Complaint" />
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="historyOfPresentingIllness" label="History Of Presenting Illness" />
@@ -252,6 +265,8 @@ const D5 = ({ history, match }) => {
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="treatmentPlan" label="Treatment Plan" />
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="treatmentDone" label="Treatment done" />
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="reviewRecall" label="Review & Recall" />
+
+                                            <FormLabel borderRadius={"10"} bg={"blue.300"} m={5} textAlign={"center"}>Post Graduate Case Sheet </FormLabel>
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="chiefComplaint2" label="Chief Complaint" />
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="historyOfPresentingIllness2" label="History of Presenting illness:" />
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="parentalHistory" label="Parental History" />
@@ -259,9 +274,11 @@ const D5 = ({ history, match }) => {
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="natalHistory" label="Natal History" />
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="pastMedicalHistory2" label="Past Medical History" />
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="pastDentalHistory2" label="Past Dental history" />
-                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="pastNatalHistory" label="Past Natal history" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="pastNatalHistory" label="Post Natal history" />
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="numberOfSugarExposures2" label="Number of Sugar Exposures" />
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="cariogenicNonCariogenicDiet2" label="Cariogenic / Non-Cariogenic diet" />
+                                            <FormLabel borderRadius={"10"} bg={"blue.300"} m={5} textAlign={"center"}>Clinical Examination </FormLabel>
+
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="generalExamination2" label="General Examination" />
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="extraOralExamination2" label="Extra Oral Examination" />
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="intraOralExamination2" label="Intra Oral Examination" />
@@ -276,6 +293,8 @@ const D5 = ({ history, match }) => {
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="diagnosis2" label="Diagnosis" />
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="treatmentPlan2" label="Treatment plan" />
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="modeOfManagement" label="Mode of Management" />
+                                            <FormLabel borderRadius={"10"} bg={"blue.300"} m={5} textAlign={"center"}>Complete Records</FormLabel>
+
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="studyModelsAnalysis" label="Study models & Analysis" />
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="xRays" label="X-rays" />
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="cephalogram" label="Cephalogram" />
@@ -295,6 +314,21 @@ const D5 = ({ history, match }) => {
                                                     }}>
                                                     Update
                                                 </Button>
+                                                {
+                                                    user.department === 'D5' && patient && patient.patientDFiveData &&
+                                                    <Button
+                                                        onClick={deleteHandler}
+                                                        boxShadow={
+                                                            '0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)'
+                                                        }
+                                                        bg={'red.400'}
+                                                        color={'white'}
+                                                        _hover={{
+                                                            bg: 'red.500',
+                                                        }}>
+                                                        Delete Patient
+                                                    </Button>
+                                                }
                                             </Stack>
                                         </Form>
                                     )}
