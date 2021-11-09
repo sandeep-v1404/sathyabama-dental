@@ -13,6 +13,7 @@ import PropTypes from 'prop-types';
 import { clearErrors, deletePatientDataInDepartment, updatePatientDataInDepartment } from '../../actions/departmentActions'
 import { UPDATE_DEPT_DATA_RESET, DELETE_DEPT_DATA_RESET } from '../../constants/departmentConstants'
 import { PATIENT_RESET } from '../../constants/patientConstants'
+import handleKeyDown from '../../utils/handleKeyDown'
 
 const D2 = ({ history, match }) => {
     const toast = useToast();
@@ -129,10 +130,6 @@ const D2 = ({ history, match }) => {
     }
     const deleteHandler = () => {
         dispatch(deletePatientDataInDepartment(user.department, patientId));
-    }
-    const handleKeyDown = (e) => {
-        e.target.style.height = 'inherit';
-        e.target.style.height = `${e.target.scrollHeight}px`;
     }
     return (
         <Fragment>

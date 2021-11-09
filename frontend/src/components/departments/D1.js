@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { clearErrors, deletePatientDataInDepartment, updatePatientDataInDepartment } from '../../actions/departmentActions'
 import { DELETE_DEPT_DATA_RESET, UPDATE_DEPT_DATA_RESET } from '../../constants/departmentConstants'
 import { PATIENT_RESET } from '../../constants/patientConstants'
+import handleKeyDown from '../../utils/handleKeyDown'
 import Loader from "../layout/Loader"
 import MetaData from '../layout/MetaData'
 
@@ -19,7 +20,6 @@ import MetaData from '../layout/MetaData'
 const D1 = ({ history, match }) => {
     const toast = useToast();
     const { user } = useSelector(state => state.auth);
-
     const initialValues = {
         chiefComplaint: "",
         medicalHistory: "Diabetes/Hypertension/Cardiac Disorder/Rheumatic Fever/Epilepsy/ Bleeding Disorders\nJaundice/ Hepatitis / Asthma / Typhoid / Drug Allergy/Allergic to L.A Injections/Anaemia\nPregnancy / Menstrual Cycle/Others",
@@ -164,16 +164,16 @@ const D1 = ({ history, match }) => {
                                     {() => (
                                         <Form>
                                             <InputControl hidden name="id" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D1'} name="chiefComplaint" label="Chief Complaint" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D1'} name="medicalHistory" label="Medical History" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D1'} name="familyHistory" label="Family History" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D1'} name="clinicalFindings" label="Clinical Findings" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D1'} name="diagnosis" label="Diagnosis" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D1'} name="prognosis" label="Prognosis" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D1'} name="investigations" label="Investigations" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D1'} name="radiographs" label="Radiographs" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D1'} name="treatmentPlan" label="Treatment Plan" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D1'} name="treatmentDone" label="Treatment Done" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D1'} name="chiefComplaint" label="Chief Complaint" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D1'} name="medicalHistory" label="Medical History" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D1'} name="familyHistory" label="Family History" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D1'} name="clinicalFindings" label="Clinical Findings" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D1'} name="diagnosis" label="Diagnosis" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D1'} name="prognosis" label="Prognosis" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D1'} name="investigations" label="Investigations" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D1'} name="radiographs" label="Radiographs" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D1'} name="treatmentPlan" label="Treatment Plan" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D1'} name="treatmentDone" label="Treatment Done" />
 
                                             <Stack spacing={10} mt={3}>
                                                 <Button

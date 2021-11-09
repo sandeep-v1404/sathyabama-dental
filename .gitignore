@@ -19,4 +19,4 @@ documents/D8.txt
 
 documents/.~lock*
 
-frontend/.gitignore
+frontend/.eslintcache

@@ -13,6 +13,7 @@ import PropTypes from 'prop-types';
 import { clearErrors, updatePatientDataInDepartment } from '../../actions/departmentActions'
 import { UPDATE_DEPT_DATA_RESET } from '../../constants/departmentConstants'
 import { PATIENT_RESET } from '../../constants/patientConstants'
+import handleKeyDown from '../../utils/handleKeyDown'
 
 const D5 = ({ history, match }) => {
     const toast = useToast();
@@ -230,55 +231,55 @@ const D5 = ({ history, match }) => {
                                         <Form>
                                             <InputControl hidden name="id" />
 
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D5'} name="chiefComplaint" label="Chief Complaint" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D5'} name="historyOfPresentingIllness" label="History Of Presenting Illness" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D5'} name="pastMedicalHistory" label="Past Medical History" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D5'} name="pastDentalHistory" label="Past Dental History" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D5'} name="personalHistory" label="Personal History" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D5'} name="oralHygieneHabits" label="Oral Hygiene Habits" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D5'} name="oralHabits" label="Oral Habits" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D5'} name="numberOfSugarExposures" label="Number of Sugar Exposures" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D5'} name="cariogenicNonCariogenicDiet" label="Cariogenic / Non-Cariogenic diet" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D5'} name="generalExamination" label="General Examination" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D5'} name="extraOralExamination" label="Extra Oral Examination" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D5'} name="intraOralExamination" label="Intra Oral Examination" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D5'} name="teethPresent" label="Teeth Present" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D5'} name="occlusalAnalysis" label="Occlusal Analysis" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D5'} name="provisionalDiagnosis" label="Provisional Diagnosis " />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D5'} name="investigations" label="Investigations " />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D5'} name="radiographicInterpretation" label="Radiographic Interpretation " />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D5'} name="diagnosis" label="Diagnosis" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D5'} name="treatmentPlan" label="Treatment Plan" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D5'} name="treatmentDone" label="Treatment done" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D5'} name="reviewRecall" label="Review & Recall" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D5'} name="chiefComplaint2" label="Chief Complaint" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D5'} name="historyOfPresentingIllness2" label="History of Presenting illness:" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D5'} name="parentalHistory" label="Parental History" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D5'} name="prenatalHistory" label="Prenatal History" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D5'} name="natalHistory" label="Natal History" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D5'} name="pastMedicalHistory2" label="Past Medical History" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D5'} name="pastDentalHistory2" label="Past Dental history" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D5'} name="pastNatalHistory" label="Past Natal history" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D5'} name="numberOfSugarExposures2" label="Number of Sugar Exposures" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D5'} name="cariogenicNonCariogenicDiet2" label="Cariogenic / Non-Cariogenic diet" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D5'} name="generalExamination2" label="General Examination" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D5'} name="extraOralExamination2" label="Extra Oral Examination" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D5'} name="intraOralExamination2" label="Intra Oral Examination" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D5'} name="teethPresent2" label="Teeth present" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D5'} name="clinicalFindings" label="Clinical Findings" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D5'} name="molarRelationship" label="Molar Relationship" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D5'} name="canineRelationship" label="Canine relationship" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D5'} name="incisorRelationship" label="Incisor relationship" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D5'} name="midline" label="Midline" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D5'} name="archLength" label="Arch length" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D5'} name="radiographicInvestigations" label="Radiographic  investigations:" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D5'} name="diagnosis2" label="Diagnosis" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D5'} name="treatmentPlan2" label="Treatment plan" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D5'} name="modeOfManagement" label="Mode of Management" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D5'} name="studyModelsAnalysis" label="Study models & Analysis" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D5'} name="xRays" label="X-rays" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D5'} name="cephalogram" label="Cephalogram" />
-                                            <TextareaControl mt={3} isReadOnly={user.department !== 'D5'} name="photographs" label="Photographs" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="chiefComplaint" label="Chief Complaint" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="historyOfPresentingIllness" label="History Of Presenting Illness" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="pastMedicalHistory" label="Past Medical History" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="pastDentalHistory" label="Past Dental History" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="personalHistory" label="Personal History" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="oralHygieneHabits" label="Oral Hygiene Habits" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="oralHabits" label="Oral Habits" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="numberOfSugarExposures" label="Number of Sugar Exposures" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="cariogenicNonCariogenicDiet" label="Cariogenic / Non-Cariogenic diet" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="generalExamination" label="General Examination" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="extraOralExamination" label="Extra Oral Examination" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="intraOralExamination" label="Intra Oral Examination" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="teethPresent" label="Teeth Present" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="occlusalAnalysis" label="Occlusal Analysis" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="provisionalDiagnosis" label="Provisional Diagnosis " />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="investigations" label="Investigations " />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="radiographicInterpretation" label="Radiographic Interpretation " />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="diagnosis" label="Diagnosis" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="treatmentPlan" label="Treatment Plan" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="treatmentDone" label="Treatment done" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="reviewRecall" label="Review & Recall" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="chiefComplaint2" label="Chief Complaint" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="historyOfPresentingIllness2" label="History of Presenting illness:" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="parentalHistory" label="Parental History" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="prenatalHistory" label="Prenatal History" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="natalHistory" label="Natal History" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="pastMedicalHistory2" label="Past Medical History" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="pastDentalHistory2" label="Past Dental history" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="pastNatalHistory" label="Past Natal history" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="numberOfSugarExposures2" label="Number of Sugar Exposures" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="cariogenicNonCariogenicDiet2" label="Cariogenic / Non-Cariogenic diet" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="generalExamination2" label="General Examination" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="extraOralExamination2" label="Extra Oral Examination" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="intraOralExamination2" label="Intra Oral Examination" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="teethPresent2" label="Teeth present" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="clinicalFindings" label="Clinical Findings" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="molarRelationship" label="Molar Relationship" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="canineRelationship" label="Canine relationship" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="incisorRelationship" label="Incisor relationship" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="midline" label="Midline" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="archLength" label="Arch length" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="radiographicInvestigations" label="Radiographic  investigations:" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="diagnosis2" label="Diagnosis" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="treatmentPlan2" label="Treatment plan" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="modeOfManagement" label="Mode of Management" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="studyModelsAnalysis" label="Study models & Analysis" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="xRays" label="X-rays" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="cephalogram" label="Cephalogram" />
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D5'} name="photographs" label="Photographs" />
 
                                             <Stack spacing={10} mt={3}>
                                                 <Button
