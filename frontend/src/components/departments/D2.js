@@ -123,7 +123,7 @@ const D2 = ({ history, match }) => {
         }
 
 
-    }, [dispatch, history, success])
+    }, [dispatch, history, success, deleted])
 
     const submitHandler = (patientData) => {
         dispatch(updatePatientDataInDepartment(user.department, patientId, patientData));

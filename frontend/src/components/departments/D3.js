@@ -1,5 +1,5 @@
 import {
-    Box, Button, Flex,
+    Box, Button, Flex, FormLabel,
     Heading, Stack, useColorModeValue, useToast, Text, SimpleGrid,
 } from '@chakra-ui/react'
 import { Form, Formik } from "formik"
@@ -9,8 +9,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import MetaData from '../layout/MetaData'
 import Loader from "../layout/Loader";
 import PropTypes from 'prop-types';
-import { clearErrors, updatePatientDataInDepartment } from '../../actions/departmentActions'
-import { UPDATE_DEPT_DATA_RESET } from '../../constants/departmentConstants'
+import { clearErrors, deletePatientDataInDepartment, updatePatientDataInDepartment } from '../../actions/departmentActions'
+import { DELETE_DEPT_DATA_RESET, UPDATE_DEPT_DATA_RESET } from '../../constants/departmentConstants'
 import { PATIENT_RESET } from '../../constants/patientConstants'
 import handleKeyDown from '../../utils/handleKeyDown'
 
@@ -21,33 +21,33 @@ const D3 = ({ history, match }) => {
         chiefComplaint: '',
         historyOfPresentingIllness: '',
         pastDentalHistory: '',
-        pastMedicalHistory: '',
+        pastMedicalHistory: 'Hypertensive / Diabetes / Cardiac Problems / others\nIf Yes, details of the medication:\n',
         allergiesIfAny: '',
         extraOralExamination: '',
-        intraOralExamination: '',
-        periodontalStatus: '',
+        intraOralExamination: 'Inspection\nPalpation\nPercussion',
+        periodontalStatus: 'Pockets:\nFurcation involvement :\nMobility:',
         provisionalDiagnosis: '',
         differentialDiagnosis: '',
-        diagnosticTests: '',
+        diagnosticTests: 'Test\nControl Tooth\nTest tooth\nResponse\nInterpretation',
         radiographicInterpretation: '',
         otherInvestigations: '',
         diagnosis: '',
         treatmentAdvised: '',
-        patientMotivation: '',
+        patientMotivation: 'High / Moderate / Poor ',
         treatmentNotes: '',
         toothNumber: '',
         accessCavityPreparationAndPulpExtirpation: '',
-        bioMechanicalPreparation: '',
-        obturation: '',
-        postOperativeRadiograph: '',
+        bioMechanicalPreparation: 'Length determined:\nInstrument used:\nTechnique used:\nIrrigants used:',
+        obturation: 'Complete / sectional:\nTechnique: Cold Lateral / Warm Vertical / Thermo plasticized\nSealer Used: ',
+        postOperativeRadiograph: 'Apical fit\nLateral condensation\nEntrance filling\nPost endodontic restoration:\nPost Operative Follow Up:',
         existingRestorationsAndStatus: '',
         radiographicPulpExposure: '',
         laminaDura: '',
-        periapicalRadiolucency: '',
-        periodontalStatus2: '',
-        natureOfRootCanalInInvolvedTooth: '',
-        previousEndodonticTreatment: '',
-        fractureOfTeeth: '',
+        periapicalRadiolucency: 'a) No. of teeth involved\nb) Size & shape\nc) Nature of radiolucency',
+        periodontalStatus2: 'a) Periodontal space widening\nb) Interdental bone loss',
+        natureOfRootCanalInInvolvedTooth: 'a) No of roots\nb) Anatomical variations\nc) Others, if any',
+        previousEndodonticTreatment: 'a) Status of root canal filling\nb) Status of retrograde filling',
+        fractureOfTeeth: 'a) Crown\nb) Root',
         anyOtherAbnormalities: '',
     };
 
@@ -56,7 +56,7 @@ const D3 = ({ history, match }) => {
     const dispatch = useDispatch();
 
     const { patient } = useSelector(state => state.patient);
-    const { loading, success, error } = useSelector(state => state.department);
+    const { loading, success, error, deleted } = useSelector(state => state.department);
 
     const patientId = match.params.patientId;
     useEffect(() => {
@@ -69,7 +69,17 @@ const D3 = ({ history, match }) => {
             });
             dispatch(clearErrors());
         }
-
+        if (deleted) {
+            toast({
+                title: 'Patient Deleted successfully',
+                status: "info",
+                duration: 5000,
+                isClosable: true,
+            });
+            history.push("/");
+            dispatch({ type: DELETE_DEPT_DATA_RESET })
+            dispatch({ type: PATIENT_RESET })
+        }
         if (success) {
             toast({
                 title: 'Patient Updated successfully',
@@ -134,12 +144,14 @@ const D3 = ({ history, match }) => {
         }
 
 
-    }, [dispatch, history, success])
+    }, [dispatch, history, success, deleted])
 
     const submitHandler = (patientData) => {
         dispatch(updatePatientDataInDepartment(user.department, patientId, patientData));
     }
-
+    const deleteHandler = () => {
+        dispatch(deletePatientDataInDepartment(user.department, patientId));
+    }
     return (
         <Fragment>
 
@@ -199,6 +211,7 @@ const D3 = ({ history, match }) => {
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D3'} name="pastDentalHistory" label="Past Dental History" />
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D3'} name="pastMedicalHistory" label="Past Medical History:  " />
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D3'} name="allergiesIfAny" label="Allergies If Any:" />
+                                            <FormLabel borderRadius={"10"} bg={"blue.300"} m={5} textAlign={"center"}>Clinical Examination  </FormLabel>
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D3'} name="extraOralExamination" label="Extra Oral Examination:" />
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D3'} name="intraOralExamination" label="Intra Oral Examination:" />
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D3'} name="periodontalStatus" label="Periodontal  Status" />
@@ -241,6 +254,21 @@ const D3 = ({ history, match }) => {
                                                     }}>
                                                     Update
                                                 </Button>
+                                                {
+                                                    user.department === 'D3' && patient && patient.patientDThreeData &&
+                                                    <Button
+                                                        onClick={deleteHandler}
+                                                        boxShadow={
+                                                            '0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)'
+                                                        }
+                                                        bg={'red.400'}
+                                                        color={'white'}
+                                                        _hover={{
+                                                            bg: 'red.500',
+                                                        }}>
+                                                        Delete Patient
+                                                    </Button>
+                                                }
                                             </Stack>
                                         </Form>
                                     )}
