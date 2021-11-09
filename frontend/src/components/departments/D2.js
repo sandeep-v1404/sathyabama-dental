@@ -1,5 +1,5 @@
 import {
-    Box, Button, Flex,
+    Box, Button, Flex, FormLabel,
     Heading, Stack, useColorModeValue, useToast, Text, SimpleGrid
 } from '@chakra-ui/react'
 import { Form, Formik } from "formik"
@@ -192,8 +192,12 @@ const D2 = ({ history, match }) => {
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D2'} name="pastSurgicalHistory" label="Past Surgical History:" />
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D2'} name="pastDentalHistory" label="Past Dental History:" />
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D2'} name="personalHabits" label="Personal Habits:" />
+                                            <FormLabel borderRadius={"10"} bg={"blue.300"} m={5} textAlign={"center"}> Examination  </FormLabel>
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D2'} name="generalPhysicalExamination" label="General Physical Examination:" />
+                                            <FormLabel borderRadius={"10"} bg={"blue.300"} m={5} textAlign={"center"}>Local Examination  </FormLabel>
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D2'} name="extraOral" label="Extra Oral:" />
+                                            <FormLabel borderRadius={"10"} bg={"blue.300"} m={5} textAlign={"center"}>Intra Oral  </FormLabel>
+
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D2'} name="hardTissue" label="Hard Tissue:" />
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D2'} name="softTissue" label="Soft Tissue:" />
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D2'} name="provisionalDiagnosis" label="Provisional Diagnosis:" />
