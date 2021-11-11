@@ -47,9 +47,6 @@ export class PatientDSevenData extends BaseEntity {
   extraOral: string;
 
   @Column({ nullable: true })
-  intraOral: string;
-
-  @Column({ nullable: true })
   glnglvalFindings: string;
 
   @Column({ nullable: true })

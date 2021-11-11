@@ -69,20 +69,20 @@ export default function Register({ history }) {
                         boxShadow={'lg'}
                         p={8}>
                         <Stack as={'form'} spacing={4} onSubmit={submitHandler}>
-                            <FormControl id="name">
-                                <FormLabel>Username</FormLabel>
-                                <Input
-                                    name="username"
-                                    type="text"
-                                    value={user.username}
-                                    onChange={onChange} required />
-                            </FormControl>
                             <FormControl id="email">
                                 <FormLabel>Email address</FormLabel>
                                 <Input
                                     name="email"
                                     type="email"
                                     value={user.email}
+                                    onChange={onChange} required />
+                            </FormControl>
+                            <FormControl id="name">
+                                <FormLabel>Username</FormLabel>
+                                <Input
+                                    name="username"
+                                    type="text"
+                                    value={user.username}
                                     onChange={onChange} required />
                             </FormControl>
                             <FormControl >

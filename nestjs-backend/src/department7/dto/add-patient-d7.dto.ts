@@ -28,9 +28,6 @@ export class AddPatientD7DTO {
   extraOral: string;
 
   @IsString()
-  intraOral: string;
-
-  @IsString()
   glnglvalFindings: string;
 
   @IsString()
