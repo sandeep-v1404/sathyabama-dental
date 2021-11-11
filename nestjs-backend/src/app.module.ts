@@ -13,6 +13,7 @@ import { Department7Module } from './department7/department7.module';
 import { Department8Module } from './department8/department8.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { configValidationSchema } from './config.schema';
+import { AppController } from './app.controller';
 // import { ServeStaticModule } from '@nestjs/serve-static';
 // import { join } from 'path';
 
@@ -61,5 +62,6 @@ import { configValidationSchema } from './config.schema';
     Department7Module,
     Department8Module,
   ],
+  controllers: [AppController],
 })
 export class AppModule {}
