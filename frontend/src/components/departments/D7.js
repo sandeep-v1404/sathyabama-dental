@@ -1,5 +1,5 @@
 import {
-    Box, Button, Flex,
+    Box, Button, Flex, FormLabel,
     Heading, Stack, useColorModeValue, useToast, Text, SimpleGrid,
 } from '@chakra-ui/react'
 import { Form, Formik } from "formik"
@@ -24,14 +24,13 @@ const D7 = ({ history, match }) => {
         dentalHistory: '',
         medicalHistory: '',
         familyHistory: '',
-        personalHistory: '',
-        generalExamination: '',
-        extraOral: '',
-        intraOral: '',
-        glnglvalFindings: '',
-        periodontalFindings: '',
-        mucosalFindings: '',
-        hardTissuesExamination: '',
+        personalHistory: 'a) Oral Hygiene Practices:\n\nb) Para functional Habits:\n\nc) Tobacco/Alcohol related Habits:\n\nd) Dietary Habits:\n        Source of Drinking Water:\n        Type of Diet:\n',
+        generalExamination: 'a) Vital Signs:\n\n    Blood pressure:\n    Pulse:     \n    Respiratory rate:\n\nb) Posture\n\nc) Galt:\n\nd) (Clubbing,Cyanosis,Icterus,Pallor):',
+        extraOral: 'Facial Profile:\nFacial Symmetry:\nTMJ:\n   Inspection:\n   Palpation:\nLymph nodes:\nLips:\nSkin:',
+        glnglvalFindings: 'Color:\nContour:\nConsistency:\nSurface Texture:\nPosition:\nBleeding on probing:\n',
+        periodontalFindings: 'Pockets:\nMobility:\n',
+        mucosalFindings: 'Labial:\nBuccal:\nVestibular:\nPalate:\nTongue:\nFloor of Mouth:\nFrenal Attachements:\n',
+        hardTissuesExamination: 'Type of Dentition:\n\nNo. of teeth present:\n\nTeeth Numbering System:\n\nTeeth missing and reason:\n\nDental Deposits:\n   Stains:\n   Calculus:\n\nOther Positive Findings:\n',
         provisionalDiaganosis: '',
         investigation: '',
         finalDiagnosis: '',
@@ -40,7 +39,7 @@ const D7 = ({ history, match }) => {
         secondaryLevelOfPrevention: '',
         tertiaryLevelOfPrevention: '',
         recallAndMaintenance: '',
-        comprehensiveTreatmentDone: '',
+        comprehensiveTreatmentDone: 'A) Emergency   Phase:\n\nB) Primary Phase:\n\nC) Secondary Phase:\n\nD) Tertiary Phase:',
     };
 
     const [loadedValues, setLoadedValues] = useState(null);
@@ -96,7 +95,6 @@ const D7 = ({ history, match }) => {
                 personalHistory: patient.patientDSevenData.personalHistory,
                 generalExamination: patient.patientDSevenData.generalExamination,
                 extraOral: patient.patientDSevenData.extraOral,
-                intraOral: patient.patientDSevenData.intraOral,
                 glnglvalFindings: patient.patientDSevenData.glnglvalFindings,
                 periodontalFindings: patient.patientDSevenData.periodontalFindings,
                 mucosalFindings: patient.patientDSevenData.mucosalFindings,
@@ -125,8 +123,6 @@ const D7 = ({ history, match }) => {
             history.push("/");
             dispatch(clearErrors());
         }
-
-
     }, [dispatch, history, success, deleted])
 
     const submitHandler = (patientData) => {
@@ -188,29 +184,43 @@ const D7 = ({ history, match }) => {
                                     {() => (
                                         <Form>
                                             <InputControl hidden name="id" />
-
+                                            <FormLabel borderRadius={"10"} bg={"blue.300"} m={5} textAlign={"center"}>History  </FormLabel>
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D7'} name="chiefComplaints" label="Chief Complaints" />
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D7'} name="historyOfPresentIllness" label="History of Present illness" />
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D7'} name="dentalHistory" label="Dental History" />
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D7'} name="medicalHistory" label="Medical History" />
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D7'} name="familyHistory" label="Family History" />
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D7'} name="personalHistory" label="Personal History" />
-                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D7'} name="generalExamination" label="General Examination" />
-                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D7'} name="extraOral" label="Extra Oral" />
-                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D7'} name="intraOral" label="Intra Oral" />
-                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D7'} name="glnglvalFindings" label="Glnglval Findings  " />
+
+                                            <FormLabel borderRadius={"10"} bg={"blue.300"} m={5} textAlign={"center"}> Clinical Examination  </FormLabel>
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D7'} name="generalExamination" label="1) General Examination" />
+                                            <FormLabel borderRadius={"10"} bg={"blue.100"} m={5} textAlign={"center"}>2) Local Examination  </FormLabel>
+                                            <FormLabel borderRadius={"10"} bg={"blue.200"} m={5} textAlign={"center"}>A) Extra Oral  </FormLabel>
+
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D7'} name="extraOral" label="" />
+                                            <FormLabel borderRadius={"10"} bg={"blue.200"} m={5} textAlign={"center"}>B) Intra Oral  </FormLabel>
+                                            <FormLabel borderRadius={"10"} bg={"blue.300"} m={5} textAlign={"center"}>A) Soft Tissues Examination   </FormLabel>
+
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D7'} name="glnglvalFindings" label="Gingival Findings  " />
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D7'} name="periodontalFindings" label="Periodontal Findings  " />
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D7'} name="mucosalFindings" label="Mucosal Findings" />
-                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D7'} name="hardTissuesExamination" label="Hard Tissues Examination" />
+                                            <FormLabel borderRadius={"10"} bg={"blue.300"} m={5} textAlign={"center"}>B) Hard Tissues Examination </FormLabel>
+
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D7'} name="hardTissuesExamination" label="" />
+                                            <FormLabel borderRadius={"10"} bg={"blue.300"} m={5} textAlign={"center"}>Diaganosis  </FormLabel>
+
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D7'} name="provisionalDiaganosis" label="Provisional Diaganosis" />
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D7'} name="investigation" label="Investigation" />
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D7'} name="finalDiagnosis" label="Final Diagnosis" />
+                                            <FormLabel borderRadius={"10"} bg={"blue.300"} m={5} textAlign={"center"}>Comprehensive Treatment Plan</FormLabel>
+
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D7'} name="emergencyCare" label="Emergency Care" />
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D7'} name="primaryLevelOfPrevention" label="Primary Level of Prevention" />
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D7'} name="secondaryLevelOfPrevention" label="Secondary Level of Prevention" />
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D7'} name="tertiaryLevelOfPrevention" label="Tertiary Level of Prevention" />
                                             <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D7'} name="recallAndMaintenance" label="Recall and Maintenance" />
-                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D7'} name="comprehensiveTreatmentDone" label="Comprehensive Treatment Done" />
+                                            <FormLabel borderRadius={"10"} bg={"blue.300"} m={5} textAlign={"center"}>Comprehensive Treatment Done</FormLabel>
+                                            <TextareaControl onClick={handleKeyDown} mt={3} isReadOnly={user.department !== 'D7'} name="comprehensiveTreatmentDone" label="" />
 
                                             <Stack spacing={10} mt={3}>
                                                 <Button

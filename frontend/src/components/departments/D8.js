@@ -34,7 +34,7 @@ const D8 = ({ history, match }) => {
         macroscopicFeatures2: '',
         histopathology: '',
         diagnosis: '',
-        furtherInvestigation: ' Immunohistochemistry / Immunofluorescence / Serological investigations / Cytogenetics / Culture / Special stains.',
+        furtherInvestigation: 'Immunohistochemistry / Immunofluorescence / Serological investigations / Cytogenetics / Culture / Special stains.',
         chiefComplaint2: '',
         historyOfPresentIllness2: '',
         habitsDuration: '',
