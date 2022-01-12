@@ -26,4 +26,4 @@ jobs:
         run: cp -a frontend/build/. nestjs-backend/client
 
       - name: Push to Heroku
-        run: cd nestjs-backend && git push -f https://heroku:${{ secrets.HEROKU_API_TOKEN }}@git.heroku.com/${{ secrets.HEROKU_APP_NAME }}.git origin/master:master
+        run: git push -f https://heroku:${{ secrets.HEROKU_API_TOKEN }}@git.heroku.com/${{ secrets.HEROKU_APP_NAME }}.git origin/master:master
