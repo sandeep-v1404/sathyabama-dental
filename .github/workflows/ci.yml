@@ -16,17 +16,14 @@ jobs:
       - name: Set up Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
       
-      - name: Build Frontend
-        run : cd frontend
-
-      - name: Install dependencies
-        run: npm install
+      - name: Install dependencies in Frontend
+        run: cd frontend && npm install
 
       - name: Build the Frontend
-        run: npm run build
+        run: cd frontend && npm run build
       
       - name: Save Frontend Build to Backend
-        run: cd .. && cp -a frontend/build/. nestjs-backend/client
+        run: cp -a frontend/build/. nestjs-backend/client
 
       - name: Push to Heroku
-        run: git push -f https://heroku:${{ secrets.HEROKU_API_TOKEN }}@git.heroku.com/${{ secrets.HEROKU_APP_NAME }}.git origin/master:master
+        run: cd nestjs-backend && git push -f https://heroku:${{ secrets.HEROKU_API_TOKEN }}@git.heroku.com/${{ secrets.HEROKU_APP_NAME }}.git origin/master:master
