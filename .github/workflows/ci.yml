@@ -12,18 +12,23 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-        
+
       - name: Set up Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
-      
+
       - name: Install dependencies in Frontend
         run: cd frontend && npm install
 
       - name: Build the Frontend
         run: cd frontend && npm run build
-      
+
       - name: Save Frontend Build to Backend
         run: cp -a frontend/build/. nestjs-backend/client
 
       - name: Push to Heroku
-        run: git push -f https://heroku:${{ secrets.HEROKU_API_TOKEN }}@git.heroku.com/${{ secrets.HEROKU_APP_NAME }}.git origin/master:master
+        uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: ${{secrets.HEROKU_APP_NAME}} #Must be unique in Heroku
+          heroku_email: ${{secrets.HEROKU_EMAIL}}
+          appdir: "nestjs-backend"
