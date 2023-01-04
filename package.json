@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "cd frontend && npm i && npm run build && cd ../nestjs-backend && npm i && npm run build",
-    "start": "npm run start:prod",
+    "start": "cd nestjs-backend && npm run start:prod",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
