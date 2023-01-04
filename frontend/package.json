@@ -59,7 +59,7 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://sathyabama-dental-hospital.herokuapp.com/",
+  "proxy": "https://sathyabama-dental.onrender.com/",
   "devDependencies": {
     "eslint-plugin-react": "^7.24.0"
   }
