@@ -13,15 +13,8 @@ import { Department7Module } from './department7/department7.module';
 import { Department8Module } from './department8/department8.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { configValidationSchema } from './config.schema';
-import { ServeStaticModule } from '@nestjs/serve-static';
-import { join } from 'path';
-
 @Module({
   imports: [
-    ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'client'),
-      exclude: ['/api*'],
-    }),
     ConfigModule.forRoot({
       envFilePath: [`.env.stage.${process.env.STAGE}`],
       validationSchema: configValidationSchema,
