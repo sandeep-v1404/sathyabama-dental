@@ -1,0 +1,21 @@
+{
+  "name": "sathyabama-dental",
+  "version": "1.0.0",
+  "description": "A web app for dental hospital",
+  "main": "index.js",
+  "scripts": {
+    "build": "cd frontend && npm i && npm run build && cd ../nestjs-backend && npm i && npm run build",
+    "start": "npm run start:prod",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sandeep-v1404/sathyabama-dental.git"
+  },
+  "author": "Sandeep",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sandeep-v1404/sathyabama-dental/issues"
+  },
+  "homepage": "https://github.com/sandeep-v1404/sathyabama-dental#readme"
+}
